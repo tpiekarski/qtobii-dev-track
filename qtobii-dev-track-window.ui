@@ -892,23 +892,19 @@
     </property>
     <layout class="QHBoxLayout" name="buttonsLayout">
      <item>
-      <widget class="QPushButton" name="exitButton">
+      <widget class="QPushButton" name="threadTrackingButton">
        <property name="text">
-        <string>E&amp;xit</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="exportDataButton">
-       <property name="text">
-        <string>&amp;Export data</string>
+        <string>&amp;Thread Tracking</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="startTrackingButton">
        <property name="text">
-        <string>&amp;Start tracking</string>
+        <string>&amp;Start Tracking</string>
+       </property>
+       <property name="checkable">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
