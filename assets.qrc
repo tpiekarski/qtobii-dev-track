@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/assets">
+        <file>assets/user-away.png</file>
+        <file>assets/user-black.png</file>
+        <file>assets/user-present.png</file>
+    </qresource>
+</RCC>
