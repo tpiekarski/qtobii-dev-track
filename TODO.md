@@ -18,7 +18,8 @@ QTobiiDevTrack::Todo
 - [ ] Refactor and introduce plug-able tracking
 
 ## Documentation
-- [ ] Write README, describe requirements, build process and features
+- [ ] Write more detailed README, describing requirements, build process and features
 - [ ] Write some description of tracking (gaze, eyes and head) in general
-- [ ] Add license and license headers
-- [ ] Add screenshots
+- [x] Add license and license headers
+- [x] Add screenshots
+- [x] Write a first draft README, explaining utility, showing planed features and status tracking
