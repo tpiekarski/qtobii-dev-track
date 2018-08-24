@@ -16,10 +16,10 @@ tba/tbd
 ## Planed Features
 ![Screenshot of QTobiiDevTrack](images/screenshot.png?raw=true "Screenshot of QTobiiDevTrack")
 
-# | Tracker | Description | Status
---- | --- | --- | ---
-1. | Gaze Point | Normalized and denormalized X/Y-Tracking of gaze at the screen | todo
-2. | Gaze Origin | X/Y/Z-Tracking of gaze origin for each eye | todo
-3. | Eye Position | X/Y/Z-Tracking of position for each eye | todo
-4. | User Presence | Boolean for tracking if user is present | todo
-5. | Head Position | X/Y/Z-Tracking of head position and rotation | todo
+#|Tracker|Description|Status
+---|---|---|---
+1.|Gaze Point|Normalized and denormalized X/Y-Tracking of gaze at the screen|todo
+2.|Gaze Origin|X/Y/Z-Tracking of gaze origin for each eye|todo
+3.|Eye Position|X/Y/Z-Tracking of position for each eye|todo
+4.|User Presence|Boolean for tracking if user is present|todo
+5.|Head Position|X/Y/Z-Tracking of head position and rotation|todo
