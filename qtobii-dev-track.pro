@@ -15,15 +15,19 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = qtobii-dev-track
 TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
+CONFIG(release, debug|release):DEFINES += QT_NO_DEBUG_OUTPUT
 
 include(tobii-stream-sdk.pri)
 
 SOURCES += \
     main.cpp \
-    qtobii-dev-track.cpp
+    qtobii-dev-track.cpp \
+    qtobii-device.cpp
 
 HEADERS += \
-    qtobii-dev-track.h
+    qtobii-dev-track.h \
+    qtobii-device.h \
+    qtobii-result.h
 
 FORMS += \
     qtobii-dev-track-window.ui

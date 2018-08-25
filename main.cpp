@@ -10,14 +10,33 @@
  */
 
 #include "qtobii-dev-track.h"
+#include "qtobii-device.h"
 #include <QApplication>
 
 using namespace qtobii;
 
 int main(int argc, char *argv[]) {
   QApplication app(argc, argv);
-  QTobiiDevTrack devTrack;
-  devTrack.show();
 
-  return app.exec();
+  QTobiiDevTrack* devTrack = new QTobiiDevTrack();
+  QTobiiDevice* device = new QTobiiDevice(devTrack);
+
+  devTrack->show();
+  int result = app.exec();
+
+  if (device != nullptr) {
+    if (device->getLastResult()->isError()) {
+      result = 1;
+    }
+
+    delete device;
+    device = nullptr;
+  }
+
+  if (devTrack != nullptr) {
+    delete devTrack;
+    devTrack = nullptr;
+  }
+
+  return result;
 }
