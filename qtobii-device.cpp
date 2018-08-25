@@ -10,6 +10,7 @@
  */
 
 #include "qtobii-device.h"
+#include "qtobii-device-exception.h"
 #include <QDebug>
 
 namespace qtobii {
@@ -18,6 +19,9 @@ QTobiiDevice::QTobiiDevice(QObject *parent) : QObject(parent) {
   version = new tobii_version_t();
   results.append(new QTobiiResult(tobii_get_api_version(version)));
   qDebug() << "Tobii Stream API, Version: " << getVersion();
+
+  // Testing exception
+  throw QTobiiDeviceException(getLastResult()->getMessage().toStdString());
 }
 
 QTobiiDevice::~QTobiiDevice() {

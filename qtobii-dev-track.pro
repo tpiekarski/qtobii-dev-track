@@ -27,7 +27,8 @@ SOURCES += \
 HEADERS += \
     qtobii-dev-track.h \
     qtobii-device.h \
-    qtobii-result.h
+    qtobii-result.h \
+    qtobii-device-exception.h
 
 FORMS += \
     qtobii-dev-track-window.ui

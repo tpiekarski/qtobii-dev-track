@@ -11,18 +11,29 @@
 
 #include "qtobii-dev-track.h"
 #include "qtobii-device.h"
+#include "qtobii-device-exception.h"
 #include <QApplication>
+#include <QDebug>
+#include <QMessageBox>
 
 using namespace qtobii;
 
 int main(int argc, char *argv[]) {
   QApplication app(argc, argv);
-
+  int result = 0;
   QTobiiDevTrack* devTrack = new QTobiiDevTrack();
-  QTobiiDevice* device = new QTobiiDevice(devTrack);
+  QTobiiDevice* device = nullptr;
 
-  devTrack->show();
-  int result = app.exec();
+  try {
+    device = new QTobiiDevice(devTrack);
+    devTrack->show();
+    result = app.exec();
+  } catch (QTobiiDeviceException& e) {
+    QString lastMessage(QString::fromStdString(e.what()));
+    qDebug() << "Last Message from device: " << lastMessage;
+    QMessageBox::critical(devTrack, "Error", lastMessage, QMessageBox::Ok);
+    result = 2;
+  }
 
   if (device != nullptr) {
     if (device->getLastResult()->isError()) {
