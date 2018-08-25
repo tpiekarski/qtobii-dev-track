@@ -27,6 +27,7 @@ public:
   explicit QTobiiDevice(QObject* parent = nullptr);
   ~QTobiiDevice();
 
+  void call(tobii_error_t result);
   tobii_device_t* getDevice() { return device; }
   QTobiiResult* getLastResult() { return results.last(); }
   QString getVersion();

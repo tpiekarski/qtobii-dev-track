@@ -17,11 +17,10 @@ namespace qtobii {
 
 QTobiiDevice::QTobiiDevice(QObject *parent) : QObject(parent) {
   version = new tobii_version_t();
-  results.append(new QTobiiResult(tobii_get_api_version(version)));
-  qDebug() << "Tobii Stream API, Version: " << getVersion();
+  call(tobii_get_api_version(version));
+  call(tobii_api_create(&api, nullptr, nullptr));
 
-  // Testing exception
-  throw QTobiiDeviceException(getLastResult()->getMessage().toStdString());
+  qDebug() << "Tobii Stream API, Version: " << getVersion();
 }
 
 QTobiiDevice::~QTobiiDevice() {
@@ -37,6 +36,20 @@ QString QTobiiDevice::getVersion() {
       .arg(QString::number(version->minor))
       .arg(QString::number(version->revision))
       .arg(QString::number(version->build));
+}
+
+void QTobiiDevice::call(tobii_error_t error) {
+  QTobiiResult* result = new QTobiiResult(error);
+
+  if (result->isError()) {
+    QString lastMessage(result->getMessage());
+    delete result;
+    result = nullptr;
+
+    throw QTobiiDeviceException(lastMessage.toStdString());
+  }
+
+  results.append(result);
 }
 
 } // namespace qtobii
