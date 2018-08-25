@@ -11,7 +11,7 @@
 
 #include "qtobii-dev-track.h"
 #include "qtobii-device.h"
-#include "qtobii-device-exception.h"
+#include "qtobii-api-exception.h"
 #include <QApplication>
 #include <QDebug>
 #include <QMessageBox>
@@ -19,20 +19,28 @@
 using namespace qtobii;
 
 int main(int argc, char *argv[]) {
+
   QApplication app(argc, argv);
   int result = 0;
-  QTobiiDevTrack* devTrack = new QTobiiDevTrack();
+  QTobiiDevTrack* devTrack = nullptr;
   QTobiiDevice* device = nullptr;
 
   try {
+    devTrack = new QTobiiDevTrack();
     device = new QTobiiDevice(devTrack);
     devTrack->show();
+
     result = app.exec();
-  } catch (QTobiiDeviceException& e) {
+  } catch (QTobiiApiException& e) {
     QString lastMessage(QString::fromStdString(e.what()));
-    qDebug() << "Last Message from device: " << lastMessage;
+    qDebug() << "Last Message from API: " << lastMessage;
     QMessageBox::critical(devTrack, "Error", lastMessage, QMessageBox::Ok);
+
     result = 2;
+  } catch (std::exception& e) {
+    qDebug() << QString::fromLatin1(e.what());
+
+    result = 3;
   }
 
   if (device != nullptr) {

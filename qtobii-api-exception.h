@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef QTOBIIDEVICEEXCEPTION_H
-#define QTOBIIDEVICEEXCEPTION_H
+#ifndef QTOBIIAPIEXCEPTION_H
+#define QTOBIIAPIEXCEPTION_H
 
 #include <exception>
 #include <string>
@@ -20,10 +20,10 @@ namespace qtobii {
 using std::exception;
 using std::string;
 
-class QTobiiDeviceException : public exception {
+class QTobiiApiException : public exception {
 
 public:
-  QTobiiDeviceException(string message = "Failed initializing tracking device.") : message(message) {}
+  QTobiiApiException(string message = "Failed initializing tracking device.") : message(message) {}
   string what() { return message; }
 
 private:
@@ -32,4 +32,4 @@ private:
 };
 } // namespace qtobii
 
-#endif // QTOBIIDEVICEEXCEPTION_H
+#endif // QTOBIIAPIEXCEPTION_H

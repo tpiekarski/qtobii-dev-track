@@ -30,6 +30,7 @@ public:
   void call(tobii_error_t result);
   tobii_device_t* getDevice() { return device; }
   QTobiiResult* getLastResult() { return results.last(); }
+  QString getUrl() { return url; }
   QString getVersion();
 
 private:
@@ -38,7 +39,9 @@ private:
   tobii_version_t* version;
 
   QVector<QTobiiResult*> results;
-  QString deviceUrl;
+  QString url;
+
+  static void deviceReceiver(const char* url, void* userData);
 
 };
 } // namespace qtobii

@@ -3,7 +3,9 @@ QTobiiDevTrack::Todo
 
 ## Development
 - [x] Integrate Tobii Stream Engine API
-- [ ] Setup API and initialize Engine in a separate thread
+- [x] Setup API and initialize device
+- [ ] Start tracking engine in a separate thread
+- [ ] Add a struct for exit codes
 - [ ] Implement toggling button to start/stop tracking thread
 - [ ] Implement toggling button to start/stop tracking
 - [ ] Check and enable/disable buttons appropriately for starting/stopping thread and tracking

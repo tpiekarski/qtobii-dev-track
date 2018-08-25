@@ -10,23 +10,53 @@
  */
 
 #include "qtobii-device.h"
-#include "qtobii-device-exception.h"
+#include "qtobii-api-exception.h"
+#include <algorithm>
 #include <QDebug>
 
 namespace qtobii {
 
-QTobiiDevice::QTobiiDevice(QObject *parent) : QObject(parent) {
-  version = new tobii_version_t();
+QTobiiDevice::QTobiiDevice(QObject *parent)
+  : QObject(parent), version(new tobii_version_t), api(nullptr), device(nullptr), url("")
+{
   call(tobii_get_api_version(version));
   call(tobii_api_create(&api, nullptr, nullptr));
 
+  char rawURL[256] = { 0 };
+  call(tobii_enumerate_local_device_urls(api, deviceReceiver, rawURL));
+  call(tobii_device_create(api, rawURL, &device));
+
+  url = QString::fromLatin1(rawURL);
+
   qDebug() << "Tobii Stream API, Version: " << getVersion();
+  qDebug() << "Device URL: " << getUrl();
 }
 
 QTobiiDevice::~QTobiiDevice() {
   if (version != nullptr) {
     delete version;
     version = nullptr;
+  }
+
+  if (device != nullptr) {
+    call(tobii_device_destroy(device));
+    device = nullptr;
+  }
+
+  if (api != nullptr) {
+    call(tobii_api_destroy(api));
+    api = nullptr;
+  }
+
+  if (!results.empty()) {
+#ifndef QT_NO_DEBUG_OUTPUT
+    qDebug() << "Result Message Stack:";
+    std::for_each(results.begin(), results.end(), [](QTobiiResult *result) {
+      qDebug() << " " << result->getMessage();
+    });
+#endif
+
+    results.clear();
   }
 }
 
@@ -46,10 +76,22 @@ void QTobiiDevice::call(tobii_error_t error) {
     delete result;
     result = nullptr;
 
-    throw QTobiiDeviceException(lastMessage.toStdString());
+    throw QTobiiApiException(lastMessage.toStdString());
   }
 
   results.append(result);
+}
+
+void QTobiiDevice::deviceReceiver(const char* url, void* userData) {
+  char* buffer = static_cast<char*>(userData);
+
+  if (*buffer != '\0') {
+    return;
+  }
+
+  if (strlen(url) < 256) {
+    strcpy_s(buffer, sizeof(char) * 256, url);
+  }
 }
 
 } // namespace qtobii
