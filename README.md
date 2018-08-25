@@ -11,11 +11,13 @@ This utility is in very early development, see the [TODO](https://github.com/tpi
 * Qt 5.10.x
 
 ## Building
-tba/tbd
+
+### Environment Variables
+Variable|Description
+---|---
+TOBII_STREAM_SDK|Path to the directory containing Tobii Stream SDK
 
 ## Planed Features
-![Screenshot of QTobiiDevTrack](images/screenshot.png?raw=true "Screenshot of QTobiiDevTrack")
-
 #|Tracker|Description|Status
 ---|---|---|---
 1.|Gaze Point|Normalized and denormalized X/Y-Tracking of gaze at the screen|todo
@@ -23,3 +25,6 @@ tba/tbd
 3.|Eye Position|X/Y/Z-Tracking of position for each eye|todo
 4.|User Presence|Boolean for tracking if user is present|todo
 5.|Head Position|X/Y/Z-Tracking of head position and rotation|todo
+
+### Screenshot
+![Screenshot of QTobiiDevTrack](images/screenshot.png?raw=true "Screenshot of QTobiiDevTrack")

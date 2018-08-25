@@ -8,32 +8,15 @@
 # If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 #
 
-QT += core gui
+TOBII_STREAM_SDK = $$(TOBII_STREAM_SDK)
+TOBII_STREAM_INCLUDE = $$sprintf("%1\include", $$TOBII_STREAM_SDK)
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+INCLUDEPATH *= $$TOBII_STREAM_INCLUDE
 
-TARGET = qtobii-dev-track
-TEMPLATE = app
-DEFINES += QT_DEPRECATED_WARNINGS
+equals(QT_ARCH, "x86_64") { ARCH = x64 } else { ARCH = x86 }
 
-include(tobii-stream-sdk.pri)
+TOBII_STREAM_LIB = $$quote($$sprintf("%1\lib\%2\tobii_stream_engine", $$TOBII_STREAM_SDK, $$ARCH))
+TOBII_STREAM_LIB ~= s@\\\@/
 
-SOURCES += \
-    main.cpp \
-    qtobii-dev-track.cpp
-
-HEADERS += \
-    qtobii-dev-track.h
-
-FORMS += \
-    qtobii-dev-track-window.ui
-
-RESOURCES += \
-    assets.qrc
-
-DISTFILES += \
-    LICENSE \
-    README.md \
-    TODO.md \
-    images/screenshot.png \
-    tobii-stream-sdk.pri
+Debug: { LIBS *= -l$$TOBII_STREAM_LIB }
+Release: { LIBS *= -l$$TOBII_STREAM_LIB }
