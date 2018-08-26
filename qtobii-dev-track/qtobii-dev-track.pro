@@ -23,14 +23,16 @@ include(../tobii-stream-sdk.pri)
 SOURCES += \
     main.cpp \
     qtobii-dev-track.cpp \
-    qtobii-device.cpp
+    qtobii-device.cpp \
+    qtobii-plugin-loader.cpp
 
 HEADERS += \
     qtobii-dev-track.h \
     qtobii-device.h \
     qtobii-result.h \
     qtobii-api-exception.h \
-    ../qtobii-plugin-interface/qtobii-plugin-interface.h
+    ../qtobii-plugin-interface/qtobii-plugin-interface.h \
+    qtobii-plugin-loader.h
 
 FORMS += \
     qtobii-dev-track-window.ui

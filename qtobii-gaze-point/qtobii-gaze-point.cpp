@@ -19,4 +19,8 @@ QTobiiGazePoint::QTobiiGazePoint() {
   // todo: implement contstructor
 }
 
+QString QTobiiGazePoint::getDescription() {
+  return "Plugin for tracking gaze point.";
+}
+
 } // namespace qtobii

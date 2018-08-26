@@ -12,6 +12,8 @@
 #include "qtobii-dev-track.h"
 #include "qtobii-device.h"
 #include "qtobii-api-exception.h"
+#include "../qtobii-plugin-interface/qtobii-plugin-interface.h"
+#include "qtobii-plugin-loader.h"
 #include <QApplication>
 #include <QDebug>
 #include <QMessageBox>
@@ -24,6 +26,16 @@ int main(int argc, char *argv[]) {
   int result = 0;
   QTobiiDevTrack* devTrack = nullptr;
   QTobiiDevice* device = nullptr;
+
+  // --- plugin development ground zero
+  if (argc == 2) {
+    QTobiiPluginLoader* pluginLoader = nullptr;
+    pluginLoader = new QTobiiPluginLoader();
+    QFileInfo* testPlugin = new QFileInfo(QString::fromLatin1(argv[1]));
+    qtobii::QTobiiPlugin<tobii_gaze_point_callback_t, void*>* plugin = pluginLoader->loadGazePointPlugin(testPlugin);
+    qDebug() << plugin->getDescription();
+  }
+  // ---
 
   try {
     devTrack = new QTobiiDevTrack();

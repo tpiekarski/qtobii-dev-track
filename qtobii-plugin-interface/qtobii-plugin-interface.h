@@ -12,8 +12,8 @@
 #ifndef QTOBII_PLUGIN_INTERFACE_H
 #define QTOBII_PLUGIN_INTERFACE_H
 
-#include "qtobii-device.h"
-#include "qtobii-result.h"
+#include "../qtobii-dev-track/qtobii-device.h"
+#include "../qtobii-dev-track/qtobii-result.h"
 #include <QString>
 
 class QTobiiPlugin;
@@ -29,11 +29,12 @@ public:
     // Only defined to make sure all destructors will be called along inheritance.
   }
 
-  virtual QTobiiResult subscribe(QTobiiDevice* device, C callback, D data) = 0;
-  virtual QTobiiResult unsubscribe(QTobiiDevice* device) = 0;
-
-  virtual C getCallback() = 0;
-  virtual D getData() = 0;
+  // todo: implement all virtual methods in QTobiiGazePoint plugin
+  // ---
+  //virtual QTobiiResult subscribe(QTobiiDevice* device, C callback, D data) = 0;
+  //virtual QTobiiResult unsubscribe(QTobiiDevice* device) = 0;
+  //virtual C getCallback() = 0;
+  //virtual D getData() = 0;
 
   virtual QString getDescription() = 0;
 
