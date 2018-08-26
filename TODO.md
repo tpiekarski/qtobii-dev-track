@@ -4,6 +4,9 @@ QTobiiDevTrack::Todo
 ## Development
 - [x] Integrate Tobii Stream Engine API
 - [x] Setup API and initialize device
+- [x] Define a common plugin for all tracking subscriptions from SDK
+- [x] Create and prepare structure for plug-able tracking
+- [ ] Check and change (when possible) to one build directory for all sub projects
 - [ ] Start tracking engine in a separate thread
 - [ ] Add a struct for exit codes
 - [ ] Implement toggling button to start/stop tracking thread
@@ -17,7 +20,7 @@ QTobiiDevTrack::Todo
 - [ ] Implement User Presence tracking and data display
 - [ ] Implement Head Position tracking, approximation and data display
 - [ ] Add an about dialog
-- [ ] Refactor and introduce plug-able tracking
+
 
 ## Documentation
 - [ ] Write more detailed README, describing requirements, build process and features

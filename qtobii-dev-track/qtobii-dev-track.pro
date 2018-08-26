@@ -18,7 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++14
 CONFIG(release, debug|release):DEFINES += QT_NO_DEBUG_OUTPUT
 
-include(tobii-stream-sdk.pri)
+include(../tobii-stream-sdk.pri)
 
 SOURCES += \
     main.cpp \
@@ -29,7 +29,8 @@ HEADERS += \
     qtobii-dev-track.h \
     qtobii-device.h \
     qtobii-result.h \
-    qtobii-api-exception.h
+    qtobii-api-exception.h \
+    ../qtobii-plugin-interface/qtobii-plugin-interface.h
 
 FORMS += \
     qtobii-dev-track-window.ui
@@ -39,7 +40,9 @@ RESOURCES += \
 
 DISTFILES += \
     LICENSE \
-    README.md \
-    TODO.md \
-    images/screenshot.png \
-    tobii-stream-sdk.pri
+    ../README.md \
+    ../TODO.md \
+    ../images/screenshot.png \
+    tobii-stream-sdk.pri \
+    ../.gitignore \
+    ../tobii-stream-sdk.pri
