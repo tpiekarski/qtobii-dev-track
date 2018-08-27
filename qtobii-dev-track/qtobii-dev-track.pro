@@ -36,7 +36,8 @@ HEADERS += \
     qtobii-device.h \
     qtobii-result.h \
     qtobii-api-exception.h \
-    qtobii-plugin-loader.h
+    qtobii-plugin-loader.h \
+    qtobii-plugin-exception.h
 
 FORMS += \
     qtobii-dev-track-window.ui

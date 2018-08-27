@@ -25,6 +25,11 @@ class QTobiiPluginLoader : public QObject {
 
 public:
   explicit QTobiiPluginLoader(QObject* parent = nullptr) : QObject(parent) {}
+  auto getGazePointPlugin() { return gazePointPlugin; }
+  void load(QDir directory);
+
+private:
+  QTobiiPlugin<tobii_gaze_point_callback_t, void*>* gazePointPlugin;
   QTobiiPlugin<tobii_gaze_point_callback_t, void*>* loadGazePointPlugin(QFileInfo* pluginFile);
 
 };

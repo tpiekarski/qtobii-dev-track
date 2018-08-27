@@ -15,9 +15,9 @@ DEFINES += QTOBIIGAZEPOINT_LIBRARY
 DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += plugin
 CONFIG += c++14
-CONFIG(debug, debug|release) { DESTDIR = ../build/debug }
+CONFIG(debug, debug|release) { DESTDIR = ../build/debug/plugins }
 else {
-    DESTDIR = ../build/release
+    DESTDIR = ../build/release/plugins
     DEFINES += QT_NO_DEBUG_OUTPUT
 }
 

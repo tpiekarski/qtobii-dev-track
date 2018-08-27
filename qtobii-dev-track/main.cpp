@@ -12,6 +12,7 @@
 #include "qtobii-dev-track.h"
 #include "qtobii-device.h"
 #include "qtobii-api-exception.h"
+#include "qtobii-plugin-exception.h"
 #include "qtobii-plugin-interface.h"
 #include "qtobii-plugin-loader.h"
 #include <QApplication>
@@ -26,20 +27,14 @@ int main(int argc, char *argv[]) {
   int result = 0;
   QTobiiDevTrack* devTrack = nullptr;
   QTobiiDevice* device = nullptr;
-
-  // --- plugin development ground zero
-  if (argc == 2) {
-    QTobiiPluginLoader* pluginLoader = nullptr;
-    pluginLoader = new QTobiiPluginLoader();
-    QFileInfo* testPlugin = new QFileInfo(QString::fromLatin1(argv[1]));
-    qtobii::QTobiiPlugin<tobii_gaze_point_callback_t, void*>* plugin = pluginLoader->loadGazePointPlugin(testPlugin);
-    qDebug() << plugin->getDescription();
-  }
-  // ---
+  QTobiiPluginLoader* pluginLoader = nullptr;
 
   try {
     devTrack = new QTobiiDevTrack();
     device = new QTobiiDevice(devTrack);
+    pluginLoader = new QTobiiPluginLoader();
+    pluginLoader->load(QDir(QString("%1/plugins").arg(qApp->applicationDirPath())));
+
     devTrack->show();
 
     result = app.exec();
@@ -49,10 +44,16 @@ int main(int argc, char *argv[]) {
     QMessageBox::critical(devTrack, "Error", lastMessage, QMessageBox::Ok);
 
     result = 2;
+  } catch (QTobiiPluginException& e) {
+    QString lastMessage(QString::fromStdString(e.what()));
+    qDebug() << lastMessage;
+    QMessageBox::critical(devTrack, "Error", lastMessage, QMessageBox::Ok);
+
+    result = 3;
   } catch (std::exception& e) {
     qDebug() << QString::fromLatin1(e.what());
 
-    result = 3;
+    result = 4;
   }
 
   if (device != nullptr) {

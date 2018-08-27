@@ -9,26 +9,53 @@
  *
  */
 
+#include "qtobii-plugin-exception.h"
 #include "qtobii-plugin-loader.h"
+#include <QFileInfoList>
 #include <QPluginLoader>
 #include <QDebug>
 
 namespace qtobii {
+
+void QTobiiPluginLoader::load(QDir directory) {
+  QFileInfoList pluginFiles = directory.entryInfoList(QDir::NoDotAndDotDot | QDir::Files, QDir::Name);
+
+  if (pluginFiles.empty()) {
+    throw QTobiiPluginException(
+      QString("No Plugins found in the directory '%1', aborting.").arg(directory.absolutePath()).toStdString()
+    );
+  }
+
+  foreach(QFileInfo pluginFile, pluginFiles) {
+    if (!QLibrary::isLibrary(pluginFile.absoluteFilePath())) {
+      continue;
+    }
+
+    if (pluginFile.baseName() == "qtobii-gaze-point") {
+      gazePointPlugin = loadGazePointPlugin(&pluginFile);
+    }
+
+  }
+}
 
 QTobiiPlugin<tobii_gaze_point_callback_t, void*>* QTobiiPluginLoader::loadGazePointPlugin(QFileInfo* pluginFile) {
   QPluginLoader pluginLoader(pluginFile->absoluteFilePath());
   QObject* object = pluginLoader.instance();
 
   if (object == nullptr) {
-    qDebug() << QString("Creating instance failed of (%1) failed, aborting.").arg(pluginFile->fileName());
-    // todo: throw exception
+    QString message = QString("Creating instance from the file '%1' failed, aborting.").arg(pluginFile->fileName());
+    qDebug() << message;
+
+    throw QTobiiPluginException(message.toStdString());
   }
 
   auto plugin = dynamic_cast<QTobiiPlugin<tobii_gaze_point_callback_t, void*> *>(object);
 
   if (plugin == nullptr) {
-    qDebug() << "Casting to QTobiiPlugin failed, aborting.";
-    // todo: throw exception
+    QString message = QString("Casting '%1' to QTobiiPlugin failed, aborting.").arg(pluginFile->baseName());
+    qDebug() << message;
+
+    throw QTobiiPluginException(message.toStdString());
   }
 
   return plugin;
