@@ -7,8 +7,8 @@ QTobiiDevTrack::Todo
 - [x] Define a common plugin for all tracking subscriptions from SDK
 - [x] Create and prepare structure for plug-able tracking
 - [x] Implement a plugin loading mechanism and test within a ground zero
+- [x] Introduce subdirs for qmake and put final build files into one directory
 - [ ] Add exception for failing loading and/or casting plugins
-- [ ] Introduce subdirs for qmake
 - [ ] Start tracking engine in a separate thread
 - [ ] Add a struct for exit codes
 - [ ] Implement toggling button to start/stop tracking thread

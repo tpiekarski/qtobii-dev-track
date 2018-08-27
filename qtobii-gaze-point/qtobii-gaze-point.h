@@ -13,7 +13,7 @@
 #define QTOBIIGAZEPOINT_H
 
 #include "qtobii-gaze-point_global.h"
-#include "../qtobii-plugin-interface/qtobii-plugin-interface.h"
+#include "qtobii-plugin-interface.h"
 #include <tobii_streams.h>
 #include <QObject>
 #include <QString>

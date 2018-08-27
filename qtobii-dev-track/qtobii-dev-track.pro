@@ -16,8 +16,13 @@ TARGET = qtobii-dev-track
 TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++14
-CONFIG(release, debug|release):DEFINES += QT_NO_DEBUG_OUTPUT
+CONFIG(debug, debug|release) { DESTDIR = ../build/debug }
+else {
+    DESTDIR = ../build/release
+    DEFINES += QT_NO_DEBUG_OUTPUT
+}
 
+INCLUDEPATH += ../qtobii-plugin-interface
 include(../tobii-stream-sdk.pri)
 
 SOURCES += \
@@ -31,7 +36,6 @@ HEADERS += \
     qtobii-device.h \
     qtobii-result.h \
     qtobii-api-exception.h \
-    ../qtobii-plugin-interface/qtobii-plugin-interface.h \
     qtobii-plugin-loader.h
 
 FORMS += \
@@ -43,8 +47,5 @@ RESOURCES += \
 DISTFILES += \
     LICENSE \
     ../README.md \
-    ../TODO.md \
-    ../images/screenshot.png \
-    tobii-stream-sdk.pri \
-    ../.gitignore \
-    ../tobii-stream-sdk.pri
+    ../TODO.md
+

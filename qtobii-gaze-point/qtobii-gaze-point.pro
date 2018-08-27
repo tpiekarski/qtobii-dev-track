@@ -11,10 +11,17 @@
 QT -= gui
 TARGET = qtobii-gaze-point
 TEMPLATE = lib
-CONFIG += plugin
 DEFINES += QTOBIIGAZEPOINT_LIBRARY
 DEFINES += QT_DEPRECATED_WARNINGS
+CONFIG += plugin
+CONFIG += c++14
+CONFIG(debug, debug|release) { DESTDIR = ../build/debug }
+else {
+    DESTDIR = ../build/release
+    DEFINES += QT_NO_DEBUG_OUTPUT
+}
 
+INCLUDEPATH += ../qtobii-plugin-interface
 include(../tobii-stream-sdk.pri)
 
 SOURCES += \
@@ -22,12 +29,9 @@ SOURCES += \
 
 HEADERS += \
     qtobii-gaze-point.h \
-    qtobii-gaze-point_global.h \
-    ../qtobii-plugin-interface/qtobii-plugin-interface.h
+    qtobii-gaze-point_global.h
 
 DISTFILES += \
     LICENSE \
     ../README.md \
-    ../TODO.md \
-    ../.gitignore \
-    ../tobii-stream-sdk.pri
+    ../TODO.md

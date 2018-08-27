@@ -12,7 +12,7 @@
 #include "qtobii-dev-track.h"
 #include "qtobii-device.h"
 #include "qtobii-api-exception.h"
-#include "../qtobii-plugin-interface/qtobii-plugin-interface.h"
+#include "qtobii-plugin-interface.h"
 #include "qtobii-plugin-loader.h"
 #include <QApplication>
 #include <QDebug>
