@@ -32,13 +32,13 @@ void QTobiiPluginLoader::load(QDir directory) {
     }
 
     if (pluginFile.baseName() == "qtobii-gaze-point") {
-      gazePointPlugin = loadGazePointPlugin(&pluginFile);
+      gazePointPlugin = loadPlugin(&pluginFile);
     }
 
   }
 }
 
-QTobiiPlugin<tobii_gaze_point_callback_t, void*>* QTobiiPluginLoader::loadGazePointPlugin(QFileInfo* pluginFile) {
+QTobiiPlugin* QTobiiPluginLoader::loadPlugin(QFileInfo* pluginFile) {
   QPluginLoader pluginLoader(pluginFile->absoluteFilePath());
   QObject* object = pluginLoader.instance();
 
@@ -49,7 +49,7 @@ QTobiiPlugin<tobii_gaze_point_callback_t, void*>* QTobiiPluginLoader::loadGazePo
     throw QTobiiPluginException(message.toStdString());
   }
 
-  auto plugin = dynamic_cast<QTobiiPlugin<tobii_gaze_point_callback_t, void*> *>(object);
+  auto plugin = dynamic_cast<QTobiiPlugin*>(object);
 
   if (plugin == nullptr) {
     QString message = QString("Casting '%1' to QTobiiPlugin failed, aborting.").arg(pluginFile->baseName());

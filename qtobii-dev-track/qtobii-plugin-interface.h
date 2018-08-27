@@ -22,20 +22,15 @@ class QTobiiPlugin;
 Q_DECLARE_INTERFACE(QTobiiPlugin, QTOBII_PLUGIN_ID)
 
 namespace qtobii {
-template <class C, class D> class QTobiiPlugin {
+class QTobiiPlugin {
 
 public:
   virtual ~QTobiiPlugin() {
     // Only defined to make sure all destructors will be called along inheritance.
   }
 
-  // todo: implement all virtual methods in QTobiiGazePoint plugin
-  // ---
-  //virtual QTobiiResult subscribe(QTobiiDevice* device, C callback, D data) = 0;
+  //virtual QTobiiResult subscribe(QTobiiDevice* device) = 0;
   //virtual QTobiiResult unsubscribe(QTobiiDevice* device) = 0;
-  //virtual C getCallback() = 0;
-  //virtual D getData() = 0;
-
   virtual QString getDescription() = 0;
 
 };

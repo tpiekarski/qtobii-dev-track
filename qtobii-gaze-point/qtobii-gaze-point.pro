@@ -21,7 +21,7 @@ else {
     DEFINES += QT_NO_DEBUG_OUTPUT
 }
 
-INCLUDEPATH += ../qtobii-plugin-interface
+INCLUDEPATH += ../qtobii-dev-track
 include(../tobii-stream-sdk.pri)
 
 SOURCES += \

@@ -22,7 +22,6 @@ else {
     DEFINES += QT_NO_DEBUG_OUTPUT
 }
 
-INCLUDEPATH += ../qtobii-plugin-interface
 include(../tobii-stream-sdk.pri)
 
 SOURCES += \
@@ -37,7 +36,8 @@ HEADERS += \
     qtobii-result.h \
     qtobii-api-exception.h \
     qtobii-plugin-loader.h \
-    qtobii-plugin-exception.h
+    qtobii-plugin-exception.h \
+    qtobii-plugin-interface.h
 
 FORMS += \
     qtobii-dev-track-window.ui

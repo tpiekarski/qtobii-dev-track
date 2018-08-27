@@ -14,14 +14,11 @@
 
 #include "qtobii-gaze-point_global.h"
 #include "qtobii-plugin-interface.h"
-#include <tobii_streams.h>
 #include <QObject>
 #include <QString>
 
 namespace qtobii {
-class QTOBIIGAZEPOINTSHARED_EXPORT QTobiiGazePoint
-    : public QObject, public QTobiiPlugin<tobii_gaze_point_callback_t, void*>
-{
+class QTOBIIGAZEPOINTSHARED_EXPORT QTobiiGazePoint : public QObject, public QTobiiPlugin {
 
   Q_OBJECT
   Q_PLUGIN_METADATA(IID "de.dlqx.qtobiiplugin")

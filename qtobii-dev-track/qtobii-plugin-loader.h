@@ -16,7 +16,6 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QObject>
-#include <tobii_streams.h>
 
 namespace qtobii {
 class QTobiiPluginLoader : public QObject {
@@ -29,8 +28,8 @@ public:
   void load(QDir directory);
 
 private:
-  QTobiiPlugin<tobii_gaze_point_callback_t, void*>* gazePointPlugin;
-  QTobiiPlugin<tobii_gaze_point_callback_t, void*>* loadGazePointPlugin(QFileInfo* pluginFile);
+  QTobiiPlugin* gazePointPlugin;
+  QTobiiPlugin* loadPlugin(QFileInfo* pluginFile);
 
 };
 } // namespace qtobii
