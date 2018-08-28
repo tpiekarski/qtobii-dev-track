@@ -9,29 +9,26 @@
  *
  */
 
-#ifndef QTOBIIPLUGINLOADER_H
-#define QTOBIIPLUGINLOADER_H
+#ifndef QTOBII_TRACKING_INTERFACE_H
+#define QTOBII_TRACKING_INTERFACE_H
 
-#include "qtobii-plugin-interface.h"
-#include <QDir>
-#include <QFileInfo>
-#include <QObject>
+#include "qtobii-api.h"
+#include "qtobii-result.h"
+#include <QString>
+#include <tobii.h>
 
 namespace qtobii {
-class QTobiiPluginLoader : public QObject {
-
-  Q_OBJECT
+class QTobiiTrackingInterface {
 
 public:
-  explicit QTobiiPluginLoader(QObject* parent = nullptr) : QObject(parent) {}
-  auto getGazePointPlugin() { return gazePointPlugin; }
-  void load(QDir directory);
+  virtual ~QTobiiTrackingInterface() {
+    // Only defined to make sure all destructors will be called along inheritance.
+  }
 
-private:
-  QTobiiPlugin* gazePointPlugin;
-  QTobiiPlugin* loadPlugin(QFileInfo* pluginFile);
+  //virtual QTobiiResult subscribe(tobii_device_t* device) = 0;
+  //virtual QTobiiResult unsubscribe(tobii_device_t* device) = 0;
+  virtual QString getDescription() = 0;
 
 };
 } // namespace qtobii
-
-#endif // QTOBIIPLUGINLOADER_H
+#endif

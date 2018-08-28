@@ -9,27 +9,17 @@
  *
  */
 
-#ifndef QTOBIIGAZEPOINT_H
-#define QTOBIIGAZEPOINT_H
-
-#include "qtobii-gaze-point_global.h"
-#include "qtobii-plugin-interface.h"
-#include <QObject>
-#include <QString>
+#include "qtobii-tracking-manager.h"
 
 namespace qtobii {
-class QTOBIIGAZEPOINTSHARED_EXPORT QTobiiGazePoint : public QObject, public QTobiiPlugin {
 
-  Q_OBJECT
-  Q_PLUGIN_METADATA(IID "de.dlqx.qtobiiplugin")
-  Q_INTERFACES(QTobiiPlugin)
+QTobiiTrackingManager::QTobiiTrackingManager(QObject *parent, QTobiiApi* api) : QObject(parent), api(api) {
+  devTrack = dynamic_cast<QTobiiDevTrack*>(parent);
+  devTrack->log("Starting Tracking Manager...");
 
-public:
-  QTobiiGazePoint();
+  gazePointTracker = new QTobiiGazePoint();
+}
 
-  virtual QString getDescription() override;
-
-};
 } // namespace qtobii
 
-#endif // QTOBIIGAZEPOINT_H
+

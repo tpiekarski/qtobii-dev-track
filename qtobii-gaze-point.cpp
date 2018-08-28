@@ -9,27 +9,28 @@
  *
  */
 
-#ifndef QTOBII_DEV_TRACK_H
-#define QTOBII_DEV_TRACK_H
-
-#include <QMainWindow>
-
-// Forward declaration
-namespace Ui { class QTobiiDevTrackWindow; }
+#include "qtobii-gaze-point.h"
 
 namespace qtobii {
-class QTobiiDevTrack : public QMainWindow {
 
-  Q_OBJECT
+// todo: implement interface QTobiiPlugin
 
-public:
-  explicit QTobiiDevTrack(QWidget *parent = 0);
-  ~QTobiiDevTrack();
+QTobiiGazePoint::QTobiiGazePoint() {
+  // todo: implement contstructor
+}
 
-private:
-  Ui::QTobiiDevTrackWindow *ui;
+/*
+QTobiiResult QTobiiGazePoint::subscribe(tobii_device_t* device) {
+  // todo: implement subscribe
+}
 
-};
+QTobiiResult QTobiiGazePoint::unsubscribe(tobii_device_t* device) {
+  // todo: implement unsubscribe
+}
+*/
+
+QString QTobiiGazePoint::getDescription() {
+  return "Class for tracking gaze point X/Y-coordinates.";
+}
+
 } // namespace qtobii
-
-#endif // QTOBII_DEV_TRACK_H

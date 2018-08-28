@@ -9,15 +9,28 @@
  *
  */
 
-#ifndef QTOBIIGAZEPOINT_GLOBAL_H
-#define QTOBIIGAZEPOINT_GLOBAL_H
+#ifndef QTOBIITRACKINGMANAGER_H
+#define QTOBIITRACKINGMANAGER_H
 
-#include <QtCore/qglobal.h>
+#include "qtobii-api.h"
+#include "qtobii-dev-track.h"
+#include "qtobii-gaze-point.h"
+#include <QObject>
 
-#if defined(QTOBIIGAZEPOINT_LIBRARY)
-#  define QTOBIIGAZEPOINTSHARED_EXPORT Q_DECL_EXPORT
-#else
-#  define QTOBIIGAZEPOINTSHARED_EXPORT Q_DECL_IMPORT
-#endif
+namespace qtobii {
+class QTobiiTrackingManager : public QObject {
 
-#endif // QTOBIIGAZEPOINT_GLOBAL_H
+  Q_OBJECT
+
+public:
+  explicit QTobiiTrackingManager(QObject *parent, QTobiiApi* api);
+
+private:
+  QTobiiApi* api;
+  QTobiiDevTrack* devTrack;
+  QTobiiGazePoint* gazePointTracker;
+
+};
+} // namespace qtobii
+
+#endif // QTOBIITRACKINGMANAGER_H

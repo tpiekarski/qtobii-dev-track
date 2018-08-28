@@ -9,12 +9,10 @@
  *
  */
 
-#include "qtobii-dev-track.h"
-#include "qtobii-device.h"
+#include "qtobii-api.h"
 #include "qtobii-api-exception.h"
-#include "qtobii-plugin-exception.h"
-#include "qtobii-plugin-interface.h"
-#include "qtobii-plugin-loader.h"
+#include "qtobii-dev-track.h"
+#include "qtobii-tracking-manager.h"
 #include <QApplication>
 #include <QDebug>
 #include <QMessageBox>
@@ -26,14 +24,13 @@ int main(int argc, char *argv[]) {
   QApplication app(argc, argv);
   int result = 0;
   QTobiiDevTrack* devTrack = nullptr;
-  QTobiiDevice* device = nullptr;
-  QTobiiPluginLoader* pluginLoader = nullptr;
+  QTobiiApi* api = nullptr;
+  QTobiiTrackingManager* manager = nullptr;
 
   try {
     devTrack = new QTobiiDevTrack();
-    device = new QTobiiDevice(devTrack);
-    pluginLoader = new QTobiiPluginLoader();
-    pluginLoader->load(QDir(QString("%1/plugins").arg(qApp->applicationDirPath())));
+    api = new QTobiiApi(devTrack);
+    manager = new QTobiiTrackingManager(devTrack, api);
 
     devTrack->show();
 
@@ -44,25 +41,19 @@ int main(int argc, char *argv[]) {
     QMessageBox::critical(devTrack, "Error", lastMessage, QMessageBox::Ok);
 
     result = 2;
-  } catch (QTobiiPluginException& e) {
-    QString lastMessage(QString::fromStdString(e.what()));
-    qDebug() << lastMessage;
-    QMessageBox::critical(devTrack, "Error", lastMessage, QMessageBox::Ok);
-
-    result = 3;
   } catch (std::exception& e) {
     qDebug() << QString::fromLatin1(e.what());
 
-    result = 4;
+    result = 3;
   }
 
-  if (device != nullptr) {
-    if (device->getLastResult()->isError()) {
+  if (api != nullptr) {
+    if (api->getLastResult()->isError()) {
       result = 1;
     }
 
-    delete device;
-    device = nullptr;
+    delete api;
+    api = nullptr;
   }
 
   if (devTrack != nullptr) {

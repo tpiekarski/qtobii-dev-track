@@ -9,27 +9,33 @@
  *
  */
 
-#ifndef QTOBIIPLUGINEXCEPTION_H
-#define QTOBIIPLUGINEXCEPTION_H
+#ifndef QTOBII_DEV_TRACK_H
+#define QTOBII_DEV_TRACK_H
 
-#include <exception>
-#include <string>
+#include <QMainWindow>
+
+// Forward declaration
+namespace Ui { class QTobiiDevTrackWindow; }
 
 namespace qtobii {
+class QTobiiDevTrack : public QMainWindow {
 
-using std::exception;
-using std::string;
-
-class QTobiiPluginException : public exception {
+  Q_OBJECT
 
 public:
-  QTobiiPluginException(string message = "Failed loading plugins.") : message(message) {}
-  string what() { return message; }
+  explicit QTobiiDevTrack(QWidget *parent = 0);
+  ~QTobiiDevTrack();
+
+  void log(QString message);
+
+private slots:
+  void onThreadTrackingButtonToggled(bool value);
+  void onStartTrackingButtonToggled(bool value);
 
 private:
-  string message;
+  Ui::QTobiiDevTrackWindow *ui;
 
 };
-} // namespace tobii
+} // namespace qtobii
 
-#endif // QTOBIIPLUGINEXCEPTION_H
+#endif // QTOBII_DEV_TRACK_H

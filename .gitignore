@@ -1,13 +1,12 @@
 # Build files
-/build
-debug/
-profile/
-release/
+/debug/
+/profile/
+/release/
 
 # QMake files
-.qmake.stash
-Makefile
-Makefile.*
+/.qmake.stash
+/Makefile
+/Makefile.*
 
 # Qt Creator files
 *.autosave

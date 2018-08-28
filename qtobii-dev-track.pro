@@ -16,28 +16,24 @@ TARGET = qtobii-dev-track
 TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++14
-CONFIG(debug, debug|release) { DESTDIR = ../build/debug }
-else {
-    DESTDIR = ../build/release
-    DEFINES += QT_NO_DEBUG_OUTPUT
-}
 
-include(../tobii-stream-sdk.pri)
+include(tobii-stream-sdk.pri)
 
 SOURCES += \
     main.cpp \
     qtobii-dev-track.cpp \
-    qtobii-device.cpp \
-    qtobii-plugin-loader.cpp
+    qtobii-gaze-point.cpp \
+    qtobii-api.cpp \
+    qtobii-tracking-manager.cpp
 
 HEADERS += \
     qtobii-dev-track.h \
-    qtobii-device.h \
     qtobii-result.h \
     qtobii-api-exception.h \
-    qtobii-plugin-loader.h \
-    qtobii-plugin-exception.h \
-    qtobii-plugin-interface.h
+    qtobii-gaze-point.h \
+    qtobii-tracking-interface.h \
+    qtobii-api.h \
+    qtobii-tracking-manager.h
 
 FORMS += \
     qtobii-dev-track-window.ui
@@ -47,6 +43,6 @@ RESOURCES += \
 
 DISTFILES += \
     LICENSE \
-    ../README.md \
-    ../TODO.md
+    README.md \
+    TODO.md
 

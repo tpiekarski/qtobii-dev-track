@@ -9,30 +9,28 @@
  *
  */
 
-#include "qtobii-device.h"
+#include "qtobii-api.h"
 #include "qtobii-api-exception.h"
 #include <algorithm>
 #include <QDebug>
 
 namespace qtobii {
 
-QTobiiDevice::QTobiiDevice(QObject *parent)
+QTobiiApi::QTobiiApi(QObject *parent)
   : QObject(parent), version(new tobii_version_t), api(nullptr), device(nullptr), url("")
 {
+  devTrack = dynamic_cast<QTobiiDevTrack*>(parent);
+
   call(tobii_get_api_version(version));
   call(tobii_api_create(&api, nullptr, nullptr));
+  call(tobii_enumerate_local_device_urls(api, deviceReceiver, &url));
+  call(tobii_device_create(api, url.toLatin1(), &device));
 
-  char rawURL[256] = { 0 };
-  call(tobii_enumerate_local_device_urls(api, deviceReceiver, rawURL));
-  call(tobii_device_create(api, rawURL, &device));
-
-  url = QString::fromLatin1(rawURL);
-
-  qDebug() << "Tobii Stream API, Version: " << getVersion();
-  qDebug() << "Device URL: " << getUrl();
+  devTrack->log(QString("Tobii Stream API, Version: %1").arg(getVersion()));
+  devTrack->log(QString("Device URL: %1").arg(getUrl()));
 }
 
-QTobiiDevice::~QTobiiDevice() {
+QTobiiApi::~QTobiiApi() {
   if (version != nullptr) {
     delete version;
     version = nullptr;
@@ -60,7 +58,7 @@ QTobiiDevice::~QTobiiDevice() {
   }
 }
 
-QString QTobiiDevice::getVersion() {
+QString QTobiiApi::getVersion() {
   return QString("%1.%2.%3.%4")
       .arg(QString::number(version->major))
       .arg(QString::number(version->minor))
@@ -68,7 +66,7 @@ QString QTobiiDevice::getVersion() {
       .arg(QString::number(version->build));
 }
 
-void QTobiiDevice::call(tobii_error_t error) {
+void QTobiiApi::call(tobii_error_t error) {
   QTobiiResult* result = new QTobiiResult(error);
 
   if (result->isError()) {
@@ -82,16 +80,13 @@ void QTobiiDevice::call(tobii_error_t error) {
   results.append(result);
 }
 
-void QTobiiDevice::deviceReceiver(const char* url, void* userData) {
-  char* buffer = static_cast<char*>(userData);
-
-  if (*buffer != '\0') {
-    return;
+void QTobiiApi::deviceReceiver(const char* url, void* data) {
+  auto buffer = static_cast<QString*>(data);
+  if (!buffer->isEmpty()) {
+    buffer->clear();
   }
 
-  if (strlen(url) < 256) {
-    strcpy_s(buffer, sizeof(char) * 256, url);
-  }
+  buffer->append(url);
 }
 
 } // namespace qtobii

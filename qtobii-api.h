@@ -12,6 +12,7 @@
 #ifndef QTOBIIDEVICE_H
 #define QTOBIIDEVICE_H
 
+#include "qtobii-dev-track.h"
 #include "qtobii-result.h"
 #include <QObject>
 #include <QString>
@@ -19,13 +20,13 @@
 #include <tobii.h>
 
 namespace qtobii {
-class QTobiiDevice : public QObject {
+class QTobiiApi : public QObject {
 
   Q_OBJECT
 
 public:
-  explicit QTobiiDevice(QObject* parent = nullptr);
-  ~QTobiiDevice();
+  explicit QTobiiApi(QObject* parent = nullptr);
+  ~QTobiiApi();
 
   void call(tobii_error_t result);
   tobii_device_t* getDevice() { return device; }
@@ -38,6 +39,7 @@ private:
   tobii_device_t* device;
   tobii_version_t* version;
 
+  QTobiiDevTrack* devTrack;
   QVector<QTobiiResult*> results;
   QString url;
 
