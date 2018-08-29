@@ -16,6 +16,7 @@
 #include <QApplication>
 #include <QDebug>
 #include <QMessageBox>
+#include <QThread>
 
 using namespace qtobii;
 
@@ -33,7 +34,6 @@ int main(int argc, char *argv[]) {
     manager = new QTobiiTrackingManager(devTrack, api);
 
     devTrack->show();
-
     result = app.exec();
   } catch (QTobiiApiException& e) {
     QString lastMessage(QString::fromStdString(e.what()));

@@ -28,7 +28,9 @@ public:
   explicit QTobiiApi(QObject* parent = nullptr);
   ~QTobiiApi();
 
-  void call(tobii_error_t result);
+  void setup(tobii_error_t result);
+  QTobiiResult* QTobiiApi::call(tobii_error_t error);
+
   tobii_device_t* getDevice() { return device; }
   QTobiiResult* getLastResult() { return results.last(); }
   QString getUrl() { return url; }

@@ -27,6 +27,7 @@ public:
 
   bool isSuccess() { return (error == TOBII_ERROR_NO_ERROR); }
   bool isError() { return (error != TOBII_ERROR_NO_ERROR); }
+  tobii_error_t getError() { return error; }
   QString getMessage() { return QString::fromLatin1(tobii_error_message(error)); }
 
 private:

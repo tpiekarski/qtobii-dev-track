@@ -13,6 +13,7 @@
 #define QTOBII_DEV_TRACK_H
 
 #include <QMainWindow>
+#include <QPushButton>
 
 // Forward declaration
 namespace Ui { class QTobiiDevTrackWindow; }
@@ -27,6 +28,8 @@ public:
   ~QTobiiDevTrack();
 
   void log(QString message);
+  QPushButton* getThreadTrackingButton();
+  QPushButton* getStartTrackingButton();
 
 private slots:
   void onThreadTrackingButtonToggled(bool value);

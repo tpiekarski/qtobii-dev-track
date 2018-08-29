@@ -15,19 +15,23 @@
 #include "qtobii-api.h"
 #include "qtobii-result.h"
 #include <QString>
-#include <tobii.h>
 
 namespace qtobii {
 class QTobiiTrackingInterface {
 
 public:
+  QTobiiTrackingInterface(QTobiiApi* api) : api(api) {}
   virtual ~QTobiiTrackingInterface() {
     // Only defined to make sure all destructors will be called along inheritance.
   }
 
-  //virtual QTobiiResult subscribe(tobii_device_t* device) = 0;
-  //virtual QTobiiResult unsubscribe(tobii_device_t* device) = 0;
+  virtual void track() = 0;
+  virtual void subscribe() = 0;
+  virtual void unsubscribe() = 0;
   virtual QString getDescription() = 0;
+
+protected:
+  QTobiiApi* api;
 
 };
 } // namespace qtobii

@@ -17,6 +17,8 @@
 #include <QPair>
 #include <QString>
 #include <QVector>
+#include <tobii.h>
+#include <tobii_streams.h>
 
 namespace qtobii {
 class QTobiiGazePoint : public QObject, public QTobiiTrackingInterface {
@@ -24,17 +26,27 @@ class QTobiiGazePoint : public QObject, public QTobiiTrackingInterface {
   Q_OBJECT
 
 public:
-  QTobiiGazePoint();
+  QTobiiGazePoint(QTobiiApi* api) : QTobiiTrackingInterface(api), tracking(true) {}
 
-  //virtual QTobiiResult subscribe(tobii_device_t* device);
-  //virtual QTobiiResult unsubscribe(tobii_device_t* device);
+  virtual void track() override;
+  virtual void subscribe() override;
+  virtual void unsubscribe() override;
   virtual QString getDescription() override;
 
   QVector<QPair<float, float>> getData() { return data; }
   QPair<float, float> getLastData() { return data.last(); }
+  void stop() { tracking = false; }
+  void start() { tracking = true; }
+
+signals:
+  //static void dataReceived(QPair<float, float> coordinates);
+  void finished();
 
 private:
+  static void callback(tobii_gaze_point_t const* gazePoint, void* data);
+
   QVector<QPair<float, float>> data;
+  bool tracking;
 
 };
 } // namespace qtobii

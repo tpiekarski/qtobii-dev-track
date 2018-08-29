@@ -10,24 +10,49 @@
  */
 
 #include "qtobii-gaze-point.h"
+#include <QDebug>
 
 namespace qtobii {
 
-// todo: implement interface QTobiiPlugin
+void QTobiiGazePoint::track() {
+  tobii_device_t* const device = api->getDevice();
+  QTobiiResult* result = nullptr;
 
-QTobiiGazePoint::QTobiiGazePoint() {
-  // todo: implement contstructor
+  do {
+    qDebug() << "track-track-track....";
+
+    result = api->call(tobii_wait_for_callbacks(NULL, 1, &device));
+
+    if (result->getError() == TOBII_ERROR_TIMED_OUT) {
+      continue;
+    }
+
+    api->call(tobii_device_process_callbacks(device));
+
+    delete result;
+    result = nullptr;
+  } while (tracking);
+
+  qDebug() << "emiting finished signal";
+  emit finished();
 }
 
-/*
-QTobiiResult QTobiiGazePoint::subscribe(tobii_device_t* device) {
-  // todo: implement subscribe
+void QTobiiGazePoint::callback(const tobii_gaze_point_t *gazePoint, void *data) {
+  qDebug() << gazePoint->position_xy[0] << "/" << gazePoint->position_xy[1];
+
+  //QPair<float, float> point(gazePoint->position_xy[0], gazePoint->position_xy[1]);
+  //emit dataReceived(point);
 }
 
-QTobiiResult QTobiiGazePoint::unsubscribe(tobii_device_t* device) {
-  // todo: implement unsubscribe
+void QTobiiGazePoint::subscribe() {
+  qDebug() << "Subscribing";
+  api->setup(tobii_gaze_point_subscribe(api->getDevice(), callback, NULL));
 }
-*/
+
+void QTobiiGazePoint::unsubscribe() {
+  qDebug() << "Unsubscribing";
+  api->setup(tobii_gaze_point_unsubscribe(api->getDevice()));
+}
 
 QString QTobiiGazePoint::getDescription() {
   return "Class for tracking gaze point X/Y-coordinates.";

@@ -10,6 +10,9 @@
  */
 
 #include "qtobii-tracking-manager.h"
+#include <QApplication>
+#include <QThread>
+#include <QDebug>
 
 namespace qtobii {
 
@@ -17,7 +20,44 @@ QTobiiTrackingManager::QTobiiTrackingManager(QObject *parent, QTobiiApi* api) : 
   devTrack = dynamic_cast<QTobiiDevTrack*>(parent);
   devTrack->log("Starting Tracking Manager...");
 
-  gazePointTracker = new QTobiiGazePoint();
+  gazePointTracker = new QTobiiGazePoint(api);
+
+  thread = new QThread();
+
+  gazePointTracker->moveToThread(thread);
+  connect(thread, &QThread::started, gazePointTracker, &QTobiiGazePoint::track);
+  connect(gazePointTracker, &QTobiiGazePoint::finished, thread, &QThread::quit);
+  connect(thread, &QThread::finished, gazePointTracker, &QObject::deleteLater);
+  connect(thread, &QThread::finished, thread, &QThread::deleteLater);
+
+  connect(devTrack->getThreadTrackingButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleThread);
+  connect(devTrack->getStartTrackingButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleSubscription);
+}
+
+void QTobiiTrackingManager::toggleThread(bool value) {
+  if (value) {
+    startThread();
+  } else {
+    stopThread();
+  }
+}
+
+void QTobiiTrackingManager::toggleSubscription(bool value) {
+  if (value) {
+    gazePointTracker->subscribe();
+  } else {
+    gazePointTracker->unsubscribe();
+  }
+}
+
+void QTobiiTrackingManager::startThread() {
+  qDebug() << "Finished/Running: " << thread->isFinished() << "/" << thread->isRunning();
+  gazePointTracker->start();
+  thread->start();
+}
+
+void QTobiiTrackingManager::stopThread() {
+  gazePointTracker->stop();
 }
 
 } // namespace qtobii

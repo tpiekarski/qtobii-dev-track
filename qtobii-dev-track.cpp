@@ -35,15 +35,16 @@ void QTobiiDevTrack::log(QString message) {
   }
 }
 
+QPushButton* QTobiiDevTrack::getThreadTrackingButton() { return ui->threadTrackingButton; }
+QPushButton* QTobiiDevTrack::getStartTrackingButton() { return ui->startTrackingButton; }
+
 void QTobiiDevTrack::onThreadTrackingButtonToggled(bool value) {
   ui->startTrackingButton->setEnabled(value);
 
   if (value) {
-    // todo: start thread for tracking
     log("Starting thread for tracking...");
     ui->threadTrackingButton->setText("Stop Tracking &Thread");
   } else {
-    // todo: stop and join thread for tracking
     log("Stopping thread for tracking...");
     ui->threadTrackingButton->setText("Start Tracking &Thread");
   }

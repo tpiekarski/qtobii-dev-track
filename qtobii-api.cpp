@@ -21,10 +21,10 @@ QTobiiApi::QTobiiApi(QObject *parent)
 {
   devTrack = dynamic_cast<QTobiiDevTrack*>(parent);
 
-  call(tobii_get_api_version(version));
-  call(tobii_api_create(&api, nullptr, nullptr));
-  call(tobii_enumerate_local_device_urls(api, deviceReceiver, &url));
-  call(tobii_device_create(api, url.toLatin1(), &device));
+  setup(tobii_get_api_version(version));
+  setup(tobii_api_create(&api, nullptr, nullptr));
+  setup(tobii_enumerate_local_device_urls(api, deviceReceiver, &url));
+  setup(tobii_device_create(api, url.toLatin1(), &device));
 
   devTrack->log(QString("Tobii Stream API, Version: %1").arg(getVersion()));
   devTrack->log(QString("Device URL: %1").arg(getUrl()));
@@ -37,12 +37,12 @@ QTobiiApi::~QTobiiApi() {
   }
 
   if (device != nullptr) {
-    call(tobii_device_destroy(device));
+    setup(tobii_device_destroy(device));
     device = nullptr;
   }
 
   if (api != nullptr) {
-    call(tobii_api_destroy(api));
+    setup(tobii_api_destroy(api));
     api = nullptr;
   }
 
@@ -66,7 +66,11 @@ QString QTobiiApi::getVersion() {
       .arg(QString::number(version->build));
 }
 
-void QTobiiApi::call(tobii_error_t error) {
+QTobiiResult* QTobiiApi::call(tobii_error_t error) {
+  return new QTobiiResult(error);
+}
+
+void QTobiiApi::setup(tobii_error_t error) {
   QTobiiResult* result = new QTobiiResult(error);
 
   if (result->isError()) {

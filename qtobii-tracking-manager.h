@@ -25,10 +25,18 @@ class QTobiiTrackingManager : public QObject {
 public:
   explicit QTobiiTrackingManager(QObject *parent, QTobiiApi* api);
 
+public slots:
+  void toggleThread(bool value);
+  void toggleSubscription(bool value);
+
 private:
+  void startThread();
+  void stopThread();
+
   QTobiiApi* api;
   QTobiiDevTrack* devTrack;
   QTobiiGazePoint* gazePointTracker;
+  QThread* thread;
 
 };
 } // namespace qtobii
