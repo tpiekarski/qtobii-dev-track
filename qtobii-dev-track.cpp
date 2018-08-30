@@ -18,7 +18,7 @@ namespace qtobii {
 QTobiiDevTrack::QTobiiDevTrack(QWidget *parent) : QMainWindow(parent), ui(new Ui::QTobiiDevTrackWindow) {
   ui->setupUi(this);
 
-  connect(ui->threadTrackingButton, &QPushButton::toggled, this, &QTobiiDevTrack::onThreadTrackingButtonToggled);
+  connect(ui->startThreadButton, &QPushButton::toggled, this, &QTobiiDevTrack::onStartThreadButtonToggled);
   connect(ui->startTrackingButton, &QPushButton::toggled, this, &QTobiiDevTrack::onStartTrackingButtonToggled);
 }
 
@@ -35,32 +35,26 @@ void QTobiiDevTrack::log(QString message) {
   }
 }
 
-QPushButton* QTobiiDevTrack::getThreadTrackingButton() { return ui->threadTrackingButton; }
+QPushButton* QTobiiDevTrack::getStartThreadButton() { return ui->startThreadButton; }
 QPushButton* QTobiiDevTrack::getStartTrackingButton() { return ui->startTrackingButton; }
 
-void QTobiiDevTrack::onThreadTrackingButtonToggled(bool value) {
+void QTobiiDevTrack::onStartThreadButtonToggled(bool value) {
   ui->startTrackingButton->setEnabled(value);
 
   if (value) {
-    log("Starting thread for tracking...");
-    ui->threadTrackingButton->setText("Stop Tracking &Thread");
+    ui->startThreadButton->setText("Stop Tracking &Thread");
   } else {
-    log("Stopping thread for tracking...");
-    ui->threadTrackingButton->setText("Start Tracking &Thread");
+    ui->startThreadButton->setText("Start Tracking &Thread");
   }
 
 }
 
 void QTobiiDevTrack::onStartTrackingButtonToggled(bool value) {
-  ui->threadTrackingButton->setEnabled(!value);
+  ui->startThreadButton->setEnabled(!value);
 
   if (value) {
-    // todo: subscribe to tracking data
-    log("Starting tracking...");
     ui->startTrackingButton->setText("&Stop Tracking");
   } else {
-    // todo: unsubscribe from tracking data
-    log("Stopping tracking...");
     ui->startTrackingButton->setText("&Start Tracking");
   }
 }

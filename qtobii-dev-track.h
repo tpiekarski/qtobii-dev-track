@@ -27,12 +27,14 @@ public:
   explicit QTobiiDevTrack(QWidget *parent = 0);
   ~QTobiiDevTrack();
 
-  void log(QString message);
-  QPushButton* getThreadTrackingButton();
+  QPushButton* getStartThreadButton();
   QPushButton* getStartTrackingButton();
 
+public slots:
+  void log(QString message);
+
 private slots:
-  void onThreadTrackingButtonToggled(bool value);
+  void onStartThreadButtonToggled(bool value);
   void onStartTrackingButtonToggled(bool value);
 
 private:

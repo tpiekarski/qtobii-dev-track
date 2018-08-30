@@ -24,16 +24,18 @@ SOURCES += \
     qtobii-dev-track.cpp \
     qtobii-gaze-point.cpp \
     qtobii-api.cpp \
-    qtobii-tracking-manager.cpp
+    qtobii-tracking-manager.cpp \
+    qtobii-tracker.cpp
 
 HEADERS += \
     qtobii-dev-track.h \
     qtobii-result.h \
     qtobii-api-exception.h \
     qtobii-gaze-point.h \
-    qtobii-tracking-interface.h \
     qtobii-api.h \
-    qtobii-tracking-manager.h
+    qtobii-tracking-manager.h \
+    qtobii-tracker.h \
+    qtobii-subscription-interface.h
 
 FORMS += \
     qtobii-dev-track-window.ui

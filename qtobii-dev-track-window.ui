@@ -895,7 +895,7 @@
     </property>
     <layout class="QHBoxLayout" name="buttonsLayout">
      <item>
-      <widget class="QPushButton" name="threadTrackingButton">
+      <widget class="QPushButton" name="startThreadButton">
        <property name="text">
         <string>Start Tracking &amp;Thread</string>
        </property>

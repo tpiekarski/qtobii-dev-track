@@ -20,18 +20,15 @@ QTobiiTrackingManager::QTobiiTrackingManager(QObject *parent, QTobiiApi* api) : 
   devTrack = dynamic_cast<QTobiiDevTrack*>(parent);
   devTrack->log("Starting Tracking Manager...");
 
-  gazePointTracker = new QTobiiGazePoint(api);
-
+  tracker = new QTobiiTracker(api);
+  gazePoint = new QTobiiGazePoint(api);
   thread = new QThread();
 
-  gazePointTracker->moveToThread(thread);
-  connect(thread, &QThread::started, gazePointTracker, &QTobiiGazePoint::track);
-  connect(gazePointTracker, &QTobiiGazePoint::finished, thread, &QThread::quit);
-  connect(thread, &QThread::finished, gazePointTracker, &QObject::deleteLater);
-  connect(thread, &QThread::finished, thread, &QThread::deleteLater);
-
-  connect(devTrack->getThreadTrackingButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleThread);
+  connect(devTrack->getStartThreadButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleThread);
   connect(devTrack->getStartTrackingButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleSubscription);
+
+  connect(tracker, &QTobiiTracker::toBeLogged, devTrack, &QTobiiDevTrack::log);
+  connect(gazePoint, &QTobiiGazePoint::toBeLogged, devTrack, &QTobiiDevTrack::log);
 }
 
 void QTobiiTrackingManager::toggleThread(bool value) {
@@ -44,20 +41,23 @@ void QTobiiTrackingManager::toggleThread(bool value) {
 
 void QTobiiTrackingManager::toggleSubscription(bool value) {
   if (value) {
-    gazePointTracker->subscribe();
+    gazePoint->subscribe();
   } else {
-    gazePointTracker->unsubscribe();
+    gazePoint->unsubscribe();
   }
 }
 
 void QTobiiTrackingManager::startThread() {
-  qDebug() << "Finished/Running: " << thread->isFinished() << "/" << thread->isRunning();
-  gazePointTracker->start();
+  tracker->moveToThread(thread);
+  connect(thread, &QThread::started, tracker, &QTobiiTracker::start);
+  connect(tracker, &QTobiiTracker::finished, thread, &QThread::quit);
+  connect(thread, &QThread::finished, tracker, &QObject::deleteLater);
+  connect(thread, &QThread::finished, thread, &QThread::deleteLater);
   thread->start();
 }
 
 void QTobiiTrackingManager::stopThread() {
-  gazePointTracker->stop();
+  tracker->stop();
 }
 
 } // namespace qtobii

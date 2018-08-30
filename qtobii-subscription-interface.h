@@ -17,15 +17,14 @@
 #include <QString>
 
 namespace qtobii {
-class QTobiiTrackingInterface {
+class QTobiiSubscriptionInterface {
 
 public:
-  QTobiiTrackingInterface(QTobiiApi* api) : api(api) {}
-  virtual ~QTobiiTrackingInterface() {
+  QTobiiSubscriptionInterface(QTobiiApi* api) : api(api) {}
+  virtual ~QTobiiSubscriptionInterface() {
     // Only defined to make sure all destructors will be called along inheritance.
   }
 
-  virtual void track() = 0;
   virtual void subscribe() = 0;
   virtual void unsubscribe() = 0;
   virtual QString getDescription() = 0;

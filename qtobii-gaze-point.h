@@ -12,7 +12,7 @@
 #ifndef QTOBIIGAZEPOINT_H
 #define QTOBIIGAZEPOINT_H
 
-#include "qtobii-tracking-interface.h"
+#include "qtobii-subscription-interface.h"
 #include <QObject>
 #include <QPair>
 #include <QString>
@@ -21,26 +21,22 @@
 #include <tobii_streams.h>
 
 namespace qtobii {
-class QTobiiGazePoint : public QObject, public QTobiiTrackingInterface {
+class QTobiiGazePoint : public QObject, public QTobiiSubscriptionInterface {
 
   Q_OBJECT
 
 public:
-  QTobiiGazePoint(QTobiiApi* api) : QTobiiTrackingInterface(api), tracking(true) {}
+  QTobiiGazePoint(QTobiiApi* api) : QTobiiSubscriptionInterface(api), tracking(true) {}
 
-  virtual void track() override;
   virtual void subscribe() override;
   virtual void unsubscribe() override;
   virtual QString getDescription() override;
 
   QVector<QPair<float, float>> getData() { return data; }
   QPair<float, float> getLastData() { return data.last(); }
-  void stop() { tracking = false; }
-  void start() { tracking = true; }
 
 signals:
-  //static void dataReceived(QPair<float, float> coordinates);
-  void finished();
+  void toBeLogged(QString message);
 
 private:
   static void callback(tobii_gaze_point_t const* gazePoint, void* data);
