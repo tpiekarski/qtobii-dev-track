@@ -12,6 +12,8 @@
 #ifndef QTOBIIGAZEPOINT_H
 #define QTOBIIGAZEPOINT_H
 
+#include "qtobii-data.h"
+#include "qtobii-dev-track.h"
 #include "qtobii-subscription-interface.h"
 #include <QObject>
 #include <QPair>
@@ -26,14 +28,11 @@ class QTobiiGazePoint : public QObject, public QTobiiSubscriptionInterface {
   Q_OBJECT
 
 public:
-  QTobiiGazePoint(QTobiiApi* api) : QTobiiSubscriptionInterface(api), tracking(true) {}
+  QTobiiGazePoint(QTobiiApi* api, QTobiiDevTrack* devTrack)
+    : QTobiiSubscriptionInterface(api), devTrack(devTrack), tracking(true) {}
 
   virtual void subscribe() override;
   virtual void unsubscribe() override;
-  virtual QString getDescription() override;
-
-  QVector<QPair<float, float>> getData() { return data; }
-  QPair<float, float> getLastData() { return data.last(); }
 
 signals:
   void toBeLogged(QString message);
@@ -41,7 +40,8 @@ signals:
 private:
   static void callback(tobii_gaze_point_t const* gazePoint, void* data);
 
-  QVector<QPair<float, float>> data;
+  QTobiiData* data;
+  QTobiiDevTrack* devTrack;
   bool tracking;
 
 };

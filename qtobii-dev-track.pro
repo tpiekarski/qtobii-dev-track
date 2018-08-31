@@ -35,7 +35,8 @@ HEADERS += \
     qtobii-api.h \
     qtobii-tracking-manager.h \
     qtobii-tracker.h \
-    qtobii-subscription-interface.h
+    qtobii-subscription-interface.h \
+    qtobii-data.h
 
 FORMS += \
     qtobii-dev-track-window.ui

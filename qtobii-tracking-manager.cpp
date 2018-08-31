@@ -12,7 +12,6 @@
 #include "qtobii-tracking-manager.h"
 #include <QApplication>
 #include <QThread>
-#include <QDebug>
 
 namespace qtobii {
 
@@ -21,7 +20,7 @@ QTobiiTrackingManager::QTobiiTrackingManager(QObject *parent, QTobiiApi* api) : 
   devTrack->log("Starting Tracking Manager...");
 
   tracker = new QTobiiTracker(api);
-  gazePoint = new QTobiiGazePoint(api);
+  gazePoint = new QTobiiGazePoint(api, devTrack);
   thread = new QThread();
 
   connect(devTrack->getStartThreadButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleThread);

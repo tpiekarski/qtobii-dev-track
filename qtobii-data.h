@@ -9,28 +9,26 @@
  *
  */
 
-#ifndef QTOBII_TRACKING_INTERFACE_H
-#define QTOBII_TRACKING_INTERFACE_H
+#ifndef QTOBIIDATA_H
+#define QTOBIIDATA_H
 
-#include "qtobii-api.h"
-#include "qtobii-result.h"
-#include <QString>
+#include <QObject>
 
 namespace qtobii {
-class QTobiiSubscriptionInterface {
+class QTobiiData : public QObject {
+
+  Q_OBJECT
 
 public:
-  QTobiiSubscriptionInterface(QTobiiApi* api) : api(api) {}
-  virtual ~QTobiiSubscriptionInterface() {
-    // Only defined to make sure all destructors will be called along inheritance.
+  explicit QTobiiData(QObject *parent = nullptr) : QObject(parent) {}
+  void send(QString message) {
+    emit transmit(message);
   }
 
-  virtual void subscribe() = 0;
-  virtual void unsubscribe() = 0;
-
-protected:
-  QTobiiApi* api;
+signals:
+  void transmit(QString message);
 
 };
-} // namespace qtobii
-#endif
+} // namespace tobii
+
+#endif // QTOBIIDATA_H
