@@ -16,33 +16,35 @@ TARGET = qtobii-dev-track
 TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++14
+CONFIG(release, debug|release) { DEFINES += QT_NO_DEBUG_OUTPUT }
+INCLUDEPATH *= includes
 
 include(tobii-stream-sdk.pri)
 
 SOURCES += \
-    main.cpp \
-    qtobii-dev-track.cpp \
-    qtobii-gaze-point.cpp \
-    qtobii-api.cpp \
-    qtobii-tracking-manager.cpp \
-    qtobii-tracker.cpp
+    src/main.cpp \
+    src/qtobii-api.cpp \
+    src/qtobii-dev-track.cpp \
+    src/qtobii-gaze-point.cpp \
+    src/qtobii-tracker.cpp \
+    src/qtobii-tracking-manager.cpp
 
 HEADERS += \
-    qtobii-dev-track.h \
-    qtobii-result.h \
-    qtobii-api-exception.h \
-    qtobii-gaze-point.h \
-    qtobii-api.h \
-    qtobii-tracking-manager.h \
-    qtobii-tracker.h \
-    qtobii-subscription-interface.h \
-    qtobii-data.h
+    includes/qtobii-api-exception.h \
+    includes/qtobii-api.h \
+    includes/qtobii-data.h \
+    includes/qtobii-dev-track.h \
+    includes/qtobii-gaze-point.h \
+    includes/qtobii-result.h \
+    includes/qtobii-subscription-interface.h \
+    includes/qtobii-tracker.h \
+    includes/qtobii-tracking-manager.h
 
 FORMS += \
-    qtobii-dev-track-window.ui
+    forms/qtobii-dev-track-window.ui
 
 RESOURCES += \
-    assets.qrc
+    assets/assets.qrc
 
 DISTFILES += \
     LICENSE \
