@@ -28,14 +28,22 @@ void QTobiiGazePoint::callback(const tobii_gaze_point_t *gazePoint, void *data) 
 }
 
 void QTobiiGazePoint::subscribe() {
-  emit toBeLogged("Subscribing to gaze point...");
+  emit log("Subscribing to gaze point...");
   data = new QTobiiData();
   connect(data, &QTobiiData::transmit, api->getLogger(), &QTobiiLogger::data);
-  api->setup(tobii_gaze_point_subscribe(api->getDevice(), callback, data));
+  result = api->call(tobii_gaze_point_subscribe(api->getDevice(), callback, data));
+
+  if (result->isError()) {
+    emit log("Failed subscribing to gaze point.");
+    delete result;
+    result = nullptr;
+    unsubscribe();
+  }
+
 }
 
 void QTobiiGazePoint::unsubscribe() {
-  emit toBeLogged("Unsubscribing from gaze point...");
+  emit log("Unsubscribing from gaze point...");
 
   if (data != nullptr) {
     disconnect(data);
@@ -43,7 +51,14 @@ void QTobiiGazePoint::unsubscribe() {
     data = nullptr;
   }
 
-  api->setup(tobii_gaze_point_unsubscribe(api->getDevice()));
+  result = api->call(tobii_gaze_point_unsubscribe(api->getDevice()));
+
+  if (result->isError()) {
+    emit log("Failed unsubscribing from gaze point");
+
+    delete result;
+    result = nullptr;
+  }
 }
 
 } // namespace qtobii

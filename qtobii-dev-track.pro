@@ -40,7 +40,8 @@ HEADERS += \
     includes/qtobii-subscription-interface.h \
     includes/qtobii-tracker.h \
     includes/qtobii-tracking-manager.h \
-    includes/qtobii-logger.h
+    includes/qtobii-logger.h \
+    includes/qtobii-logging-interface.h
 
 FORMS += \
     forms/qtobii-dev-track-window.ui

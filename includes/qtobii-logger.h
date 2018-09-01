@@ -13,27 +13,22 @@
 #define QTOBIILOGGER_H
 
 #include "qtobii-dev-track.h"
+#include "qtobii-logging-interface.h"
 #include <QObject>
 #include <QString>
 
 namespace qtobii {
-class QTobiiLogger : public QObject {
+class QTobiiLogger : public QObject, QTobiiLoggingInterface {
 
   Q_OBJECT
-
-  enum MessageType {
-    DATA,
-    DEBUG,
-    MESSAGE
-  };
 
 public:
   explicit QTobiiLogger(QTobiiDevTrack* devTrack) : QObject(devTrack), devTrack(devTrack) {}
 
 public slots:
-  void debug(QString message);
-  void data(QString message);
-  void log(QString message);
+  void debug(QString message) override;
+  void data(QString message) override;
+  void log(QString message) override;
 
 protected:
   void write(MessageType type, QString message);

@@ -29,7 +29,6 @@ public:
   explicit QTobiiApi(QObject *parent, QTobiiLogger* logger);
   ~QTobiiApi();
 
-  void setup(tobii_error_t result);
   QTobiiResult* QTobiiApi::call(tobii_error_t error);
 
   tobii_device_t* getDevice() { return device; }
@@ -47,6 +46,7 @@ private:
   QVector<QTobiiResult*> results;
   QString url;
 
+  void setup(tobii_error_t result);
   static void deviceReceiver(const char* url, void* userData);
 
 };

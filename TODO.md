@@ -3,7 +3,7 @@ QTobiiDevTrack::Todo
 
 ## Development
 - [x] Add a logger for singla/slot-based logging (instead of using QTobiiDevTrack)
-- [ ] Consider to introduce a generic logging interface
+- [x] Consider to introduce a generic logging interface
 - [ ] Add a more reasonable error handling
 - [ ] Add a struct for exit codes
 - [ ] Add an about dialog

@@ -17,7 +17,7 @@
 namespace qtobii {
 
 void QTobiiTracker::start() {
-  emit toBeLogged("Starting to track...");
+  emit log("Starting to track...");
   tobii_device_t* const device = api->getDevice();
   QTobiiResult* result = nullptr;
 
@@ -38,7 +38,7 @@ void QTobiiTracker::start() {
 }
 
 void QTobiiTracker::stop() {
-  emit toBeLogged("Stopping to track...");
+  emit log("Stopping to track...");
   tracking = false;
 }
 

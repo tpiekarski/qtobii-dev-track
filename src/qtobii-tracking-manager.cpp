@@ -28,8 +28,9 @@ QTobiiTrackingManager::QTobiiTrackingManager(QObject *parent, QTobiiApi* api, QT
   connect(devTrack->getStartThreadButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleThread);
   connect(devTrack->getStartTrackingButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleSubscription);
 
-  connect(tracker, &QTobiiTracker::toBeLogged, logger, &QTobiiLogger::log);
-  connect(gazePoint, &QTobiiGazePoint::toBeLogged, logger, &QTobiiLogger::log);
+  connect(tracker, &QTobiiTracker::log, logger, &QTobiiLogger::log);
+  connect(tracker, &QTobiiTracker::error, logger, &QTobiiLogger::log);
+  connect(gazePoint, &QTobiiGazePoint::log, logger, &QTobiiLogger::log);
 }
 
 void QTobiiTrackingManager::toggleThread(bool value) {

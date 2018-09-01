@@ -29,8 +29,8 @@ public slots:
   void stop();
 
 signals:
-  void toBeLogged(QString message);
   void finished();
+  void log(QString message);
   void error(QString error);
 
 private:
