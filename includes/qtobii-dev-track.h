@@ -13,6 +13,7 @@
 #define QTOBII_DEV_TRACK_H
 
 #include <QMainWindow>
+#include <QPlainTextEdit>
 #include <QPushButton>
 
 // Forward declaration
@@ -29,9 +30,8 @@ public:
 
   QPushButton* getStartThreadButton();
   QPushButton* getStartTrackingButton();
-
-public slots:
-  void log(QString message);
+  QPlainTextEdit* getDataLog();
+  QPlainTextEdit* getMessageLog();
 
 private slots:
   void onStartThreadButtonToggled(bool value);

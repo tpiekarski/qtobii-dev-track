@@ -16,18 +16,16 @@
 
 namespace qtobii {
 
-QTobiiApi::QTobiiApi(QObject *parent)
-  : QObject(parent), version(new tobii_version_t), api(nullptr), device(nullptr), url("")
+QTobiiApi::QTobiiApi(QObject *parent, QTobiiLogger* logger)
+  : QObject(parent), logger(logger), version(new tobii_version_t), api(nullptr), device(nullptr), url("")
 {
-  devTrack = dynamic_cast<QTobiiDevTrack*>(parent);
-
   setup(tobii_get_api_version(version));
   setup(tobii_api_create(&api, nullptr, nullptr));
   setup(tobii_enumerate_local_device_urls(api, deviceReceiver, &url));
   setup(tobii_device_create(api, url.toLatin1(), &device));
 
-  devTrack->log(QString("Tobii Stream API, Version: %1").arg(getVersion()));
-  devTrack->log(QString("Device URL: %1").arg(getUrl()));
+  logger->log(QString("Tobii Stream API, Version: %1").arg(getVersion()));
+  logger->log(QString("Device URL: %1").arg(getUrl()));
 }
 
 QTobiiApi::~QTobiiApi() {

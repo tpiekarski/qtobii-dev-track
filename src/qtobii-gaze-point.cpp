@@ -10,6 +10,7 @@
  */
 
 #include "qtobii-gaze-point.h"
+#include "qtobii-logger.h"
 #include <QDebug>
 
 namespace qtobii {
@@ -29,7 +30,7 @@ void QTobiiGazePoint::callback(const tobii_gaze_point_t *gazePoint, void *data) 
 void QTobiiGazePoint::subscribe() {
   emit toBeLogged("Subscribing to gaze point...");
   data = new QTobiiData();
-  connect(data, &QTobiiData::transmit, devTrack, &QTobiiDevTrack::log);
+  connect(data, &QTobiiData::transmit, api->getLogger(), &QTobiiLogger::data);
   api->setup(tobii_gaze_point_subscribe(api->getDevice(), callback, data));
 }
 

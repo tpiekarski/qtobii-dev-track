@@ -9,40 +9,39 @@
  *
  */
 
-#ifndef QTOBIITRACKINGMANAGER_H
-#define QTOBIITRACKINGMANAGER_H
+#ifndef QTOBIILOGGER_H
+#define QTOBIILOGGER_H
 
-#include "qtobii-api.h"
 #include "qtobii-dev-track.h"
-#include "qtobii-gaze-point.h"
-#include "qtobii-logger.h"
-#include "qtobii-tracker.h"
 #include <QObject>
+#include <QString>
 
 namespace qtobii {
-class QTobiiTrackingManager : public QObject {
+class QTobiiLogger : public QObject {
 
   Q_OBJECT
 
+  enum MessageType {
+    DATA,
+    DEBUG,
+    MESSAGE
+  };
+
 public:
-  explicit QTobiiTrackingManager(QObject *parent, QTobiiApi* api, QTobiiLogger* logger);
+  explicit QTobiiLogger(QTobiiDevTrack* devTrack) : QObject(devTrack), devTrack(devTrack) {}
 
 public slots:
-  void toggleThread(bool value);
-  void toggleSubscription(bool value);
+  void debug(QString message);
+  void data(QString message);
+  void log(QString message);
+
+protected:
+  void write(MessageType type, QString message);
 
 private:
-  void startThread();
-  void stopThread();
-
-  QTobiiApi* api;
   QTobiiDevTrack* devTrack;
-  QTobiiLogger* logger;
-  QTobiiTracker* tracker;
-  QTobiiGazePoint* gazePoint;
-  QThread* thread;
 
 };
 } // namespace qtobii
 
-#endif // QTOBIITRACKINGMANAGER_H
+#endif // QTOBIILOGGER_H

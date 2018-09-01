@@ -28,8 +28,8 @@ class QTobiiGazePoint : public QObject, public QTobiiSubscriptionInterface {
   Q_OBJECT
 
 public:
-  QTobiiGazePoint(QTobiiApi* api, QTobiiDevTrack* devTrack)
-    : QTobiiSubscriptionInterface(api), devTrack(devTrack), tracking(true) {}
+  QTobiiGazePoint(QTobiiApi* api)
+    : QTobiiSubscriptionInterface(api), tracking(true) {}
 
   virtual void subscribe() override;
   virtual void unsubscribe() override;
@@ -41,7 +41,6 @@ private:
   static void callback(tobii_gaze_point_t const* gazePoint, void* data);
 
   QTobiiData* data;
-  QTobiiDevTrack* devTrack;
   bool tracking;
 
 };

@@ -13,6 +13,7 @@
 #define QTOBIIDEVICE_H
 
 #include "qtobii-dev-track.h"
+#include "qtobii-logger.h"
 #include "qtobii-result.h"
 #include <QObject>
 #include <QString>
@@ -25,7 +26,7 @@ class QTobiiApi : public QObject {
   Q_OBJECT
 
 public:
-  explicit QTobiiApi(QObject* parent = nullptr);
+  explicit QTobiiApi(QObject *parent, QTobiiLogger* logger);
   ~QTobiiApi();
 
   void setup(tobii_error_t result);
@@ -33,6 +34,7 @@ public:
 
   tobii_device_t* getDevice() { return device; }
   QTobiiResult* getLastResult() { return results.last(); }
+  QTobiiLogger* getLogger() { return logger; }
   QString getUrl() { return url; }
   QString getVersion();
 
@@ -41,7 +43,7 @@ private:
   tobii_device_t* device;
   tobii_version_t* version;
 
-  QTobiiDevTrack* devTrack;
+  QTobiiLogger* logger;
   QVector<QTobiiResult*> results;
   QString url;
 

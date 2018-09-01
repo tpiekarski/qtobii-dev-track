@@ -11,12 +11,14 @@
 
 #include "qtobii-dev-track.h"
 #include "ui_qtobii-dev-track-window.h"
-#include <QDebug>
 
 namespace qtobii {
 
 QTobiiDevTrack::QTobiiDevTrack(QWidget *parent) : QMainWindow(parent), ui(new Ui::QTobiiDevTrackWindow) {
   ui->setupUi(this);
+
+  ui->dataLog->setReadOnly(true);
+  ui->messageLog->setReadOnly(true);
 
   connect(ui->startThreadButton, &QPushButton::toggled, this, &QTobiiDevTrack::onStartThreadButtonToggled);
   connect(ui->startTrackingButton, &QPushButton::toggled, this, &QTobiiDevTrack::onStartTrackingButtonToggled);
@@ -29,14 +31,10 @@ QTobiiDevTrack::~QTobiiDevTrack() {
   }
 }
 
-void QTobiiDevTrack::log(QString message) {
-  if (!message.isEmpty()) {
-    ui->logBrowser->appendPlainText(message);
-  }
-}
-
 QPushButton* QTobiiDevTrack::getStartThreadButton() { return ui->startThreadButton; }
 QPushButton* QTobiiDevTrack::getStartTrackingButton() { return ui->startTrackingButton; }
+QPlainTextEdit* QTobiiDevTrack::getDataLog() { return ui->dataLog; }
+QPlainTextEdit* QTobiiDevTrack::getMessageLog() { return ui->messageLog; }
 
 void QTobiiDevTrack::onStartThreadButtonToggled(bool value) {
   ui->startTrackingButton->setEnabled(value);

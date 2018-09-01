@@ -12,6 +12,7 @@
 #include "qtobii-api.h"
 #include "qtobii-api-exception.h"
 #include "qtobii-dev-track.h"
+#include "qtobii-logger.h"
 #include "qtobii-tracking-manager.h"
 #include <QApplication>
 #include <QDebug>
@@ -24,14 +25,16 @@ int main(int argc, char *argv[]) {
 
   QApplication app(argc, argv);
   int result = 0;
-  QTobiiDevTrack* devTrack = nullptr;
   QTobiiApi* api = nullptr;
+  QTobiiDevTrack* devTrack = nullptr;
+  QTobiiLogger* logger = nullptr;
   QTobiiTrackingManager* manager = nullptr;
 
   try {
     devTrack = new QTobiiDevTrack();
-    api = new QTobiiApi(devTrack);
-    manager = new QTobiiTrackingManager(devTrack, api);
+    logger = new QTobiiLogger(devTrack);
+    api = new QTobiiApi(devTrack, logger);
+    manager = new QTobiiTrackingManager(devTrack, api, logger);
 
     devTrack->show();
     result = app.exec();

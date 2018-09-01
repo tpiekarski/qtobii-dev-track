@@ -15,19 +15,21 @@
 
 namespace qtobii {
 
-QTobiiTrackingManager::QTobiiTrackingManager(QObject *parent, QTobiiApi* api) : QObject(parent), api(api) {
+QTobiiTrackingManager::QTobiiTrackingManager(QObject *parent, QTobiiApi* api, QTobiiLogger* logger)
+  : QObject(parent), api(api), logger(logger)
+{
   devTrack = dynamic_cast<QTobiiDevTrack*>(parent);
-  devTrack->log("Starting Tracking Manager...");
+  logger->log("Starting Tracking Manager...");
 
   tracker = new QTobiiTracker(api);
-  gazePoint = new QTobiiGazePoint(api, devTrack);
+  gazePoint = new QTobiiGazePoint(api);
   thread = new QThread();
 
   connect(devTrack->getStartThreadButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleThread);
   connect(devTrack->getStartTrackingButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleSubscription);
 
-  connect(tracker, &QTobiiTracker::toBeLogged, devTrack, &QTobiiDevTrack::log);
-  connect(gazePoint, &QTobiiGazePoint::toBeLogged, devTrack, &QTobiiDevTrack::log);
+  connect(tracker, &QTobiiTracker::toBeLogged, logger, &QTobiiLogger::log);
+  connect(gazePoint, &QTobiiGazePoint::toBeLogged, logger, &QTobiiLogger::log);
 }
 
 void QTobiiTrackingManager::toggleThread(bool value) {
