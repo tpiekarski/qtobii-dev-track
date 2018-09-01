@@ -2,8 +2,6 @@ QTobiiDevTrack::Todo
 --
 
 ## Development
-- [x] Add a logger for singla/slot-based logging (instead of using QTobiiDevTrack)
-- [x] Consider to introduce a generic logging interface
 - [ ] Add a more reasonable error handling
 - [ ] Add a struct for exit codes
 - [ ] Add an about dialog
@@ -16,8 +14,10 @@ QTobiiDevTrack::Todo
 - [ ] Implement Head Position tracking, approximation and data display
 - [ ] Implement reconnection method
 - [ ] Implement User Presence tracking and data display
+- [x] Add a logger for singla/slot-based logging (instead of using QTobiiDevTrack)
 - [x] Add exception for failing loading and/or casting plugins
 - [x] Check and enable/disable buttons appropriately for starting/stopping thread and tracking
+- [x] Consider to introduce a generic logging interface
 - [x] Create and prepare structure for plug-able tracking
 - [x] Define a common plugin for all tracking subscriptions from SDK
 - [x] Implement a plugin loading mechanism and test within a ground zero

@@ -1,6 +1,7 @@
 #ifndef QTOBIILOGGINGINTERFACE_H
 #define QTOBIILOGGINGINTERFACE_H
 
+#include <QObject>
 #include <QString>
 
 namespace qtobii {

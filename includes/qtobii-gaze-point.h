@@ -12,10 +12,10 @@
 #ifndef QTOBIIGAZEPOINT_H
 #define QTOBIIGAZEPOINT_H
 
+#include "interfaces/qtobii-subscription.h"
 #include "qtobii-data.h"
 #include "qtobii-dev-track.h"
 #include "qtobii-result.h"
-#include "qtobii-subscription-interface.h"
 #include <QObject>
 #include <QPair>
 #include <QString>

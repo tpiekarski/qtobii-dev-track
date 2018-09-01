@@ -37,11 +37,20 @@ HEADERS += \
     includes/qtobii-dev-track.h \
     includes/qtobii-gaze-point.h \
     includes/qtobii-result.h \
-    includes/qtobii-subscription-interface.h \
     includes/qtobii-tracker.h \
     includes/qtobii-tracking-manager.h \
     includes/qtobii-logger.h \
-    includes/qtobii-logging-interface.h
+    includes/qtobii-api-exception.h \
+    includes/qtobii-api.h \
+    includes/qtobii-data.h \
+    includes/qtobii-dev-track.h \
+    includes/qtobii-gaze-point.h \
+    includes/qtobii-logger.h \
+    includes/qtobii-result.h \
+    includes/qtobii-tracker.h \
+    includes/qtobii-tracking-manager.h \
+    includes/interfaces/qtobii-logging.h \
+    includes/interfaces/qtobii-subscription.h
 
 FORMS += \
     forms/qtobii-dev-track-window.ui

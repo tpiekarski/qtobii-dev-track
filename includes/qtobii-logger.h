@@ -12,8 +12,8 @@
 #ifndef QTOBIILOGGER_H
 #define QTOBIILOGGER_H
 
+#include "interfaces/qtobii-logging.h"
 #include "qtobii-dev-track.h"
-#include "qtobii-logging-interface.h"
 #include <QObject>
 #include <QString>
 

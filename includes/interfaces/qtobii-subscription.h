@@ -13,8 +13,6 @@
 #define QTOBII_TRACKING_INTERFACE_H
 
 #include "qtobii-api.h"
-#include "qtobii-result.h"
-#include <QString>
 
 namespace qtobii {
 class QTobiiSubscriptionInterface {
