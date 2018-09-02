@@ -9,19 +9,22 @@
  *
  */
 
-#ifndef QTOBIIDATA_H
-#define QTOBIIDATA_H
+#ifndef QTOBIIDATAMESSENGER_H
+#define QTOBIIDATAMESSENGER_H
 
-#include "qtobii-data-messenger.h"
 #include <QObject>
 
 namespace qtobii {
-template <class T>
-class QTobiiData : public QTobiiDataMessenger {
+class QTobiiDataMessenger : public QObject {
+
+  Q_OBJECT
 
 public:
-  explicit QTobiiData(QObject *parent) : QTobiiDataMessenger(parent) {}
-  void send(T data) { emit transmit(data); }
+  explicit QTobiiDataMessenger(QObject *parent = nullptr) : QObject(parent) {}
+  ~QTobiiDataMessenger() { /* Defined to make sure all destructors along inheritance will be called. */ }
+
+signals:
+  void transmit(QString payload);
 
 };
 

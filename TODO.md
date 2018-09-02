@@ -7,19 +7,19 @@ QTobiiDevTrack::Todo
 - [ ] Add an about dialog
 - [ ] Add to gaze point tracking denormalization of coordinates
 - [ ] Draft and add a generic interface for following tracking implementations
-- [ ] Extend QTobiiData with templates for storing the data received by callback
 - [ ] Implement Eye Position tracking, approximation and data display
 - [ ] Implement Gaze Origin tracking, approximation and data display
 - [ ] Implement Gaze Point tracking, approximation and data display
 - [ ] Implement Head Position tracking, approximation and data display
 - [ ] Implement reconnection method
 - [ ] Implement User Presence tracking and data display
-- [x] Add a logger for singla/slot-based logging (instead of using QTobiiDevTrack)
+- [x] Add a logger for signal/slot-based logging (instead of using QTobiiDevTrack)
 - [x] Add exception for failing loading and/or casting plugins
 - [x] Check and enable/disable buttons appropriately for starting/stopping thread and tracking
-- [x] Consider to introduce a generic logging interface
+- [x] Consider introducing a generic logging interface
 - [x] Create and prepare structure for plug-able tracking
 - [x] Define a common plugin for all tracking subscriptions from SDK
+- [x] Extend QTobiiData with templates for storing the data received by callback
 - [x] Implement a plugin loading mechanism and test within a ground zero
 - [x] Implement toggling button to start/stop tracking
 - [x] Implement toggling button to start/stop tracking thread
@@ -38,7 +38,7 @@ QTobiiDevTrack::Todo
 ## Development Improvements
 - [ ] Clean present code base
 - [ ] Hunt for leaking memory
-- [ ] Pass reference arguments instead of pointers all over the place 
+- [ ] Pass reference arguments instead of pointers all over the place
 
 ## Bugs
 - [ ] Check and fix segfaults when trying to restart thread

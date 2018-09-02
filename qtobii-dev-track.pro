@@ -50,7 +50,8 @@ HEADERS += \
     includes/qtobii-tracker.h \
     includes/qtobii-tracking-manager.h \
     includes/interfaces/qtobii-logging.h \
-    includes/interfaces/qtobii-subscription.h
+    includes/interfaces/qtobii-subscription.h \
+    includes/qtobii-data-messenger.h
 
 FORMS += \
     forms/qtobii-dev-track-window.ui

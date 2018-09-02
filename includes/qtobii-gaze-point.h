@@ -41,7 +41,7 @@ signals:
 private:
   static void callback(tobii_gaze_point_t const* gazePoint, void* data);
 
-  QTobiiData* data;
+  QTobiiData<QString>* messages;
   QTobiiResult* result;
   bool tracking;
 
