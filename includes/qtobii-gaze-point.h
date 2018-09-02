@@ -42,6 +42,8 @@ public:
   virtual void subscribe() override;
   virtual void unsubscribe() override;
 
+  QTobiiData<tobii_gaze_point_t>* getData() { return data; }
+
 signals:
   void log(QString message);
 

@@ -35,6 +35,8 @@ QPushButton* QTobiiDevTrack::getStartThreadButton() { return ui->startThreadButt
 QPushButton* QTobiiDevTrack::getStartTrackingButton() { return ui->startTrackingButton; }
 QPlainTextEdit* QTobiiDevTrack::getDataLog() { return ui->dataLog; }
 QPlainTextEdit* QTobiiDevTrack::getMessageLog() { return ui->messageLog; }
+QLCDNumber* QTobiiDevTrack::getGazePointXValue() { return ui->gazePointXValue; }
+QLCDNumber* QTobiiDevTrack::getGazePointYValue() { return ui->gazePointYValue; }
 
 void QTobiiDevTrack::onStartThreadButtonToggled(bool value) {
   ui->startTrackingButton->setEnabled(value);

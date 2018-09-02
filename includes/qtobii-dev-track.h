@@ -12,6 +12,7 @@
 #ifndef QTOBII_DEV_TRACK_H
 #define QTOBII_DEV_TRACK_H
 
+#include <QLCDNumber>
 #include <QMainWindow>
 #include <QPlainTextEdit>
 #include <QPushButton>
@@ -32,6 +33,8 @@ public:
   QPushButton* getStartTrackingButton();
   QPlainTextEdit* getDataLog();
   QPlainTextEdit* getMessageLog();
+  QLCDNumber* getGazePointXValue();
+  QLCDNumber* getGazePointYValue();
 
 private slots:
   void onStartThreadButtonToggled(bool value);

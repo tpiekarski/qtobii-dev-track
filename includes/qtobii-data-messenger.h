@@ -13,6 +13,7 @@
 #define QTOBIIDATAMESSENGER_H
 
 #include <QObject>
+#include <tobii_streams.h>
 
 namespace qtobii {
 class QTobiiDataMessenger : public QObject {
@@ -25,6 +26,7 @@ public:
 
 signals:
   void transmit(QString payload);
+  void transmit(tobii_gaze_point_t payload);
 
 };
 

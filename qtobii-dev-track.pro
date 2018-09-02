@@ -19,6 +19,7 @@ CONFIG += c++14
 CONFIG(release, debug|release) { DEFINES += QT_NO_DEBUG_OUTPUT }
 INCLUDEPATH *= includes
 
+include(msvc-workaround.pri)
 include(tobii-stream-sdk.pri)
 
 SOURCES += \

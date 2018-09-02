@@ -24,6 +24,7 @@ void QTobiiGazePoint::callback(const tobii_gaze_point_t *gazePoint, void *exchan
 
   qDebug() << output;
 
+  exchangeContainer->getData()->send(*gazePoint);
   exchangeContainer->getMessages()->send(output);
 }
 
@@ -34,7 +35,14 @@ void QTobiiGazePoint::subscribe() {
   messages = new QTobiiData<QString>(this);
   exchangeContainer = new QTobiiExchangeContainer<tobii_gaze_point_t, QString>(data, messages);
 
-  connect(messages, &QTobiiData<QString>::transmit, api->getLogger(), &QTobiiLogger::data);
+#ifdef QTOBII_MSVC_QOVERLOAD_WORKAROUND
+  connect(
+    messages, static_cast<void (QTobiiDataMessenger::*)(QString)>(&QTobiiData<QString>::transmit),
+    api->getLogger(), &QTobiiLogger::data
+  );
+#else
+  connect(messages, qOverload<QString>(&QTobiiData::transmit), api->getLogger(), &QTobiiLogger::data);
+#endif
 
   result = api->call(tobii_gaze_point_subscribe(api->getDevice(), callback, exchangeContainer));
 
