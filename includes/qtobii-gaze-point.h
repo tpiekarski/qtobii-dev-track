@@ -13,6 +13,7 @@
 #define QTOBIIGAZEPOINT_H
 
 #include "interfaces/qtobii-subscription.h"
+#include "qtobii-exchange-container.h"
 #include "qtobii-data.h"
 #include "qtobii-dev-track.h"
 #include "qtobii-result.h"
@@ -30,7 +31,13 @@ class QTobiiGazePoint : public QObject, public QTobiiSubscriptionInterface {
 
 public:
   QTobiiGazePoint(QTobiiApi* api)
-    : QTobiiSubscriptionInterface(api), result(nullptr), tracking(true) {}
+    : QTobiiSubscriptionInterface(api),
+        exchangeContainer(nullptr),
+        data(nullptr),
+        messages(nullptr),
+        result(nullptr),
+        tracking(true)
+    { /* Nothing further to construct. */ }
 
   virtual void subscribe() override;
   virtual void unsubscribe() override;
@@ -39,8 +46,10 @@ signals:
   void log(QString message);
 
 private:
-  static void callback(tobii_gaze_point_t const* gazePoint, void* data);
+  static void callback(tobii_gaze_point_t const* gazePoint, void* exchange);
 
+  QTobiiExchangeContainer<tobii_gaze_point_t, QString>* exchangeContainer;
+  QTobiiData<tobii_gaze_point_t>* data;
   QTobiiData<QString>* messages;
   QTobiiResult* result;
   bool tracking;

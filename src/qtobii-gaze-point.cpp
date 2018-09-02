@@ -15,8 +15,8 @@
 
 namespace qtobii {
 
-void QTobiiGazePoint::callback(const tobii_gaze_point_t *gazePoint, void *data) {
-  auto trackingData = static_cast<QTobiiData<QString>*>(data);
+void QTobiiGazePoint::callback(const tobii_gaze_point_t *gazePoint, void *exchange) {
+  auto exchangeContainer = static_cast<QTobiiExchangeContainer<tobii_gaze_point_t, QString>*>(exchange);
   QString output = QString("%1/%2").arg(
     QString::number(gazePoint->position_xy[0]),
     QString::number(gazePoint->position_xy[1])
@@ -24,14 +24,19 @@ void QTobiiGazePoint::callback(const tobii_gaze_point_t *gazePoint, void *data) 
 
   qDebug() << output;
 
-  trackingData->send(output);
+  exchangeContainer->getMessages()->transmit(output);
 }
 
 void QTobiiGazePoint::subscribe() {
   emit log("Subscribing to gaze point...");
+
+  data = new QTobiiData<tobii_gaze_point_t>(this);
   messages = new QTobiiData<QString>(this);
+  exchangeContainer = new QTobiiExchangeContainer<tobii_gaze_point_t, QString>(data, messages);
+
   connect(messages, &QTobiiData<QString>::transmit, api->getLogger(), &QTobiiLogger::data);
-  result = api->call(tobii_gaze_point_subscribe(api->getDevice(), callback, messages));
+
+  result = api->call(tobii_gaze_point_subscribe(api->getDevice(), callback, exchangeContainer));
 
   if (result->isError()) {
     emit log("Failed subscribing to gaze point.");
@@ -45,10 +50,22 @@ void QTobiiGazePoint::subscribe() {
 void QTobiiGazePoint::unsubscribe() {
   emit log("Unsubscribing from gaze point...");
 
-  if (messages != nullptr) {
-    disconnect(messages);
-    delete messages;
-    messages = nullptr;
+  if (exchangeContainer != nullptr) {
+
+    if (data != nullptr) {
+      disconnect(data);
+      delete data;
+      data = nullptr;
+    }
+
+    if (messages != nullptr) {
+      disconnect(messages);
+      delete messages;
+      messages = nullptr;
+    }
+
+    delete exchangeContainer;
+    exchangeContainer = nullptr;
   }
 
   result = api->call(tobii_gaze_point_unsubscribe(api->getDevice()));
