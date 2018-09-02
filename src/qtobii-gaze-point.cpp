@@ -24,7 +24,7 @@ void QTobiiGazePoint::callback(const tobii_gaze_point_t *gazePoint, void *exchan
 
   qDebug() << output;
 
-  exchangeContainer->getMessages()->transmit(output);
+  exchangeContainer->getMessages()->send(output);
 }
 
 void QTobiiGazePoint::subscribe() {
