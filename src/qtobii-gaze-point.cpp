@@ -11,21 +11,17 @@
 
 #include "qtobii-gaze-point.h"
 #include "qtobii-logger.h"
-#include <QDebug>
+#include <QThread>
 
 namespace qtobii {
 
 void QTobiiGazePoint::callback(const tobii_gaze_point_t *gazePoint, void *exchange) {
   auto exchangeContainer = static_cast<QTobiiExchangeContainer<tobii_gaze_point_t, QString>*>(exchange);
-  QString output = QString("%1/%2").arg(
-    QString::number(gazePoint->position_xy[0]),
-    QString::number(gazePoint->position_xy[1])
-  );
-
-  qDebug() << output;
 
   exchangeContainer->getData()->send(*gazePoint);
-  exchangeContainer->getMessages()->send(output);
+  exchangeContainer->getMessages()->send(QString("%1/%2")
+    .arg(QString::number(gazePoint->position_xy[0]), QString::number(gazePoint->position_xy[1]))
+  );
 }
 
 void QTobiiGazePoint::subscribe() {
@@ -36,10 +32,8 @@ void QTobiiGazePoint::subscribe() {
   exchangeContainer = new QTobiiExchangeContainer<tobii_gaze_point_t, QString>(data, messages);
 
 #ifdef QTOBII_MSVC_QOVERLOAD_WORKAROUND
-  connect(
-    messages, static_cast<void (QTobiiDataMessenger::*)(QString)>(&QTobiiData<QString>::transmit),
-    api->getLogger(), &QTobiiLogger::data
-  );
+  connect(messages, static_cast<void (QTobiiDataMessenger::*)(QString)>(&QTobiiData<QString>::transmit),
+          api->getLogger(), &QTobiiLogger::data);
 #else
   connect(messages, qOverload<QString>(&QTobiiData::transmit), api->getLogger(), &QTobiiLogger::data);
 #endif

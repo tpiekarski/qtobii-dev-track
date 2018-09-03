@@ -25,6 +25,8 @@ QTobiiTrackingManager::QTobiiTrackingManager(QObject *parent, QTobiiApi* api, QT
   gazePoint = new QTobiiGazePoint(api);
   thread = new QThread();
 
+  qRegisterMetaType<tobii_gaze_point_t>("tobii_gaze_point_t");
+
   connect(devTrack->getStartThreadButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleThread);
   connect(devTrack->getStartTrackingButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleSubscription);
 
@@ -44,9 +46,24 @@ void QTobiiTrackingManager::toggleThread(bool value) {
 void QTobiiTrackingManager::toggleSubscription(bool value) {
   if (value) {
     gazePoint->subscribe();
+
+#ifdef QTOBII_MSVC_QOVERLOAD_WORKAROUND
+    connect(gazePoint->getData(),
+            static_cast<void (QTobiiDataMessenger::*)(tobii_gaze_point_t)>(&QTobiiData<tobii_gaze_point_t>::transmit),
+            this, &QTobiiTrackingManager::displayGazePointData);
+#else
+    connect(gazePoint->getData(), qOverload<tobii_gaze_point_t>(&QTobiiData::transmit),
+            this, &QTobiiTrackingManager::displayGazePointData);
+#endif
+
   } else {
     gazePoint->unsubscribe();
   }
+}
+
+void QTobiiTrackingManager::displayGazePointData(tobii_gaze_point_t data) {
+  devTrack->getGazePointXValue()->display(data.position_xy[0]);
+  devTrack->getGazePointYValue()->display(data.position_xy[1]);
 }
 
 void QTobiiTrackingManager::startThread() {

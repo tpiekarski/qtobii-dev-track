@@ -13,7 +13,7 @@ QTobiiDevTrack::Todo
 - [ ] Implement Head Position tracking, approximation and data display
 - [ ] Implement reconnection method
 - [ ] Implement User Presence tracking and data display
-- [ ] Pick up transmit signal with tobii_gaze_point_t and finaly display data in QLCDNumber widgets
+- [ ] Use QTimer to slow down the display of tracking data in QLCDNumber (Reducing flickering of display)
 - [x] Add a logger for signal/slot-based logging (instead of using QTobiiDevTrack)
 - [x] Add exception for failing loading and/or casting plugins
 - [x] Check and enable/disable buttons appropriately for starting/stopping thread and tracking
@@ -26,6 +26,7 @@ QTobiiDevTrack::Todo
 - [x] Implement toggling button to start/stop tracking thread
 - [x] Integrate Tobii Stream Engine API
 - [x] Introduce subdirs for qmake and put final build files into one directory
+- [x] Pick up transmit signal with tobii_gaze_point_t and finaly display data in QLCDNumber widgets
 - [x] Setup API and initialize device
 - [x] Start tracking engine in a separate thread
 - [x] Transmitting tracking data (tobii_gaze_point_t)

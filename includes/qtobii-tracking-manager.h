@@ -18,6 +18,7 @@
 #include "qtobii-logger.h"
 #include "qtobii-tracker.h"
 #include <QObject>
+#include <tobii_streams.h>
 
 namespace qtobii {
 class QTobiiTrackingManager : public QObject {
@@ -30,6 +31,7 @@ public:
 public slots:
   void toggleThread(bool value);
   void toggleSubscription(bool value);
+  void displayGazePointData(tobii_gaze_point_t data);
 
 private:
   void startThread();

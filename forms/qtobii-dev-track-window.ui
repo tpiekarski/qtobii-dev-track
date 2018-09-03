@@ -160,11 +160,26 @@
            </item>
            <item row="5" column="0">
             <widget class="QLCDNumber" name="gazePointXValue">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Plain</enum>
+             </property>
              <property name="smallDecimalPoint">
               <bool>false</bool>
              </property>
              <property name="digitCount">
               <number>10</number>
+             </property>
+             <property name="segmentStyle">
+              <enum>QLCDNumber::Flat</enum>
              </property>
              <property name="value" stdset="0">
               <double>0.000000000000000</double>
@@ -173,11 +188,20 @@
            </item>
            <item row="5" column="1">
             <widget class="QLCDNumber" name="gazePointYValue">
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Plain</enum>
+             </property>
              <property name="smallDecimalPoint">
               <bool>false</bool>
              </property>
              <property name="digitCount">
               <number>10</number>
+             </property>
+             <property name="segmentStyle">
+              <enum>QLCDNumber::Flat</enum>
              </property>
              <property name="value" stdset="0">
               <double>0.000000000000000</double>
@@ -407,6 +431,14 @@
      </widget>
     </widget>
     <widget class="QWidget" name="eyePositionPage">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>291</width>
+       <height>256</height>
+      </rect>
+     </property>
      <attribute name="label">
       <string>&amp;Eye Position</string>
      </attribute>
@@ -588,6 +620,14 @@
      </widget>
     </widget>
     <widget class="QWidget" name="userPresencePage">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>291</width>
+       <height>256</height>
+      </rect>
+     </property>
      <attribute name="label">
       <string>&amp;User Presence</string>
      </attribute>
@@ -622,6 +662,14 @@
      </widget>
     </widget>
     <widget class="QWidget" name="headPositionPage">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>291</width>
+       <height>256</height>
+      </rect>
+     </property>
      <attribute name="label">
       <string>&amp;Head Position</string>
      </attribute>
@@ -803,7 +851,7 @@
      </widget>
     </widget>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>330</x>
