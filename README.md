@@ -1,7 +1,8 @@
 QTobiiDevTrack
 ---
 *Future utility for discovering, testing and developing Eye and Gaze Tracking with [Qt](https://www.qt.io/),
-[Tobii Stream Engine API](https://developer.tobii.com/consumer-eye-trackers/stream-engine/) and [Tobii Eye Tracking Device](https://tobiigaming.com/).*
+[Tobii Stream Engine API](https://developer.tobii.com/consumer-eye-trackers/stream-engine/) and
+[Tobii Eye Tracking Device](https://tobiigaming.com/).*
 
 ## Development
 This utility is in very early development, see the [TODO](https://github.com/tpiekarski/qtobii-dev-track/blob/master/TODO.md).
@@ -9,9 +10,10 @@ The tracking of the gaze point is already implemented, for further progress plea
 
 ## Requirements
 * Tobii Eye Tracking Device (Developed and tested with [Tobii Eye Tracker 4C](https://tobiigaming.com/product/tobii-eye-tracker-4c/))
-* Microsoft Windows 10
+* [Tobii Stream Engine](https://www.nuget.org/packages/Tobii.StreamEngine/) 2.2.x.x
+* Microsoft Windows >= 7 (x86/x64)
 * [Visual Studio](https://visualstudio.microsoft.com/) (tested) or [MinGW](http://mingw.org/) (not tested)
-* Qt 5.10.x
+* [Qt](https://www.qt.io/download-qt-installer) 5.10.x
 
 ## Building
 ### Visual Studio
