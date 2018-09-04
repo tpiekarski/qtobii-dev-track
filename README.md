@@ -1,5 +1,8 @@
 QTobiiDevTrack
 ---
+
+[![Build status](https://ci.appveyor.com/api/projects/status/9vnj8neqba8cybmj?svg=true)](https://ci.appveyor.com/project/tpiekarski/qtobii-dev-track)
+
 *Future utility for discovering, testing and developing Eye and Gaze Tracking with [Qt](https://www.qt.io/),
 [Tobii Stream Engine Native](https://developer.tobii.com/consumer-eye-trackers/stream-engine/) and
 [Tobii Eye Tracking Device](https://tobiigaming.com/).*

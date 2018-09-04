@@ -1,0 +1,25 @@
+version: 1.0.{build}
+skip_tags: true
+max_jobs: 1
+image: Visual Studio 2017
+configuration: Debug, Release
+platform: x64
+clone_folder: C:\qtobii-dev-track
+init:
+- cmd: '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build/vcvars64.bat"'
+environment:
+  QTDIR: C:\Qt\5.11.1\msvc2017_64
+  PATH: '%PATH%;%QTDIR%\bin'
+  matrix:
+  - CONFIGURATION: debug
+  - CONFIGURATION: release
+install:
+- cmd: .paket\paket.exe install
+build_script:
+- cmd: >-
+    @echo off
+    qmake qtobii-dev-track.pro
+    if "%CONFIGURATION%" == "debug" nmake /NOLOGO debug
+    if "%CONFIGURATION%" == "release" nmake /NOLOGO release
+test: off
+deploy: off

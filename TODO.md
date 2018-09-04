@@ -15,7 +15,6 @@ QTobiiDevTrack::Todo
 - [ ] Implement Head Position tracking, approximation and data display
 - [ ] Implement reconnection method
 - [ ] Implement User Presence tracking and data display
-- [ ] Integrate public CI build system like AppVeyor or Travis
 - [ ] Integrate public static code analysis like SonarCloud
 - [ ] Use QTimer to slow down the display of tracking data in QLCDNumber (Reducing flickering of display)
 - [x] Add a logger for signal/slot-based logging (instead of using QTobiiDevTrack)
@@ -29,6 +28,7 @@ QTobiiDevTrack::Todo
 - [x] Implement a plugin loading mechanism and test within a ground zero
 - [x] Implement toggling button to start/stop tracking
 - [x] Implement toggling button to start/stop tracking thread
+- [x] Integrate public CI build system like AppVeyor or Travis
 - [x] Integrate Tobii Stream Engine API
 - [x] Introduce subdirs for qmake and put final build files into one directory
 - [x] Pick up transmit signal with tobii_gaze_point_t and finaly display data in QLCDNumber widgets
