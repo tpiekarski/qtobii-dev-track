@@ -9,27 +9,16 @@
  *
  */
 
-#ifndef QTOBIIAPIEXCEPTION_H
-#define QTOBIIAPIEXCEPTION_H
-
-#include <exception>
-#include <string>
+#ifndef QTOBIIEXITS_H
+#define QTOBIIEXITS_H
 
 namespace qtobii {
-
-using std::exception;
-using std::string;
-
-class QTobiiApiException : public exception {
-
-public:
-  explicit QTobiiApiException(string message = "Failed initializing tracking device.") : message(message) {}
-  string what() { return message; }
-
-private:
-  string message;
-
+enum QTobiiExit {
+  NORMAL = 0,
+  API_EXCEPTION = 1,
+  GENERIC_EXCEPTION = 2,
+  UNKNOWN_ERROR = 3,
 };
-} // namespace qtobii
+}
 
-#endif // QTOBIIAPIEXCEPTION_H
+#endif // QTOBIIEXITS_H

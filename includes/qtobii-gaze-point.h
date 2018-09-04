@@ -15,7 +15,6 @@
 #include "interfaces/qtobii-subscription.h"
 #include "qtobii-exchange-container.h"
 #include "qtobii-data.h"
-#include "qtobii-dev-track.h"
 #include "qtobii-result.h"
 #include <QObject>
 #include <QPair>
@@ -30,7 +29,7 @@ class QTobiiGazePoint : public QObject, public QTobiiSubscriptionInterface {
   Q_OBJECT
 
 public:
-  QTobiiGazePoint(QTobiiApi* api)
+  explicit QTobiiGazePoint(QTobiiApi* api)
     : QTobiiSubscriptionInterface(api),
         exchangeContainer(nullptr),
         data(nullptr),

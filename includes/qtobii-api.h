@@ -12,7 +12,6 @@
 #ifndef QTOBIIDEVICE_H
 #define QTOBIIDEVICE_H
 
-#include "qtobii-dev-track.h"
 #include "qtobii-logger.h"
 #include "qtobii-result.h"
 #include <QObject>
@@ -41,13 +40,13 @@ private:
   tobii_api_t* api;
   tobii_device_t* device;
   tobii_version_t* version;
-
   QTobiiLogger* logger;
-  QVector<QTobiiResult*> results;
   QString url;
 
-  void setup(tobii_error_t result);
-  static void deviceReceiver(const char* url, void* userData);
+  QVector<QTobiiResult*> results;
+
+  void setup(tobii_error_t error);
+  static void deviceReceiver(const char* url, void* data);
 
 };
 } // namespace qtobii

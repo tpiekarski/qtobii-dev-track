@@ -17,7 +17,7 @@
 namespace qtobii {
 
 QTobiiApi::QTobiiApi(QObject *parent, QTobiiLogger* logger)
-  : QObject(parent), logger(logger), version(new tobii_version_t), api(nullptr), device(nullptr), url("")
+  : QObject(parent), api(nullptr), device(nullptr), version(new tobii_version_t), logger(logger), url("")
 {
   setup(tobii_get_api_version(version));
   setup(tobii_api_create(&api, nullptr, nullptr));

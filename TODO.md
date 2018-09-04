@@ -3,7 +3,6 @@ QTobiiDevTrack::Todo
 
 ## Development
 - [ ] Add a more reasonable error handling
-- [ ] Add a struct for exit codes
 - [ ] Add an about dialog
 - [ ] Add manifest file and update description of build process
 - [ ] Add to gaze point tracking denormalization of coordinates
@@ -18,6 +17,7 @@ QTobiiDevTrack::Todo
 - [ ] Integrate public static code analysis like SonarCloud
 - [ ] Use QTimer to slow down the display of tracking data in QLCDNumber (Reducing flickering of display)
 - [x] Add a logger for signal/slot-based logging (instead of using QTobiiDevTrack)
+- [x] Add an enum for exit codes
 - [x] Add exception for failing loading and/or casting plugins
 - [x] Check and enable/disable buttons appropriately for starting/stopping thread and tracking
 - [x] Consider introducing a generic logging interface
@@ -46,7 +46,7 @@ QTobiiDevTrack::Todo
 - [x] Write a first draft README, explaining utility, showing planed features and status tracking
 
 ## Development Improvements
-- [ ] Clean present code base
+- [ ] Clean present code base [ | ]
 - [ ] Hunt for leaking memory
 - [ ] Pass reference arguments instead of pointers all over the place
 
