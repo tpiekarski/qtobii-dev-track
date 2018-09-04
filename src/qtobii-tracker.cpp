@@ -11,8 +11,8 @@
 
 #include "qtobii-result.h"
 #include "qtobii-tracker.h"
-#include <tobii.h>
-#include <tobii_streams.h>
+#include <tobii/tobii.h>
+#include <tobii/tobii_streams.h>
 
 namespace qtobii {
 

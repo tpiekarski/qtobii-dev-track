@@ -18,7 +18,7 @@
 #include "qtobii-logger.h"
 #include "qtobii-tracker.h"
 #include <QObject>
-#include <tobii_streams.h>
+#include <tobii/tobii_streams.h>
 
 namespace qtobii {
 class QTobiiTrackingManager : public QObject {

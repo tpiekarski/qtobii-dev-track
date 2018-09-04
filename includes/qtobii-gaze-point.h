@@ -21,8 +21,8 @@
 #include <QPair>
 #include <QString>
 #include <QVector>
-#include <tobii.h>
-#include <tobii_streams.h>
+#include <tobii/tobii.h>
+#include <tobii/tobii_streams.h>
 
 namespace qtobii {
 class QTobiiGazePoint : public QObject, public QTobiiSubscriptionInterface {

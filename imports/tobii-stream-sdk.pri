@@ -8,7 +8,7 @@
 # If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 #
 
-TOBII_STREAM_SDK = $$(TOBII_STREAM_SDK)
+TOBII_STREAM_SDK = packages\Tobii.StreamEngine.Native\build\native
 TOBII_STREAM_INCLUDE = $$sprintf("%1\include", $$TOBII_STREAM_SDK)
 
 INCLUDEPATH *= $$TOBII_STREAM_INCLUDE

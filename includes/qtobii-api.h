@@ -18,7 +18,7 @@
 #include <QObject>
 #include <QString>
 #include <QVector>
-#include <tobii.h>
+#include <tobii/tobii.h>
 
 namespace qtobii {
 class QTobiiApi : public QObject {

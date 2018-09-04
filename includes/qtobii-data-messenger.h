@@ -13,7 +13,7 @@
 #define QTOBIIDATAMESSENGER_H
 
 #include <QObject>
-#include <tobii_streams.h>
+#include <tobii/tobii_streams.h>
 
 namespace qtobii {
 class QTobiiDataMessenger : public QObject {
