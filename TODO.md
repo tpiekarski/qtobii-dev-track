@@ -8,7 +8,7 @@ QTobiiDevTrack::Todo
 - [ ] Add manifest file and update description of build process
 - [ ] Add to gaze point tracking denormalization of coordinates
 - [ ] Draft and add a generic interface for following tracking implementations
-- [ ] Find and integrate a package manager to pull in Tobii Stream Engine from nuget
+- [x] Find and integrate a package manager to pull in Tobii Stream Engine from nuget (chose Paket)
 - [ ] Find, check and integrate further static code analysers and code linters
 - [ ] Implement Eye Position tracking, approximation and data display
 - [ ] Implement Gaze Origin tracking, approximation and data display
@@ -19,6 +19,7 @@ QTobiiDevTrack::Todo
 - [ ] Integrate public CI build system like AppVeyor or Travis
 - [ ] Integrate public static code analysis like SonarCloud
 - [ ] Provide Visual Studio Solution/Project files next to qmake project file
+- [ ] Update description of build process and mention new package manager
 - [ ] Use QTimer to slow down the display of tracking data in QLCDNumber (Reducing flickering of display)
 - [x] Add a logger for signal/slot-based logging (instead of using QTobiiDevTrack)
 - [x] Add exception for failing loading and/or casting plugins

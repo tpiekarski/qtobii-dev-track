@@ -3,6 +3,12 @@
 /profile/
 /release/
 
+# Paket manager
+/.paket/*
+!/.paket/paket.exe
+/packages/
+/paket-files/
+
 # QMake files
 /.qmake.stash
 /Makefile
