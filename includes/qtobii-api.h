@@ -28,7 +28,7 @@ public:
   explicit QTobiiApi(QObject *parent, QTobiiLogger* logger);
   ~QTobiiApi();
 
-  QTobiiResult* QTobiiApi::call(tobii_error_t error);
+  QTobiiResult* call(tobii_error_t error);
 
   tobii_device_t* getDevice() { return device; }
   QTobiiResult* getLastResult() { return results.last(); }

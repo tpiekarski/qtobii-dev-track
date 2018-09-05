@@ -35,7 +35,7 @@ void QTobiiGazePoint::subscribe() {
   connect(messages, static_cast<void (QTobiiDataMessenger::*)(QString)>(&QTobiiData<QString>::transmit),
           api->getLogger(), &QTobiiLogger::data);
 #else
-  connect(messages, qOverload<QString>(&QTobiiData::transmit), api->getLogger(), &QTobiiLogger::data);
+  connect(messages, qOverload<QString>(&QTobiiData<QString>::transmit), api->getLogger(), &QTobiiLogger::data);
 #endif
 
   result = api->call(tobii_gaze_point_subscribe(api->getDevice(), callback, exchangeContainer));

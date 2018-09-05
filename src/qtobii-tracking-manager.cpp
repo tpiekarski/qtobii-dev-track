@@ -52,7 +52,7 @@ void QTobiiTrackingManager::toggleSubscription(bool value) {
             static_cast<void (QTobiiDataMessenger::*)(tobii_gaze_point_t)>(&QTobiiData<tobii_gaze_point_t>::transmit),
             this, &QTobiiTrackingManager::displayGazePointData);
 #else
-    connect(gazePoint->getData(), qOverload<tobii_gaze_point_t>(&QTobiiData::transmit),
+    connect(gazePoint->getData(), qOverload<tobii_gaze_point_t>(&QTobiiData<tobii_gaze_point_t>::transmit),
             this, &QTobiiTrackingManager::displayGazePointData);
 #endif
 
