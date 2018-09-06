@@ -30,13 +30,7 @@ class QTobiiGazePoint : public QObject, public QTobiiSubscriptionInterface {
 
 public:
   explicit QTobiiGazePoint(QTobiiApi* api)
-    : QTobiiSubscriptionInterface(api),
-        exchangeContainer(nullptr),
-        data(nullptr),
-        messages(nullptr),
-        result(nullptr),
-        tracking(true)
-    { /* Nothing further to construct. */ }
+    : QTobiiSubscriptionInterface(api), exchangeContainer(nullptr), data(nullptr), messages(nullptr) {}
 
   virtual void subscribe() override;
   virtual void unsubscribe() override;
@@ -52,8 +46,6 @@ private:
   QTobiiExchangeContainer<tobii_gaze_point_t, QString>* exchangeContainer;
   QTobiiData<tobii_gaze_point_t>* data;
   QTobiiData<QString>* messages;
-  QTobiiResult* result;
-  bool tracking;
 
 };
 } // namespace qtobii

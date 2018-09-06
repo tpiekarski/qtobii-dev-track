@@ -13,12 +13,13 @@
 #define QTOBII_TRACKING_INTERFACE_H
 
 #include "qtobii-api.h"
+#include "qtobii-result.h"
 
 namespace qtobii {
 class QTobiiSubscriptionInterface {
 
 public:
-  QTobiiSubscriptionInterface(QTobiiApi* api) : api(api) {}
+  QTobiiSubscriptionInterface(QTobiiApi* api) : api(api), result(nullptr), tracking(true) {}
   virtual ~QTobiiSubscriptionInterface() {
     // Only defined to make sure all destructors will be called along inheritance.
   }
@@ -28,6 +29,8 @@ public:
 
 protected:
   QTobiiApi* api;
+  QTobiiResult* result;
+  bool tracking;
 
 };
 } // namespace qtobii
