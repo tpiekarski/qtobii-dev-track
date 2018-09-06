@@ -23,6 +23,7 @@ QTobiiTrackingManager::QTobiiTrackingManager(QObject* parent, QTobiiApi* api, QT
     m_logger(logger),
     m_tracker(new QTobiiTracker(nullptr, api)),
     m_gazeOrigin(new QTobiiGazeOrigin(this, api)),
+    m_gazeOriginDisplay(new QTobiiGazeOriginLCDDisplay(m_devTrack, this)),
     m_gazePoint(new QTobiiGazePoint(this, api)),
     m_gazePointDisplay(new QTobiiGazePointLCDDisplay(m_devTrack, this)),
     m_thread(new QThread())
@@ -59,7 +60,7 @@ void QTobiiTrackingManager::toggleSubscription(bool value) {
               m_gazePointDisplay, &QTobiiGazePointLCDDisplay::displayGazePoint);
     #else
       connect(gazePoint->getData(), qOverload<tobii_gaze_point_t>(&QTobiiData<tobii_gaze_point_t>::transmit),
-              this, &QTobiiTrackingManager::displayGazePointData);
+              m_gazePointDisplay, &QTobiiGazePointLCDDisplay::displayGazePoint);
     #endif
     break;
 
@@ -74,10 +75,10 @@ void QTobiiTrackingManager::toggleSubscription(bool value) {
     #ifdef QTOBII_MSVC_QOVERLOAD_WORKAROUND
       connect(m_gazeOrigin->getData(),
               static_cast<void (QTobiiDataMessenger::*)(tobii_gaze_origin_t)>(&QTobiiData<tobii_gaze_origin_t>::transmit),
-              this, &QTobiiTrackingManager::displayGazeOriginData);
+              m_gazeOriginDisplay, &QTobiiGazeOriginLCDDisplay::displayGazeOrigin);
     #else
       connect(gazeOrigin->getData(), qOverload<tobii_gaze_origin_t>(&QTobiiData<tobii_gaze_origin_t>::transmit),
-              this, &QTobiiTrackingManager::displayGazeOriginData);
+              m_gazeOriginDisplay, &QTobiiGazeOriginLCDDisplay::displayGazeOrigin);
     #endif
 
     break;
@@ -87,15 +88,6 @@ void QTobiiTrackingManager::toggleSubscription(bool value) {
 
     break;
   }
-}
-
-void QTobiiTrackingManager::displayGazeOriginData(tobii_gaze_origin_t data) {
-  m_devTrack->getGazeOriginLeftXValue()->display(static_cast<double>(data.left_xyz[0]));
-  m_devTrack->getGazeOriginLeftYValue()->display(static_cast<double>(data.left_xyz[1]));
-  m_devTrack->getGazeOriginLeftZValue()->display(static_cast<double>(data.left_xyz[2]));
-  m_devTrack->getGazeOriginRightXValue()->display(static_cast<double>(data.right_xyz[0]));
-  m_devTrack->getGazeOriginRightYValue()->display(static_cast<double>(data.right_xyz[1]));
-  m_devTrack->getGazeOriginRightZValue()->display(static_cast<double>(data.right_xyz[2]));
 }
 
 void QTobiiTrackingManager::startThread() {

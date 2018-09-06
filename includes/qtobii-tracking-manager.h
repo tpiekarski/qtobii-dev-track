@@ -16,6 +16,7 @@
 #include "qtobii-api.h"
 #include "qtobii-dev-track.h"
 #include "qtobii-gaze-origin.h"
+#include "qtobii-gaze-origin-lcd-display.h"
 #include "qtobii-gaze-point.h"
 #include "qtobii-gaze-point-lcd-display.h"
 #include "qtobii-logger.h"
@@ -37,7 +38,6 @@ public:
 public slots:
   void toggleThread(bool value);
   void toggleSubscription(bool value);
-  void displayGazeOriginData(tobii_gaze_origin_t data);
 
 private:
   void startThread();
@@ -48,6 +48,7 @@ private:
   QTobiiLogger* m_logger;
   QTobiiTracker* m_tracker;
   QTobiiGazeOrigin* m_gazeOrigin;
+  QTobiiGazeOriginLCDDisplay* m_gazeOriginDisplay;
   QTobiiGazePoint* m_gazePoint;
   QTobiiGazePointLCDDisplay* m_gazePointDisplay;
 
