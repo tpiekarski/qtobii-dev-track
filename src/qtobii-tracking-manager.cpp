@@ -24,6 +24,7 @@ QTobiiTrackingManager::QTobiiTrackingManager(QObject* parent, QTobiiApi* api, QT
     m_tracker(new QTobiiTracker(nullptr, api)),
     m_gazeOrigin(new QTobiiGazeOrigin(this, api)),
     m_gazePoint(new QTobiiGazePoint(this, api)),
+    m_gazePointDisplay(new QTobiiGazePointLCDDisplay(m_devTrack, this)),
     m_thread(new QThread())
 {
   logger->log("Starting Tracking Manager...");
@@ -55,7 +56,7 @@ void QTobiiTrackingManager::toggleSubscription(bool value) {
     #ifdef QTOBII_MSVC_QOVERLOAD_WORKAROUND
       connect(m_gazePoint->getData(),
               static_cast<void (QTobiiDataMessenger::*)(tobii_gaze_point_t)>(&QTobiiData<tobii_gaze_point_t>::transmit),
-              this, &QTobiiTrackingManager::displayGazePointData);
+              m_gazePointDisplay, &QTobiiGazePointLCDDisplay::displayGazePoint);
     #else
       connect(gazePoint->getData(), qOverload<tobii_gaze_point_t>(&QTobiiData<tobii_gaze_point_t>::transmit),
               this, &QTobiiTrackingManager::displayGazePointData);
@@ -95,11 +96,6 @@ void QTobiiTrackingManager::displayGazeOriginData(tobii_gaze_origin_t data) {
   m_devTrack->getGazeOriginRightXValue()->display(static_cast<double>(data.right_xyz[0]));
   m_devTrack->getGazeOriginRightYValue()->display(static_cast<double>(data.right_xyz[1]));
   m_devTrack->getGazeOriginRightZValue()->display(static_cast<double>(data.right_xyz[2]));
-}
-
-void QTobiiTrackingManager::displayGazePointData(tobii_gaze_point_t data) {
-  m_devTrack->getGazePointXValue()->display(static_cast<double>(data.position_xy[0]));
-  m_devTrack->getGazePointYValue()->display(static_cast<double>(data.position_xy[1]));
 }
 
 void QTobiiTrackingManager::startThread() {

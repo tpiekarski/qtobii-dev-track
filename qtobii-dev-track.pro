@@ -30,7 +30,8 @@ SOURCES += \
     src/qtobii-tracker.cpp \
     src/qtobii-tracking-manager.cpp \
     src/qtobii-logger.cpp \
-    src/qtobii-gaze-origin.cpp
+    src/qtobii-gaze-origin.cpp \
+    src/qtobii-gaze-point-lcd-display.cpp
 
 HEADERS += \
     includes/qtobii-api-exception.h \
@@ -57,7 +58,9 @@ HEADERS += \
     includes/qtobii-exchange-container.h \
     includes/qtobii-exit.h \
     includes/qtobii-gaze-origin.h \
-    includes/qtobii-tracking-mode.h
+    includes/qtobii-tracking-mode.h \
+    includes/interfaces/qtobii-display.h \
+    includes/qtobii-gaze-point-lcd-display.h
 
 FORMS += \
     forms/qtobii-dev-track-window.ui

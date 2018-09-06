@@ -53,6 +53,7 @@ QTobiiDevTrack::Todo
 - [ ] Consider to switch to smart pointers
 - [ ] Hunt for leaking memory
 - [ ] Pass reference arguments instead of pointers all over the place
+- [ ] Streamline child constructors of QObject (parent should be always last, default assigned to nullptr)
 - [x] Clean present code base
 
 ## Bugs

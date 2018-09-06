@@ -12,10 +12,12 @@
 #ifndef QTOBIITRACKINGMANAGER_H
 #define QTOBIITRACKINGMANAGER_H
 
+#include "interfaces/qtobii-display.h"
 #include "qtobii-api.h"
 #include "qtobii-dev-track.h"
 #include "qtobii-gaze-origin.h"
 #include "qtobii-gaze-point.h"
+#include "qtobii-gaze-point-lcd-display.h"
 #include "qtobii-logger.h"
 #include "qtobii-tracker.h"
 #include "qtobii-tracking-mode.h"
@@ -36,7 +38,6 @@ public slots:
   void toggleThread(bool value);
   void toggleSubscription(bool value);
   void displayGazeOriginData(tobii_gaze_origin_t data);
-  void displayGazePointData(tobii_gaze_point_t data);
 
 private:
   void startThread();
@@ -48,6 +49,7 @@ private:
   QTobiiTracker* m_tracker;
   QTobiiGazeOrigin* m_gazeOrigin;
   QTobiiGazePoint* m_gazePoint;
+  QTobiiGazePointLCDDisplay* m_gazePointDisplay;
 
   QThread* m_thread;
 

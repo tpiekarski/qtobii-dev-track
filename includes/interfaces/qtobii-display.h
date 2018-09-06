@@ -9,32 +9,23 @@
  *
  */
 
-#ifndef QTOBIILOGGINGINTERFACE_H
-#define QTOBIILOGGINGINTERFACE_H
-
-#include <QObject>
-#include <QString>
+#ifndef QTOBIIDISPLAY_H
+#define QTOBIIDISPLAY_H
 
 namespace qtobii {
-class QTobiiLoggingInterface {
+template <class D, class P>
+class QTobiiDisplayInterface {
 
 public:
-  virtual ~QTobiiLoggingInterface() {
-    // Only defined to make sure all destructors will be called along inheritance.
-  }
+  QTobiiDisplayInterface(D device) : m_device(device) {}
+  virtual ~QTobiiDisplayInterface() { /* Defined to make sure all destructors will be called */ }
 
-  enum MessageType {
-    DATA,
-    DEBUG,
-    MESSAGE
-  };
+  virtual void display(P payload) = 0;
 
-public slots:
-  virtual void debug(QString message) = 0;
-  virtual void data(QString message) = 0;
-  virtual void log(QString message) = 0;
+protected:
+  D m_device;
 
 };
 } // namespace qtobii
 
-#endif // QTOBIILOGGINGINTERFACE_H
+#endif // QTOBIIDISPLAY_H

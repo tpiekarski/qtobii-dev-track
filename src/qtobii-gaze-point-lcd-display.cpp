@@ -9,28 +9,17 @@
  *
  */
 
-#ifndef QTOBII_TRACKING_INTERFACE_H
-#define QTOBII_TRACKING_INTERFACE_H
-
-#include "qtobii-api.h"
-#include "qtobii-result.h"
+#include "qtobii-gaze-point-lcd-display.h"
 
 namespace qtobii {
-class QTobiiSubscriptionInterface {
 
-public:
-  QTobiiSubscriptionInterface(QTobiiApi* api) : m_api(api), m_result(nullptr), m_tracking(true) {}
-  virtual ~QTobiiSubscriptionInterface() { /* Defined to make sure all destructors will be called */ }
+void QTobiiGazePointLCDDisplay::display(tobii_gaze_point_t payload) {
+  m_device->getGazePointXValue()->display(static_cast<double>(payload.position_xy[0]));
+  m_device->getGazePointYValue()->display(static_cast<double>(payload.position_xy[1]));
+}
 
-  virtual void subscribe() = 0;
-  virtual void unsubscribe() = 0;
+void QTobiiGazePointLCDDisplay::displayGazePoint(tobii_gaze_point_t payload) {
+  display(payload);
+}
 
-protected:
-  QTobiiApi* m_api;
-  QTobiiResult* m_result;
-  bool m_tracking;
-
-};
 } // namespace qtobii
-
-#endif
