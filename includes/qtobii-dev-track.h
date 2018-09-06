@@ -18,8 +18,7 @@
 #include <QPlainTextEdit>
 #include <QPushButton>
 
-// Forward declaration
-namespace Ui { class QTobiiDevTrackWindow; }
+#include "ui_qtobii-dev-track-window.h"
 
 namespace qtobii {
 class QTobiiDevTrack : public QMainWindow {
@@ -32,20 +31,20 @@ public:
 
   QTobiiTrackingMode getTrackingMode();
 
-  QPushButton* getStartThreadButton();
-  QPushButton* getStartTrackingButton();
-  QPlainTextEdit* getDataLog();
-  QPlainTextEdit* getMessageLog();
+  QPushButton* getStartThreadButton() { return ui->startThreadButton; }
+  QPushButton* getStartTrackingButton() { return ui->startTrackingButton; }
+  QPlainTextEdit* getDataLog() { return ui->dataLog; }
+  QPlainTextEdit* getMessageLog() { return ui->messageLog; }
 
-  QLCDNumber* getGazePointXValue();
-  QLCDNumber* getGazePointYValue();
+  QLCDNumber* getGazePointXValue() { return ui->gazePointXValue; }
+  QLCDNumber* getGazePointYValue() { return ui->gazePointYValue; }
 
-  QLCDNumber* getGazeOriginLeftXValue();
-  QLCDNumber* getGazeOriginLeftYValue();
-  QLCDNumber* getGazeOriginLeftZValue();
-  QLCDNumber* getGazeOriginRightXValue();
-  QLCDNumber* getGazeOriginRightYValue();
-  QLCDNumber* getGazeOriginRightZValue();
+  QLCDNumber* getGazeOriginLeftXValue() { return ui->gazeOriginLeftEyeXValue; }
+  QLCDNumber* getGazeOriginLeftYValue() { return ui->gazeOriginLeftEyeYValue; }
+  QLCDNumber* getGazeOriginLeftZValue() { return ui->gazeOriginLeftEyeZValue; }
+  QLCDNumber* getGazeOriginRightXValue() { return ui->gazeOriginRightEyeXValue; }
+  QLCDNumber* getGazeOriginRightYValue() { return ui->gazeOriginRightEyeYValue; }
+  QLCDNumber* getGazeOriginRightZValue() { return ui->gazeOriginRightEyeZValue; }
 
 private slots:
   void onStartThreadButtonToggled(bool value);

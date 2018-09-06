@@ -15,6 +15,7 @@ QTobiiDevTrack::Todo
 - [ ] Implement reconnection method
 - [ ] Implement User Presence tracking and data display
 - [ ] Integrate public static code analysis like SonarCloud
+- [ ] Move from C-style array to STL array in extract methods of QTobiiGazePoint and QTobiiGazeOrigin
 - [ ] Use QTimer to slow down the display of tracking data in QLCDNumber (Reducing flickering of display)
 - [ ] Track subscriptions to enable multiple subscriptions instead of disabling other tracking box pages
 - [x] Add a logger for signal/slot-based logging (instead of using QTobiiDevTrack)

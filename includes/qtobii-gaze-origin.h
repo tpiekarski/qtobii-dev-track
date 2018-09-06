@@ -26,9 +26,8 @@ class QTobiiGazeOrigin : public QObject, public QTobiiSubscriptionInterface {
   Q_OBJECT
 
 public:
-  // todo: pass parent to qobject
-  explicit QTobiiGazeOrigin(QTobiiApi* api)
-    : QTobiiSubscriptionInterface(api) {}
+  explicit QTobiiGazeOrigin(QObject* parent = nullptr, QTobiiApi* api = nullptr)
+    : QObject(parent), QTobiiSubscriptionInterface(api) {}
 
   virtual void subscribe() override;
   virtual void unsubscribe() override;

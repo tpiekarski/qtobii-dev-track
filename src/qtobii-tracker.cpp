@@ -22,7 +22,7 @@ void QTobiiTracker::start() {
   QTobiiResult* result = nullptr;
 
   do {
-    result = api->call(tobii_wait_for_callbacks(NULL, 1, &device));
+    result = api->call(tobii_wait_for_callbacks(nullptr, DEFAULT_DEVICE, &device));
 
     if (result->getError() == TOBII_ERROR_TIMED_OUT) {
       continue;

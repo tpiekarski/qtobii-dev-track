@@ -45,23 +45,23 @@ QTobiiApi::~QTobiiApi() {
   }
 
   if (!results.empty()) {
-#ifndef QT_NO_DEBUG_OUTPUT
-    qDebug() << "Result Message Stack:";
-    std::for_each(results.begin(), results.end(), [](QTobiiResult *result) {
-      qDebug() << " " << result->getMessage();
-    });
-#endif
+    #ifndef QT_NO_DEBUG_OUTPUT
+      qDebug() << "Result Message Stack:";
+      std::for_each(results.begin(), results.end(), [](QTobiiResult *result) {
+        qDebug() << " " << result->getMessage();
+      });
+    #endif
 
     results.clear();
   }
 }
 
 QString QTobiiApi::getVersion() {
-  return QString("%1.%2.%3.%4")
-      .arg(QString::number(version->major))
-      .arg(QString::number(version->minor))
-      .arg(QString::number(version->revision))
-      .arg(QString::number(version->build));
+  return QString("%1.%2.%3.%4").arg(
+        QString::number(version->major),
+        QString::number(version->minor),
+        QString::number(version->revision),
+        QString::number(version->build));
 }
 
 QTobiiResult* QTobiiApi::call(tobii_error_t error) {

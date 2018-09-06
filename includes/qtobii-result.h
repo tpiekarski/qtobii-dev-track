@@ -22,7 +22,7 @@ class QTobiiResult : public QObject {
   Q_OBJECT
 
 public:
-  explicit QTobiiResult(tobii_error_t error, QObject* parent = nullptr) : error(error), QObject(parent) {}
+  explicit QTobiiResult(tobii_error_t error, QObject* parent = nullptr) : QObject(parent), error(error) {}
   ~QTobiiResult() = default;
 
   bool isError() { return (error != TOBII_ERROR_NO_ERROR); }

@@ -10,13 +10,11 @@
  */
 
 #include "qtobii-dev-track.h"
-#include "ui_qtobii-dev-track-window.h"
 
 namespace qtobii {
 
 QTobiiDevTrack::QTobiiDevTrack(QWidget *parent) : QMainWindow(parent), ui(new Ui::QTobiiDevTrackWindow) {
   ui->setupUi(this);
-
   ui->dataLog->setReadOnly(true);
   ui->messageLog->setReadOnly(true);
 
@@ -35,39 +33,14 @@ QTobiiTrackingMode QTobiiDevTrack::getTrackingMode() {
   return static_cast<QTobiiTrackingMode>(ui->trackingBox->currentIndex());
 }
 
-// todo: check why inline definitions of all these methods are not possible
-QPushButton* QTobiiDevTrack::getStartThreadButton() { return ui->startThreadButton; }
-QPushButton* QTobiiDevTrack::getStartTrackingButton() { return ui->startTrackingButton; }
-QPlainTextEdit* QTobiiDevTrack::getDataLog() { return ui->dataLog; }
-QPlainTextEdit* QTobiiDevTrack::getMessageLog() { return ui->messageLog; }
-QLCDNumber* QTobiiDevTrack::getGazePointXValue() { return ui->gazePointXValue; }
-QLCDNumber* QTobiiDevTrack::getGazePointYValue() { return ui->gazePointYValue; }
-QLCDNumber* QTobiiDevTrack::getGazeOriginLeftXValue() { return ui->gazeOriginLeftEyeXValue; }
-QLCDNumber* QTobiiDevTrack::getGazeOriginLeftYValue() { return ui->gazeOriginLeftEyeYValue; }
-QLCDNumber* QTobiiDevTrack::getGazeOriginLeftZValue() { return ui->gazeOriginLeftEyeZValue; }
-QLCDNumber* QTobiiDevTrack::getGazeOriginRightXValue() { return ui->gazeOriginRightEyeXValue; }
-QLCDNumber* QTobiiDevTrack::getGazeOriginRightYValue() { return ui->gazeOriginRightEyeYValue; }
-QLCDNumber* QTobiiDevTrack::getGazeOriginRightZValue() { return ui->gazeOriginRightEyeZValue; }
-
 void QTobiiDevTrack::onStartThreadButtonToggled(bool value) {
   ui->startTrackingButton->setEnabled(value);
-
-  if (value) {
-    ui->startThreadButton->setText("Stop Tracking &Thread");
-  } else {
-    ui->startThreadButton->setText("Start Tracking &Thread");
-  }
-
+  ui->startThreadButton->setText((value) ? "Stop Tracking &Thread" : "Start Tracking &Thread");
 }
 
 void QTobiiDevTrack::onStartTrackingButtonToggled(bool value) {
   ui->startThreadButton->setEnabled(!value);
-
-  if (value) {
-    ui->startTrackingButton->setText("&Stop Tracking");
-  } else {
-    ui->startTrackingButton->setText("&Start Tracking");
-  }
+  ui->startTrackingButton->setText((value) ? "&Stop Tracking" : "&Start Tracking");
 }
 
 } // namesapce qtobii

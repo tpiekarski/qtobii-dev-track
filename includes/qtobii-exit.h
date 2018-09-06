@@ -14,10 +14,12 @@
 
 namespace qtobii {
 enum QTobiiExit {
+
   NORMAL = 0,
   API_EXCEPTION = 1,
   GENERIC_EXCEPTION = 2,
   UNKNOWN_ERROR = 3,
+
 };
 }
 

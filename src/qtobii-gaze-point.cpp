@@ -19,10 +19,11 @@ void QTobiiGazePoint::callback(tobii_gaze_point_t const* gazePoint, void* exchan
   auto exchangeContainer = static_cast<QTobiiExchangeContainer<tobii_gaze_point_t, QString>*>(exchange);
 
   exchangeContainer->getData()->send(*gazePoint);
-  // todo: also add a extract method like in the new QTobiiGazeOrigin
-  exchangeContainer->getMessages()->send(QString("%1/%2")
-    .arg(QString::number(gazePoint->position_xy[0]), QString::number(gazePoint->position_xy[1]))
-  );
+  exchangeContainer->getMessages()->send(QString("X/Y: %1").arg(extract(gazePoint->position_xy)));
+}
+
+QString QTobiiGazePoint::extract(const float values[]) {
+  return QString("%1/%2").arg(QString::number(static_cast<double>(values[0])), QString::number(static_cast<double>(values[1])));
 }
 
 void QTobiiGazePoint::subscribe() {

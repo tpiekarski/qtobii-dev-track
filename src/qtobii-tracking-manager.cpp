@@ -17,23 +17,22 @@
 namespace qtobii {
 
 QTobiiTrackingManager::QTobiiTrackingManager(QObject *parent, QTobiiApi* api, QTobiiLogger* logger)
-  : QObject(parent), api(api), logger(logger)
+  : QObject(parent),
+    api(api),
+    devTrack(dynamic_cast<QTobiiDevTrack*>(parent)),
+    logger(logger),
+    tracker(new QTobiiTracker(nullptr, api)),
+    gazeOrigin(new QTobiiGazeOrigin(this, api)),
+    gazePoint(new QTobiiGazePoint(this, api)),
+    thread(new QThread())
 {
-  // todo: move assignments to constructor initializer
-  devTrack = dynamic_cast<QTobiiDevTrack*>(parent);
   logger->log("Starting Tracking Manager...");
-
-  tracker = new QTobiiTracker(api);
-  gazeOrigin = new QTobiiGazeOrigin(api);
-  gazePoint = new QTobiiGazePoint(api);
-  thread = new QThread();
 
   qRegisterMetaType<tobii_gaze_origin_t>("tobii_gaze_origin_t");
   qRegisterMetaType<tobii_gaze_point_t>("tobii_gaze_point_t");
 
   connect(devTrack->getStartThreadButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleThread);
   connect(devTrack->getStartTrackingButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleSubscription);
-
   connect(tracker, &QTobiiTracker::log, logger, &QTobiiLogger::log);
   connect(tracker, &QTobiiTracker::error, logger, &QTobiiLogger::log);
   connect(gazeOrigin, &QTobiiGazeOrigin::log, logger, &QTobiiLogger::log);
@@ -41,11 +40,7 @@ QTobiiTrackingManager::QTobiiTrackingManager(QObject *parent, QTobiiApi* api, QT
 }
 
 void QTobiiTrackingManager::toggleThread(bool value) {
-  if (value) {
-    startThread();
-  } else {
-    stopThread();
-  }
+  value ? startThread() : stopThread();
 }
 
 void QTobiiTrackingManager::toggleSubscription(bool value) {
@@ -70,6 +65,7 @@ void QTobiiTrackingManager::toggleSubscription(bool value) {
   case QTobiiTrackingMode::GAZE_ORIGIN:
     if (!value) {
       gazeOrigin->unsubscribe();
+
       return;
     }
 
@@ -82,28 +78,28 @@ void QTobiiTrackingManager::toggleSubscription(bool value) {
       connect(gazeOrigin->getData(), qOverload<tobii_gaze_origin_t>(&QTobiiData<tobii_gaze_origin_t>::transmit),
               this, &QTobiiTrackingManager::displayGazeOriginData);
     #endif
+
     break;
 
   default:
     logger->log("Selected tracking is not yet implemented.");
+
     break;
   }
 }
 
 void QTobiiTrackingManager::displayGazeOriginData(tobii_gaze_origin_t data) {
-  // todo: avoid implicit conversion from float to double (make it explicit)
-  devTrack->getGazeOriginLeftXValue()->display(data.left_xyz[0]);
-  devTrack->getGazeOriginLeftYValue()->display(data.left_xyz[1]);
-  devTrack->getGazeOriginLeftZValue()->display(data.left_xyz[2]);
-  devTrack->getGazeOriginRightXValue()->display(data.right_xyz[0]);
-  devTrack->getGazeOriginRightYValue()->display(data.right_xyz[1]);
-  devTrack->getGazeOriginRightZValue()->display(data.right_xyz[2]);
+  devTrack->getGazeOriginLeftXValue()->display(static_cast<double>(data.left_xyz[0]));
+  devTrack->getGazeOriginLeftYValue()->display(static_cast<double>(data.left_xyz[1]));
+  devTrack->getGazeOriginLeftZValue()->display(static_cast<double>(data.left_xyz[2]));
+  devTrack->getGazeOriginRightXValue()->display(static_cast<double>(data.right_xyz[0]));
+  devTrack->getGazeOriginRightYValue()->display(static_cast<double>(data.right_xyz[1]));
+  devTrack->getGazeOriginRightZValue()->display(static_cast<double>(data.right_xyz[2]));
 }
 
 void QTobiiTrackingManager::displayGazePointData(tobii_gaze_point_t data) {
-  // todo: avoid implicit conversion from float to double (make it explicit)
-  devTrack->getGazePointXValue()->display(data.position_xy[0]);
-  devTrack->getGazePointYValue()->display(data.position_xy[1]);
+  devTrack->getGazePointXValue()->display(static_cast<double>(data.position_xy[0]));
+  devTrack->getGazePointYValue()->display(static_cast<double>(data.position_xy[1]));
 }
 
 void QTobiiTrackingManager::startThread() {

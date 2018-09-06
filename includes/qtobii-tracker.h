@@ -22,7 +22,7 @@ class QTobiiTracker : public QObject {
   Q_OBJECT
 
 public:
-  explicit QTobiiTracker(QTobiiApi* api) : api(api), tracking(true) {}
+  explicit QTobiiTracker(QObject* parent, QTobiiApi* api) : QObject(parent), api(api), tracking(true) {}
 
 public slots:
   void start();
@@ -34,6 +34,8 @@ signals:
   void error(QString error);
 
 private:
+  static constexpr int DEFAULT_DEVICE = 1;
+
   QTobiiApi* api;
   bool tracking;
 

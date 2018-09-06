@@ -30,8 +30,10 @@ void QTobiiGazeOrigin::callback(tobii_gaze_origin_t const* gazeOrigin, void* exc
 }
 
 QString QTobiiGazeOrigin::extract(const float values[]) {
-  // todo: perform static_cast of values before passing them to number
-  return QString("%1/%2/%3").arg(QString::number(values[0]), QString::number(values[1]), QString::number(values[2]));
+  return QString("%1/%2/%3").arg(
+        QString::number(static_cast<double>(values[0])),
+        QString::number(static_cast<double>(values[1])),
+        QString::number(static_cast<double>(values[2])));
 }
 
 void QTobiiGazeOrigin::subscribe() {
