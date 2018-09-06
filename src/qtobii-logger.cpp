@@ -33,10 +33,10 @@ void QTobiiLogger::write(MessageType type, QString message) {
 
   switch (type) {
     case MessageType::DATA:
-      devTrack->getDataLog()->appendPlainText(message);
+      m_devTrack->getDataLog()->appendPlainText(message);
       break;
     case MessageType::MESSAGE:
-      devTrack->getMessageLog()->appendPlainText(message);
+      m_devTrack->getMessageLog()->appendPlainText(message);
       break;
     case MessageType::DEBUG:
       qDebug() << message;

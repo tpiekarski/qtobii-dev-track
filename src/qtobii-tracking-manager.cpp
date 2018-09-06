@@ -16,27 +16,27 @@
 
 namespace qtobii {
 
-QTobiiTrackingManager::QTobiiTrackingManager(QObject *parent, QTobiiApi* api, QTobiiLogger* logger)
+QTobiiTrackingManager::QTobiiTrackingManager(QObject* parent, QTobiiApi* api, QTobiiLogger* logger)
   : QObject(parent),
-    api(api),
-    devTrack(dynamic_cast<QTobiiDevTrack*>(parent)),
-    logger(logger),
-    tracker(new QTobiiTracker(nullptr, api)),
-    gazeOrigin(new QTobiiGazeOrigin(this, api)),
-    gazePoint(new QTobiiGazePoint(this, api)),
-    thread(new QThread())
+    m_api(api),
+    m_devTrack(dynamic_cast<QTobiiDevTrack*>(parent)),
+    m_logger(logger),
+    m_tracker(new QTobiiTracker(nullptr, api)),
+    m_gazeOrigin(new QTobiiGazeOrigin(this, api)),
+    m_gazePoint(new QTobiiGazePoint(this, api)),
+    m_thread(new QThread())
 {
   logger->log("Starting Tracking Manager...");
 
   qRegisterMetaType<tobii_gaze_origin_t>("tobii_gaze_origin_t");
   qRegisterMetaType<tobii_gaze_point_t>("tobii_gaze_point_t");
 
-  connect(devTrack->getStartThreadButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleThread);
-  connect(devTrack->getStartTrackingButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleSubscription);
-  connect(tracker, &QTobiiTracker::log, logger, &QTobiiLogger::log);
-  connect(tracker, &QTobiiTracker::error, logger, &QTobiiLogger::log);
-  connect(gazeOrigin, &QTobiiGazeOrigin::log, logger, &QTobiiLogger::log);
-  connect(gazePoint, &QTobiiGazePoint::log, logger, &QTobiiLogger::log);
+  connect(m_devTrack->getStartThreadButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleThread);
+  connect(m_devTrack->getStartTrackingButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleSubscription);
+  connect(m_tracker, &QTobiiTracker::log, logger, &QTobiiLogger::log);
+  connect(m_tracker, &QTobiiTracker::error, logger, &QTobiiLogger::log);
+  connect(m_gazeOrigin, &QTobiiGazeOrigin::log, logger, &QTobiiLogger::log);
+  connect(m_gazePoint, &QTobiiGazePoint::log, logger, &QTobiiLogger::log);
 }
 
 void QTobiiTrackingManager::toggleThread(bool value) {
@@ -44,16 +44,16 @@ void QTobiiTrackingManager::toggleThread(bool value) {
 }
 
 void QTobiiTrackingManager::toggleSubscription(bool value) {
-  switch (devTrack->getTrackingMode()) {
+  switch (m_devTrack->getTrackingMode()) {
   case QTobiiTrackingMode::GAZE_POINT:
     if (!value) {
-      gazePoint->unsubscribe();
+      m_gazePoint->unsubscribe();
       return;
     }
 
-    gazePoint->subscribe();
+    m_gazePoint->subscribe();
     #ifdef QTOBII_MSVC_QOVERLOAD_WORKAROUND
-      connect(gazePoint->getData(),
+      connect(m_gazePoint->getData(),
               static_cast<void (QTobiiDataMessenger::*)(tobii_gaze_point_t)>(&QTobiiData<tobii_gaze_point_t>::transmit),
               this, &QTobiiTrackingManager::displayGazePointData);
     #else
@@ -64,14 +64,14 @@ void QTobiiTrackingManager::toggleSubscription(bool value) {
 
   case QTobiiTrackingMode::GAZE_ORIGIN:
     if (!value) {
-      gazeOrigin->unsubscribe();
+      m_gazeOrigin->unsubscribe();
 
       return;
     }
 
-    gazeOrigin->subscribe();
+    m_gazeOrigin->subscribe();
     #ifdef QTOBII_MSVC_QOVERLOAD_WORKAROUND
-      connect(gazeOrigin->getData(),
+      connect(m_gazeOrigin->getData(),
               static_cast<void (QTobiiDataMessenger::*)(tobii_gaze_origin_t)>(&QTobiiData<tobii_gaze_origin_t>::transmit),
               this, &QTobiiTrackingManager::displayGazeOriginData);
     #else
@@ -82,37 +82,37 @@ void QTobiiTrackingManager::toggleSubscription(bool value) {
     break;
 
   default:
-    logger->log("Selected tracking is not yet implemented.");
+    m_logger->log("Selected tracking is not yet implemented.");
 
     break;
   }
 }
 
 void QTobiiTrackingManager::displayGazeOriginData(tobii_gaze_origin_t data) {
-  devTrack->getGazeOriginLeftXValue()->display(static_cast<double>(data.left_xyz[0]));
-  devTrack->getGazeOriginLeftYValue()->display(static_cast<double>(data.left_xyz[1]));
-  devTrack->getGazeOriginLeftZValue()->display(static_cast<double>(data.left_xyz[2]));
-  devTrack->getGazeOriginRightXValue()->display(static_cast<double>(data.right_xyz[0]));
-  devTrack->getGazeOriginRightYValue()->display(static_cast<double>(data.right_xyz[1]));
-  devTrack->getGazeOriginRightZValue()->display(static_cast<double>(data.right_xyz[2]));
+  m_devTrack->getGazeOriginLeftXValue()->display(static_cast<double>(data.left_xyz[0]));
+  m_devTrack->getGazeOriginLeftYValue()->display(static_cast<double>(data.left_xyz[1]));
+  m_devTrack->getGazeOriginLeftZValue()->display(static_cast<double>(data.left_xyz[2]));
+  m_devTrack->getGazeOriginRightXValue()->display(static_cast<double>(data.right_xyz[0]));
+  m_devTrack->getGazeOriginRightYValue()->display(static_cast<double>(data.right_xyz[1]));
+  m_devTrack->getGazeOriginRightZValue()->display(static_cast<double>(data.right_xyz[2]));
 }
 
 void QTobiiTrackingManager::displayGazePointData(tobii_gaze_point_t data) {
-  devTrack->getGazePointXValue()->display(static_cast<double>(data.position_xy[0]));
-  devTrack->getGazePointYValue()->display(static_cast<double>(data.position_xy[1]));
+  m_devTrack->getGazePointXValue()->display(static_cast<double>(data.position_xy[0]));
+  m_devTrack->getGazePointYValue()->display(static_cast<double>(data.position_xy[1]));
 }
 
 void QTobiiTrackingManager::startThread() {
-  tracker->moveToThread(thread);
-  connect(thread, &QThread::started, tracker, &QTobiiTracker::start);
-  connect(tracker, &QTobiiTracker::finished, thread, &QThread::quit);
-  connect(thread, &QThread::finished, tracker, &QObject::deleteLater);
-  connect(thread, &QThread::finished, thread, &QThread::deleteLater);
-  thread->start();
+  m_tracker->moveToThread(m_thread);
+  connect(m_thread, &QThread::started, m_tracker, &QTobiiTracker::start);
+  connect(m_tracker, &QTobiiTracker::finished, m_thread, &QThread::quit);
+  connect(m_thread, &QThread::finished, m_tracker, &QObject::deleteLater);
+  connect(m_thread, &QThread::finished, m_thread, &QThread::deleteLater);
+  m_thread->start();
 }
 
 void QTobiiTrackingManager::stopThread() {
-  tracker->stop();
+  m_tracker->stop();
 }
 
 } // namespace qtobii

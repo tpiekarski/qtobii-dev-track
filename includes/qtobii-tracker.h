@@ -22,7 +22,9 @@ class QTobiiTracker : public QObject {
   Q_OBJECT
 
 public:
-  explicit QTobiiTracker(QObject* parent, QTobiiApi* api) : QObject(parent), api(api), tracking(true) {}
+  explicit QTobiiTracker(QObject* parent, QTobiiApi* api) : QObject(parent), m_api(api), m_tracking(DEFAULT_TRACKING) {}
+  QTobiiTracker(const QTobiiTracker&) = default;
+  QTobiiTracker(QTobiiTracker&&) = default;
 
 public slots:
   void start();
@@ -35,9 +37,10 @@ signals:
 
 private:
   static constexpr int DEFAULT_DEVICE = 1;
+  static constexpr bool DEFAULT_TRACKING = true;
 
-  QTobiiApi* api;
-  bool tracking;
+  QTobiiApi* m_api;
+  bool m_tracking;
 
 };
 } // namespace qtobii

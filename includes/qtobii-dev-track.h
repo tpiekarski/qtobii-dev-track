@@ -26,32 +26,34 @@ class QTobiiDevTrack : public QMainWindow {
   Q_OBJECT
 
 public:
-  explicit QTobiiDevTrack(QWidget *parent = nullptr);
+  explicit QTobiiDevTrack(QWidget* parent = nullptr);
+  QTobiiDevTrack(const QTobiiDevTrack&) = default;
+  QTobiiDevTrack(QTobiiDevTrack&&) = default;
   ~QTobiiDevTrack();
 
   QTobiiTrackingMode getTrackingMode();
 
-  QPushButton* getStartThreadButton() { return ui->startThreadButton; }
-  QPushButton* getStartTrackingButton() { return ui->startTrackingButton; }
-  QPlainTextEdit* getDataLog() { return ui->dataLog; }
-  QPlainTextEdit* getMessageLog() { return ui->messageLog; }
+  QPushButton* getStartThreadButton() { return m_ui->startThreadButton; }
+  QPushButton* getStartTrackingButton() { return m_ui->startTrackingButton; }
+  QPlainTextEdit* getDataLog() { return m_ui->dataLog; }
+  QPlainTextEdit* getMessageLog() { return m_ui->messageLog; }
 
-  QLCDNumber* getGazePointXValue() { return ui->gazePointXValue; }
-  QLCDNumber* getGazePointYValue() { return ui->gazePointYValue; }
+  QLCDNumber* getGazePointXValue() { return m_ui->gazePointXValue; }
+  QLCDNumber* getGazePointYValue() { return m_ui->gazePointYValue; }
 
-  QLCDNumber* getGazeOriginLeftXValue() { return ui->gazeOriginLeftEyeXValue; }
-  QLCDNumber* getGazeOriginLeftYValue() { return ui->gazeOriginLeftEyeYValue; }
-  QLCDNumber* getGazeOriginLeftZValue() { return ui->gazeOriginLeftEyeZValue; }
-  QLCDNumber* getGazeOriginRightXValue() { return ui->gazeOriginRightEyeXValue; }
-  QLCDNumber* getGazeOriginRightYValue() { return ui->gazeOriginRightEyeYValue; }
-  QLCDNumber* getGazeOriginRightZValue() { return ui->gazeOriginRightEyeZValue; }
+  QLCDNumber* getGazeOriginLeftXValue() { return m_ui->gazeOriginLeftEyeXValue; }
+  QLCDNumber* getGazeOriginLeftYValue() { return m_ui->gazeOriginLeftEyeYValue; }
+  QLCDNumber* getGazeOriginLeftZValue() { return m_ui->gazeOriginLeftEyeZValue; }
+  QLCDNumber* getGazeOriginRightXValue() { return m_ui->gazeOriginRightEyeXValue; }
+  QLCDNumber* getGazeOriginRightYValue() { return m_ui->gazeOriginRightEyeYValue; }
+  QLCDNumber* getGazeOriginRightZValue() { return m_ui->gazeOriginRightEyeZValue; }
 
 private slots:
   void onStartThreadButtonToggled(bool value);
   void onStartTrackingButtonToggled(bool value);
 
 private:
-  Ui::QTobiiDevTrackWindow *ui;
+  Ui::QTobiiDevTrackWindow* m_ui;
 
 };
 } // namespace qtobii

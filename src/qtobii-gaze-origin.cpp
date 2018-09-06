@@ -39,23 +39,23 @@ QString QTobiiGazeOrigin::extract(const float values[]) {
 void QTobiiGazeOrigin::subscribe() {
   emit log("Subscribing to gaze origin...");
 
-  data = new QTobiiData<tobii_gaze_origin_t>(this);
-  messages = new QTobiiData<QString>(this);
-  exchangeContainer = new QTobiiExchangeContainer<tobii_gaze_origin_t, QString>(data, messages);
+  m_data = new QTobiiData<tobii_gaze_origin_t>(this);
+  m_messages = new QTobiiData<QString>(this);
+  m_exchangeContainer = new QTobiiExchangeContainer<tobii_gaze_origin_t, QString>(m_data, m_messages);
 
   #ifdef QTOBII_MSVC_QOVERLOAD_WORKAROUND
-    connect(messages, static_cast<void (QTobiiDataMessenger::*)(QString)>(&QTobiiData<QString>::transmit),
-            api->getLogger(), &QTobiiLogger::data);
+    connect(m_messages, static_cast<void (QTobiiDataMessenger::*)(QString)>(&QTobiiData<QString>::transmit),
+            m_api->getLogger(), &QTobiiLogger::data);
   #else
     connect(messages, qOverload<QString>(&QTobiiData<QString>::transmit), api->getLogger(), &QTobiiLogger::data);
   #endif
 
-  result = api->call(tobii_gaze_origin_subscribe(api->getDevice(), callback, exchangeContainer));
+  m_result = m_api->call(tobii_gaze_origin_subscribe(m_api->getDevice(), callback, m_exchangeContainer));
 
-  if (result->isError()) {
+  if (m_result->isError()) {
     emit log("Failed subscribing to gaze origin.");
-    delete result;
-    result = nullptr;
+    delete m_result;
+    m_result = nullptr;
     unsubscribe();
   }
 }
@@ -63,31 +63,31 @@ void QTobiiGazeOrigin::subscribe() {
 void QTobiiGazeOrigin::unsubscribe() {
   emit (log("Unsubscribing from gaze origin..."));
 
-  if (exchangeContainer != nullptr) {
+  if (m_exchangeContainer != nullptr) {
 
-    if (data != nullptr) {
-      disconnect(data);
-      delete data;
-      data = nullptr;
+    if (m_data != nullptr) {
+      disconnect(m_data);
+      delete m_data;
+      m_data = nullptr;
     }
 
-    if (messages != nullptr) {
-      disconnect(messages);
-      delete messages;
-      messages = nullptr;
+    if (m_messages != nullptr) {
+      disconnect(m_messages);
+      delete m_messages;
+      m_messages = nullptr;
     }
 
-    delete exchangeContainer;
-    exchangeContainer = nullptr;
+    delete m_exchangeContainer;
+    m_exchangeContainer = nullptr;
   }
 
-  result = api->call(tobii_gaze_origin_unsubscribe(api->getDevice()));
+  m_result = m_api->call(tobii_gaze_origin_unsubscribe(m_api->getDevice()));
 
-  if (result->isError()) {
+  if (m_result->isError()) {
     emit log("Failed unsubscribing from gaze origin");
 
-    delete result;
-    result = nullptr;
+    delete m_result;
+    m_result = nullptr;
   }
 }
 

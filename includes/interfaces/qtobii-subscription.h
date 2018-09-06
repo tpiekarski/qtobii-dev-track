@@ -19,7 +19,7 @@ namespace qtobii {
 class QTobiiSubscriptionInterface {
 
 public:
-  QTobiiSubscriptionInterface(QTobiiApi* api) : api(api), result(nullptr), tracking(true) {}
+  QTobiiSubscriptionInterface(QTobiiApi* api) : m_api(api), m_result(nullptr), m_tracking(true) {}
   virtual ~QTobiiSubscriptionInterface() {
     // Only defined to make sure all destructors will be called along inheritance.
   }
@@ -28,10 +28,11 @@ public:
   virtual void unsubscribe() = 0;
 
 protected:
-  QTobiiApi* api;
-  QTobiiResult* result;
-  bool tracking;
+  QTobiiApi* m_api;
+  QTobiiResult* m_result;
+  bool m_tracking;
 
 };
 } // namespace qtobii
+
 #endif

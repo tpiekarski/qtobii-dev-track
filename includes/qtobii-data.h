@@ -20,7 +20,9 @@ template <class T>
 class QTobiiData : public QTobiiDataMessenger {
 
 public:
-  explicit QTobiiData(QObject *parent) : QTobiiDataMessenger(parent) {}
+  explicit QTobiiData(QObject* parent) : QTobiiDataMessenger(parent) {}
+  QTobiiData(const QTobiiData&) = default;
+  QTobiiData(QTobiiData&&) = default;
   void send(T data) { emit transmit(data); }
 
 };

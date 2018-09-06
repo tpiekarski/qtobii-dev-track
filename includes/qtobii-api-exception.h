@@ -23,11 +23,11 @@ using std::string;
 class QTobiiApiException : public exception {
 
 public:
-  explicit QTobiiApiException(string message = "Failed initializing tracking device.") : message(message) {}
-  string what() { return message; }
+  explicit QTobiiApiException(string message = "Failed initializing tracking device.") : m_message(message) {}
+  string what() { return m_message; }
 
 private:
-  string message;
+  string m_message;
 
 };
 } // namespace qtobii

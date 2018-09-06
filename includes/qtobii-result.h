@@ -22,15 +22,17 @@ class QTobiiResult : public QObject {
   Q_OBJECT
 
 public:
-  explicit QTobiiResult(tobii_error_t error, QObject* parent = nullptr) : QObject(parent), error(error) {}
+  explicit QTobiiResult(tobii_error_t error, QObject* parent = nullptr) : QObject(parent), m_error(error) {}
+  QTobiiResult(const QTobiiResult&) = default;
+  QTobiiResult(QTobiiResult&&) = default;
   ~QTobiiResult() = default;
 
-  bool isError() { return (error != TOBII_ERROR_NO_ERROR); }
-  tobii_error_t getError() { return error; }
-  QString getMessage() { return QString::fromLatin1(tobii_error_message(error)); }
+  bool isError() { return (m_error != TOBII_ERROR_NO_ERROR); }
+  tobii_error_t getError() { return m_error; }
+  QString getMessage() { return QString::fromLatin1(tobii_error_message(m_error)); }
 
 private:
-  tobii_error_t error;
+  tobii_error_t m_error;
 
 };
 } // namespace qtobii

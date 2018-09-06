@@ -25,28 +25,30 @@ class QTobiiApi : public QObject {
   Q_OBJECT
 
 public:
-  explicit QTobiiApi(QObject *parent, QTobiiLogger* logger);
+  explicit QTobiiApi(QObject* parent, QTobiiLogger* logger);
+  QTobiiApi(const QTobiiApi&) = default;
+  QTobiiApi(QTobiiApi &&) = default;
   ~QTobiiApi();
 
   QTobiiResult* call(tobii_error_t error);
 
-  tobii_device_t* getDevice() { return device; }
-  QTobiiResult* getLastResult() { return results.last(); }
-  QTobiiLogger* getLogger() { return logger; }
-  QString getUrl() { return url; }
+  tobii_device_t* getDevice() { return m_device; }
+  QTobiiResult* getLastResult() { return m_results.last(); }
+  QTobiiLogger* getLogger() { return m_logger; }
+  QString getUrl() { return m_url; }
   QString getVersion();
 
 private:
-  tobii_api_t* api;
-  tobii_device_t* device;
-  tobii_version_t* version;
-  QTobiiLogger* logger;
-  QString url;
+  tobii_api_t* m_api;
+  tobii_device_t* m_device;
+  tobii_version_t* m_version;
+  QTobiiLogger* m_logger;
+  QString m_url;
 
-  QVector<QTobiiResult*> results;
+  QVector<QTobiiResult*> m_results;
 
-  void setup(tobii_error_t error);
   static void deviceReceiver(const char* url, void* data);
+  void setup(tobii_error_t error);
 
 };
 } // namespace qtobii

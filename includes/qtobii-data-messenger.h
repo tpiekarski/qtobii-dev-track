@@ -21,7 +21,9 @@ class QTobiiDataMessenger : public QObject {
   Q_OBJECT
 
 public:
-  explicit QTobiiDataMessenger(QObject *parent = nullptr) : QObject(parent) {}
+  explicit QTobiiDataMessenger(QObject* parent = nullptr) : QObject(parent) {}
+  QTobiiDataMessenger(const QTobiiDataMessenger&) = default;
+  QTobiiDataMessenger(QTobiiDataMessenger&&) = default;
   ~QTobiiDataMessenger() { /* Defined to make sure all destructors along inheritance will be called. */ }
 
 signals:

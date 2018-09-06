@@ -23,7 +23,9 @@ class QTobiiLogger : public QObject, QTobiiLoggingInterface {
   Q_OBJECT
 
 public:
-  explicit QTobiiLogger(QTobiiDevTrack* devTrack) : QObject(devTrack), devTrack(devTrack) {}
+  explicit QTobiiLogger(QTobiiDevTrack* devTrack) : QObject(devTrack), m_devTrack(devTrack) {}
+  QTobiiLogger(const QTobiiLogger&) = default;
+  QTobiiLogger(QTobiiLogger&&) = default;
 
 public slots:
   void debug(QString message) override;
@@ -34,7 +36,7 @@ protected:
   void write(MessageType type, QString message);
 
 private:
-  QTobiiDevTrack* devTrack;
+  QTobiiDevTrack* m_devTrack;
 
 };
 } // namespace qtobii

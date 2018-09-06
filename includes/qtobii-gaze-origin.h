@@ -28,11 +28,13 @@ class QTobiiGazeOrigin : public QObject, public QTobiiSubscriptionInterface {
 public:
   explicit QTobiiGazeOrigin(QObject* parent = nullptr, QTobiiApi* api = nullptr)
     : QObject(parent), QTobiiSubscriptionInterface(api) {}
+  QTobiiGazeOrigin(const QTobiiGazeOrigin&) = default;
+  QTobiiGazeOrigin(QTobiiGazeOrigin&&) = default;
 
   virtual void subscribe() override;
   virtual void unsubscribe() override;
 
-  QTobiiData<tobii_gaze_origin_t>* getData() { return data; }
+  QTobiiData<tobii_gaze_origin_t>* getData() { return m_data; }
 
 signals:
   void log(QString message);
@@ -41,9 +43,9 @@ private:
   static void callback(tobii_gaze_origin_t const* gazeOrigin, void* exchange);
   static QString extract(const float values[]);
 
-  QTobiiExchangeContainer<tobii_gaze_origin_t, QString>* exchangeContainer;
-  QTobiiData<tobii_gaze_origin_t>* data;
-  QTobiiData<QString>* messages;
+  QTobiiExchangeContainer<tobii_gaze_origin_t, QString>* m_exchangeContainer;
+  QTobiiData<tobii_gaze_origin_t>* m_data;
+  QTobiiData<QString>* m_messages;
 
 };
 } // namespace qtobii

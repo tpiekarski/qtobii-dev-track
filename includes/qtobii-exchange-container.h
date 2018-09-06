@@ -19,15 +19,17 @@ template <class D, class M>
 class QTobiiExchangeContainer {
 
 public:
-  QTobiiExchangeContainer(QTobiiData<D>* data, QTobiiData<M>* messages) : data(data), messages(messages) {}
+  QTobiiExchangeContainer(QTobiiData<D>* data, QTobiiData<M>* messages) : m_data(data), m_messages(messages) {}
+  QTobiiExchangeContainer(const QTobiiExchangeContainer&) = default;
+  QTobiiExchangeContainer(QTobiiExchangeContainer&&) = default;
   ~QTobiiExchangeContainer() = default;
 
-  QTobiiData<D>* getData() { return data; }
-  QTobiiData<M>* getMessages() { return messages; }
+  QTobiiData<D>* getData() { return m_data; }
+  QTobiiData<M>* getMessages() { return m_messages; }
 
 private:
-  QTobiiData<D>* data;
-  QTobiiData<M>* messages;
+  QTobiiData<D>* m_data;
+  QTobiiData<M>* m_messages;
 
 };
 } // namespace qtobii

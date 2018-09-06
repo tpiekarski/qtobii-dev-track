@@ -49,9 +49,11 @@ QTobiiDevTrack::Todo
 - [x] Write a first draft README, explaining utility, showing planed features and status tracking
 
 ## Development Improvements
-- [ ] Clean present code base [ | ]
+- [ ] Check destructors (few are missing)
+- [ ] Consider to switch to smart pointers
 - [ ] Hunt for leaking memory
 - [ ] Pass reference arguments instead of pointers all over the place
+- [x] Clean present code base
 
 ## Bugs
 - [ ] Check and fix segfaults when trying to restart thread

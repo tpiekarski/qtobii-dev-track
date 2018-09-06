@@ -28,7 +28,9 @@ class QTobiiTrackingManager : public QObject {
   Q_OBJECT
 
 public:
-  explicit QTobiiTrackingManager(QObject *parent, QTobiiApi* api, QTobiiLogger* logger);
+  explicit QTobiiTrackingManager(QObject* parent, QTobiiApi* api, QTobiiLogger* logger);
+  QTobiiTrackingManager(const QTobiiTrackingManager&) = default;
+  QTobiiTrackingManager(QTobiiTrackingManager&&) = default;
 
 public slots:
   void toggleThread(bool value);
@@ -40,14 +42,14 @@ private:
   void startThread();
   void stopThread();
 
-  QTobiiApi* api;
-  QTobiiDevTrack* devTrack;
-  QTobiiLogger* logger;
-  QTobiiTracker* tracker;
-  QTobiiGazeOrigin* gazeOrigin;
-  QTobiiGazePoint* gazePoint;
+  QTobiiApi* m_api;
+  QTobiiDevTrack* m_devTrack;
+  QTobiiLogger* m_logger;
+  QTobiiTracker* m_tracker;
+  QTobiiGazeOrigin* m_gazeOrigin;
+  QTobiiGazePoint* m_gazePoint;
 
-  QThread* thread;
+  QThread* m_thread;
 
 };
 } // namespace qtobii

@@ -27,12 +27,14 @@ class QTobiiGazePoint : public QObject, public QTobiiSubscriptionInterface {
 
 public:
   explicit QTobiiGazePoint(QObject* parent, QTobiiApi* api)
-    : QObject(parent), QTobiiSubscriptionInterface(api), exchangeContainer(nullptr), data(nullptr), messages(nullptr) {}
+    : QObject(parent), QTobiiSubscriptionInterface(api), m_exchangeContainer(nullptr), m_data(nullptr), m_messages(nullptr) {}
+  QTobiiGazePoint(const QTobiiGazePoint&) = default;
+  QTobiiGazePoint(QTobiiGazePoint&&) = default;
 
   virtual void subscribe() override;
   virtual void unsubscribe() override;
 
-  QTobiiData<tobii_gaze_point_t>* getData() { return data; }
+  QTobiiData<tobii_gaze_point_t>* getData() { return m_data; }
 
 signals:
   void log(QString message);
@@ -41,9 +43,9 @@ private:
   static void callback(tobii_gaze_point_t const* gazePoint, void* exchange);
   static QString extract(const float values[]);
 
-  QTobiiExchangeContainer<tobii_gaze_point_t, QString>* exchangeContainer;
-  QTobiiData<tobii_gaze_point_t>* data;
-  QTobiiData<QString>* messages;
+  QTobiiExchangeContainer<tobii_gaze_point_t, QString>* m_exchangeContainer;
+  QTobiiData<tobii_gaze_point_t>* m_data;
+  QTobiiData<QString>* m_messages;
 
 };
 } // namespace qtobii

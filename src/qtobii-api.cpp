@@ -16,52 +16,52 @@
 
 namespace qtobii {
 
-QTobiiApi::QTobiiApi(QObject *parent, QTobiiLogger* logger)
-  : QObject(parent), api(nullptr), device(nullptr), version(new tobii_version_t), logger(logger), url("")
+QTobiiApi::QTobiiApi(QObject* parent, QTobiiLogger* logger)
+  : QObject(parent), m_api(nullptr), m_device(nullptr), m_version(new tobii_version_t()), m_logger(logger), m_url("")
 {
-  setup(tobii_get_api_version(version));
-  setup(tobii_api_create(&api, nullptr, nullptr));
-  setup(tobii_enumerate_local_device_urls(api, deviceReceiver, &url));
-  setup(tobii_device_create(api, url.toLatin1(), &device));
+  setup(tobii_get_api_version(m_version));
+  setup(tobii_api_create(&m_api, nullptr, nullptr));
+  setup(tobii_enumerate_local_device_urls(m_api, deviceReceiver, &m_url));
+  setup(tobii_device_create(m_api, m_url.toLatin1(), &m_device));
 
   logger->log(QString("Tobii Stream API, Version: %1").arg(getVersion()));
   logger->log(QString("Device URL: %1").arg(getUrl()));
 }
 
 QTobiiApi::~QTobiiApi() {
-  if (version != nullptr) {
-    delete version;
-    version = nullptr;
+  if (m_version != nullptr) {
+    delete m_version;
+    m_version = nullptr;
   }
 
-  if (device != nullptr) {
-    setup(tobii_device_destroy(device));
-    device = nullptr;
+  if (m_device != nullptr) {
+    setup(tobii_device_destroy(m_device));
+    m_device = nullptr;
   }
 
-  if (api != nullptr) {
-    setup(tobii_api_destroy(api));
-    api = nullptr;
+  if (m_api != nullptr) {
+    setup(tobii_api_destroy(m_api));
+    m_api = nullptr;
   }
 
-  if (!results.empty()) {
+  if (!m_results.empty()) {
     #ifndef QT_NO_DEBUG_OUTPUT
       qDebug() << "Result Message Stack:";
-      std::for_each(results.begin(), results.end(), [](QTobiiResult *result) {
+      std::for_each(m_results.begin(), m_results.end(), [](QTobiiResult* result) {
         qDebug() << " " << result->getMessage();
       });
     #endif
 
-    results.clear();
+    m_results.clear();
   }
 }
 
 QString QTobiiApi::getVersion() {
   return QString("%1.%2.%3.%4").arg(
-        QString::number(version->major),
-        QString::number(version->minor),
-        QString::number(version->revision),
-        QString::number(version->build));
+    QString::number(m_version->major),
+    QString::number(m_version->minor),
+    QString::number(m_version->revision),
+    QString::number(m_version->build));
 }
 
 QTobiiResult* QTobiiApi::call(tobii_error_t error) {
@@ -79,7 +79,7 @@ void QTobiiApi::setup(tobii_error_t error) {
     throw QTobiiApiException(lastMessage.toStdString());
   }
 
-  results.append(result);
+  m_results.append(result);
 }
 
 void QTobiiApi::deviceReceiver(const char* url, void* data) {

@@ -13,34 +13,34 @@
 
 namespace qtobii {
 
-QTobiiDevTrack::QTobiiDevTrack(QWidget *parent) : QMainWindow(parent), ui(new Ui::QTobiiDevTrackWindow) {
-  ui->setupUi(this);
-  ui->dataLog->setReadOnly(true);
-  ui->messageLog->setReadOnly(true);
+QTobiiDevTrack::QTobiiDevTrack(QWidget* parent) : QMainWindow(parent), m_ui(new Ui::QTobiiDevTrackWindow) {
+  m_ui->setupUi(this);
+  m_ui->dataLog->setReadOnly(true);
+  m_ui->messageLog->setReadOnly(true);
 
-  connect(ui->startThreadButton, &QPushButton::toggled, this, &QTobiiDevTrack::onStartThreadButtonToggled);
-  connect(ui->startTrackingButton, &QPushButton::toggled, this, &QTobiiDevTrack::onStartTrackingButtonToggled);
+  connect(m_ui->startThreadButton, &QPushButton::toggled, this, &QTobiiDevTrack::onStartThreadButtonToggled);
+  connect(m_ui->startTrackingButton, &QPushButton::toggled, this, &QTobiiDevTrack::onStartTrackingButtonToggled);
 }
 
 QTobiiDevTrack::~QTobiiDevTrack() {
-  if (ui != nullptr) {
-    delete ui;
-    ui = nullptr;
+  if (m_ui != nullptr) {
+    delete m_ui;
+    m_ui = nullptr;
   }
 }
 
 QTobiiTrackingMode QTobiiDevTrack::getTrackingMode() {
-  return static_cast<QTobiiTrackingMode>(ui->trackingBox->currentIndex());
+  return static_cast<QTobiiTrackingMode>(m_ui->trackingBox->currentIndex());
 }
 
 void QTobiiDevTrack::onStartThreadButtonToggled(bool value) {
-  ui->startTrackingButton->setEnabled(value);
-  ui->startThreadButton->setText((value) ? "Stop Tracking &Thread" : "Start Tracking &Thread");
+  m_ui->startTrackingButton->setEnabled(value);
+  m_ui->startThreadButton->setText((value) ? "Stop Tracking &Thread" : "Start Tracking &Thread");
 }
 
 void QTobiiDevTrack::onStartTrackingButtonToggled(bool value) {
-  ui->startThreadButton->setEnabled(!value);
-  ui->startTrackingButton->setText((value) ? "&Stop Tracking" : "&Start Tracking");
+  m_ui->startThreadButton->setEnabled(!value);
+  m_ui->startTrackingButton->setText((value) ? "&Stop Tracking" : "&Start Tracking");
 }
 
 } // namesapce qtobii
