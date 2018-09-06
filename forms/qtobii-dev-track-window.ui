@@ -160,6 +160,12 @@
            </item>
            <item row="5" column="0">
             <widget class="QLCDNumber" name="gazePointXValue">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
              <property name="font">
               <font>
                <weight>50</weight>
@@ -176,7 +182,7 @@
               <bool>false</bool>
              </property>
              <property name="digitCount">
-              <number>10</number>
+              <number>7</number>
              </property>
              <property name="segmentStyle">
               <enum>QLCDNumber::Flat</enum>
@@ -188,6 +194,12 @@
            </item>
            <item row="5" column="1">
             <widget class="QLCDNumber" name="gazePointYValue">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
              <property name="frameShape">
               <enum>QFrame::NoFrame</enum>
              </property>
@@ -198,7 +210,7 @@
               <bool>false</bool>
              </property>
              <property name="digitCount">
-              <number>10</number>
+              <number>7</number>
              </property>
              <property name="segmentStyle">
               <enum>QLCDNumber::Flat</enum>
@@ -253,7 +265,7 @@
         <x>10</x>
         <y>10</y>
         <width>271</width>
-        <height>221</height>
+        <height>231</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="gazeOriginTabLabout">
@@ -338,8 +350,26 @@
            </item>
            <item row="5" column="2">
             <widget class="QLCDNumber" name="gazeOriginLeftEyeZValue">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Plain</enum>
+             </property>
              <property name="smallDecimalPoint">
               <bool>false</bool>
+             </property>
+             <property name="digitCount">
+              <number>6</number>
+             </property>
+             <property name="segmentStyle">
+              <enum>QLCDNumber::Flat</enum>
              </property>
              <property name="value" stdset="0">
               <double>0.000000000000000</double>
@@ -348,8 +378,26 @@
            </item>
            <item row="5" column="0">
             <widget class="QLCDNumber" name="gazeOriginLeftEyeXValue">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
              <property name="smallDecimalPoint">
               <bool>false</bool>
+             </property>
+             <property name="digitCount">
+              <number>6</number>
+             </property>
+             <property name="segmentStyle">
+              <enum>QLCDNumber::Flat</enum>
              </property>
              <property name="value" stdset="0">
               <double>0.000000000000000</double>
@@ -358,8 +406,26 @@
            </item>
            <item row="5" column="1">
             <widget class="QLCDNumber" name="gazeOriginLeftEyeYValue">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Plain</enum>
+             </property>
              <property name="smallDecimalPoint">
               <bool>false</bool>
+             </property>
+             <property name="digitCount">
+              <number>6</number>
+             </property>
+             <property name="segmentStyle">
+              <enum>QLCDNumber::Flat</enum>
              </property>
              <property name="value" stdset="0">
               <double>0.000000000000000</double>
@@ -368,8 +434,26 @@
            </item>
            <item row="8" column="1">
             <widget class="QLCDNumber" name="gazeOriginRightEyeYValue">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Plain</enum>
+             </property>
              <property name="smallDecimalPoint">
               <bool>false</bool>
+             </property>
+             <property name="digitCount">
+              <number>6</number>
+             </property>
+             <property name="segmentStyle">
+              <enum>QLCDNumber::Flat</enum>
              </property>
              <property name="value" stdset="0">
               <double>0.000000000000000</double>
@@ -385,8 +469,26 @@
            </item>
            <item row="8" column="2">
             <widget class="QLCDNumber" name="gazeOriginRightEyeZValue">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Plain</enum>
+             </property>
              <property name="smallDecimalPoint">
               <bool>false</bool>
+             </property>
+             <property name="digitCount">
+              <number>6</number>
+             </property>
+             <property name="segmentStyle">
+              <enum>QLCDNumber::Flat</enum>
              </property>
              <property name="value" stdset="0">
               <double>0.000000000000000</double>
@@ -395,8 +497,26 @@
            </item>
            <item row="8" column="0">
             <widget class="QLCDNumber" name="gazeOriginRightEyeXValue">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Plain</enum>
+             </property>
              <property name="smallDecimalPoint">
               <bool>false</bool>
+             </property>
+             <property name="digitCount">
+              <number>6</number>
+             </property>
+             <property name="segmentStyle">
+              <enum>QLCDNumber::Flat</enum>
              </property>
              <property name="value" stdset="0">
               <double>0.000000000000000</double>
@@ -530,8 +650,26 @@
         </item>
         <item row="5" column="2">
          <widget class="QLCDNumber" name="eyePositionLeftEyeZValue">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
           <property name="smallDecimalPoint">
            <bool>false</bool>
+          </property>
+          <property name="digitCount">
+           <number>6</number>
+          </property>
+          <property name="segmentStyle">
+           <enum>QLCDNumber::Flat</enum>
           </property>
           <property name="value" stdset="0">
            <double>0.000000000000000</double>
@@ -540,8 +678,26 @@
         </item>
         <item row="5" column="0">
          <widget class="QLCDNumber" name="eyePositionLeftEyeXValue">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
           <property name="smallDecimalPoint">
            <bool>false</bool>
+          </property>
+          <property name="digitCount">
+           <number>6</number>
+          </property>
+          <property name="segmentStyle">
+           <enum>QLCDNumber::Flat</enum>
           </property>
           <property name="value" stdset="0">
            <double>0.000000000000000</double>
@@ -550,8 +706,26 @@
         </item>
         <item row="5" column="1">
          <widget class="QLCDNumber" name="eyePositionLeftEyeYValue">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
           <property name="smallDecimalPoint">
            <bool>false</bool>
+          </property>
+          <property name="digitCount">
+           <number>6</number>
+          </property>
+          <property name="segmentStyle">
+           <enum>QLCDNumber::Flat</enum>
           </property>
           <property name="value" stdset="0">
            <double>0.000000000000000</double>
@@ -560,8 +734,26 @@
         </item>
         <item row="8" column="1">
          <widget class="QLCDNumber" name="eyePositionRightEyeYValue">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
           <property name="smallDecimalPoint">
            <bool>false</bool>
+          </property>
+          <property name="digitCount">
+           <number>6</number>
+          </property>
+          <property name="segmentStyle">
+           <enum>QLCDNumber::Flat</enum>
           </property>
           <property name="value" stdset="0">
            <double>0.000000000000000</double>
@@ -577,8 +769,26 @@
         </item>
         <item row="8" column="2">
          <widget class="QLCDNumber" name="eyePositionRightEyeZValue">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
           <property name="smallDecimalPoint">
            <bool>false</bool>
+          </property>
+          <property name="digitCount">
+           <number>6</number>
+          </property>
+          <property name="segmentStyle">
+           <enum>QLCDNumber::Flat</enum>
           </property>
           <property name="value" stdset="0">
            <double>0.000000000000000</double>
@@ -587,8 +797,26 @@
         </item>
         <item row="8" column="0">
          <widget class="QLCDNumber" name="eyePositionRightEyeXValue">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
           <property name="smallDecimalPoint">
            <bool>false</bool>
+          </property>
+          <property name="digitCount">
+           <number>6</number>
+          </property>
+          <property name="segmentStyle">
+           <enum>QLCDNumber::Flat</enum>
           </property>
           <property name="value" stdset="0">
            <double>0.000000000000000</double>
@@ -761,8 +989,26 @@
         </item>
         <item row="5" column="2">
          <widget class="QLCDNumber" name="headPositionPositionZValue">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
           <property name="smallDecimalPoint">
            <bool>false</bool>
+          </property>
+          <property name="digitCount">
+           <number>6</number>
+          </property>
+          <property name="segmentStyle">
+           <enum>QLCDNumber::Flat</enum>
           </property>
           <property name="value" stdset="0">
            <double>0.000000000000000</double>
@@ -771,8 +1017,26 @@
         </item>
         <item row="5" column="0">
          <widget class="QLCDNumber" name="headPositionPositionXValue">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
           <property name="smallDecimalPoint">
            <bool>false</bool>
+          </property>
+          <property name="digitCount">
+           <number>6</number>
+          </property>
+          <property name="segmentStyle">
+           <enum>QLCDNumber::Flat</enum>
           </property>
           <property name="value" stdset="0">
            <double>0.000000000000000</double>
@@ -781,8 +1045,26 @@
         </item>
         <item row="5" column="1">
          <widget class="QLCDNumber" name="headPositionPositionYValue">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
           <property name="smallDecimalPoint">
            <bool>false</bool>
+          </property>
+          <property name="digitCount">
+           <number>6</number>
+          </property>
+          <property name="segmentStyle">
+           <enum>QLCDNumber::Flat</enum>
           </property>
           <property name="value" stdset="0">
            <double>0.000000000000000</double>
@@ -791,8 +1073,26 @@
         </item>
         <item row="8" column="1">
          <widget class="QLCDNumber" name="headPositionRotationYValue">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
           <property name="smallDecimalPoint">
            <bool>false</bool>
+          </property>
+          <property name="digitCount">
+           <number>6</number>
+          </property>
+          <property name="segmentStyle">
+           <enum>QLCDNumber::Flat</enum>
           </property>
           <property name="value" stdset="0">
            <double>0.000000000000000</double>
@@ -808,8 +1108,26 @@
         </item>
         <item row="8" column="2">
          <widget class="QLCDNumber" name="headPositionRotationZValue">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
           <property name="smallDecimalPoint">
            <bool>false</bool>
+          </property>
+          <property name="digitCount">
+           <number>6</number>
+          </property>
+          <property name="segmentStyle">
+           <enum>QLCDNumber::Flat</enum>
           </property>
           <property name="value" stdset="0">
            <double>0.000000000000000</double>
@@ -818,8 +1136,26 @@
         </item>
         <item row="8" column="0">
          <widget class="QLCDNumber" name="headPositionRotationXValue">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
           <property name="smallDecimalPoint">
            <bool>false</bool>
+          </property>
+          <property name="digitCount">
+           <number>6</number>
+          </property>
+          <property name="segmentStyle">
+           <enum>QLCDNumber::Flat</enum>
           </property>
           <property name="value" stdset="0">
            <double>0.000000000000000</double>

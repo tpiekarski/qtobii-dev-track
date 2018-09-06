@@ -9,21 +9,16 @@
  *
  */
 
-#ifndef QTOBIIDATA_H
-#define QTOBIIDATA_H
-
-#include "qtobii-data-messenger.h"
-#include <QObject>
+#ifndef QTOBIITRACKINGMODE_H
+#define QTOBIITRACKINGMODE_H
 
 namespace qtobii {
-template <class T>
-class QTobiiData : public QTobiiDataMessenger {
+enum QTobiiTrackingMode {
 
-public:
-  explicit QTobiiData(QObject *parent) : QTobiiDataMessenger(parent) {}
-  void send(T data) { emit transmit(data); }
+  GAZE_POINT = 0,
+  GAZE_ORIGIN = 1
 
 };
-} // namespace tobii
+} // namespace qtobii
 
-#endif // QTOBIIDATA_H
+#endif // QTOBIITRACKINGMODE_H

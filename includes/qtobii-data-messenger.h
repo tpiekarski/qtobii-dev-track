@@ -26,10 +26,10 @@ public:
 
 signals:
   void transmit(QString payload);
+  void transmit(tobii_gaze_origin_t payload);
   void transmit(tobii_gaze_point_t payload);
 
 };
-
 } // namespace tobii
 
 #endif // QTOBIIDATA_H

@@ -14,9 +14,11 @@
 
 #include "qtobii-api.h"
 #include "qtobii-dev-track.h"
+#include "qtobii-gaze-origin.h"
 #include "qtobii-gaze-point.h"
 #include "qtobii-logger.h"
 #include "qtobii-tracker.h"
+#include "qtobii-tracking-mode.h"
 #include <QObject>
 #include <tobii/tobii_streams.h>
 
@@ -31,6 +33,7 @@ public:
 public slots:
   void toggleThread(bool value);
   void toggleSubscription(bool value);
+  void displayGazeOriginData(tobii_gaze_origin_t data);
   void displayGazePointData(tobii_gaze_point_t data);
 
 private:
@@ -41,7 +44,9 @@ private:
   QTobiiDevTrack* devTrack;
   QTobiiLogger* logger;
   QTobiiTracker* tracker;
+  QTobiiGazeOrigin* gazeOrigin;
   QTobiiGazePoint* gazePoint;
+
   QThread* thread;
 
 };

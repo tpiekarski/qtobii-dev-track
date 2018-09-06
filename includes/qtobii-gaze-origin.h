@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef QTOBIIGAZEPOINT_H
-#define QTOBIIGAZEPOINT_H
+#ifndef QTOBIIGAZEORIGIN_H
+#define QTOBIIGAZEORIGIN_H
 
 #include "interfaces/qtobii-subscription.h"
 #include "qtobii-exchange-container.h"
@@ -21,30 +21,32 @@
 #include <tobii/tobii_streams.h>
 
 namespace qtobii {
-class QTobiiGazePoint : public QObject, public QTobiiSubscriptionInterface {
+class QTobiiGazeOrigin : public QObject, public QTobiiSubscriptionInterface {
 
   Q_OBJECT
 
 public:
-  explicit QTobiiGazePoint(QTobiiApi* api)
-    : QTobiiSubscriptionInterface(api), exchangeContainer(nullptr), data(nullptr), messages(nullptr) {}
+  // todo: pass parent to qobject
+  explicit QTobiiGazeOrigin(QTobiiApi* api)
+    : QTobiiSubscriptionInterface(api) {}
 
   virtual void subscribe() override;
   virtual void unsubscribe() override;
 
-  QTobiiData<tobii_gaze_point_t>* getData() { return data; }
+  QTobiiData<tobii_gaze_origin_t>* getData() { return data; }
 
 signals:
   void log(QString message);
 
 private:
-  static void callback(tobii_gaze_point_t const* gazePoint, void* exchange);
+  static void callback(tobii_gaze_origin_t const* gazeOrigin, void* exchange);
+  static QString extract(const float values[]);
 
-  QTobiiExchangeContainer<tobii_gaze_point_t, QString>* exchangeContainer;
-  QTobiiData<tobii_gaze_point_t>* data;
+  QTobiiExchangeContainer<tobii_gaze_origin_t, QString>* exchangeContainer;
+  QTobiiData<tobii_gaze_origin_t>* data;
   QTobiiData<QString>* messages;
 
 };
 } // namespace qtobii
 
-#endif // QTOBIIGAZEPOINT_H
+#endif // QTOBIIGAZEORIGIN_H

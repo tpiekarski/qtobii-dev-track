@@ -10,6 +10,7 @@
  */
 
 #include "qtobii-tracking-manager.h"
+#include "qtobii-tracking-mode.h"
 #include <QApplication>
 #include <QThread>
 
@@ -18,13 +19,16 @@ namespace qtobii {
 QTobiiTrackingManager::QTobiiTrackingManager(QObject *parent, QTobiiApi* api, QTobiiLogger* logger)
   : QObject(parent), api(api), logger(logger)
 {
+  // todo: move assignments to constructor initializer
   devTrack = dynamic_cast<QTobiiDevTrack*>(parent);
   logger->log("Starting Tracking Manager...");
 
   tracker = new QTobiiTracker(api);
+  gazeOrigin = new QTobiiGazeOrigin(api);
   gazePoint = new QTobiiGazePoint(api);
   thread = new QThread();
 
+  qRegisterMetaType<tobii_gaze_origin_t>("tobii_gaze_origin_t");
   qRegisterMetaType<tobii_gaze_point_t>("tobii_gaze_point_t");
 
   connect(devTrack->getStartThreadButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleThread);
@@ -32,6 +36,7 @@ QTobiiTrackingManager::QTobiiTrackingManager(QObject *parent, QTobiiApi* api, QT
 
   connect(tracker, &QTobiiTracker::log, logger, &QTobiiLogger::log);
   connect(tracker, &QTobiiTracker::error, logger, &QTobiiLogger::log);
+  connect(gazeOrigin, &QTobiiGazeOrigin::log, logger, &QTobiiLogger::log);
   connect(gazePoint, &QTobiiGazePoint::log, logger, &QTobiiLogger::log);
 }
 
@@ -44,24 +49,59 @@ void QTobiiTrackingManager::toggleThread(bool value) {
 }
 
 void QTobiiTrackingManager::toggleSubscription(bool value) {
-  if (value) {
+  switch (devTrack->getTrackingMode()) {
+  case QTobiiTrackingMode::GAZE_POINT:
+    if (!value) {
+      gazePoint->unsubscribe();
+      return;
+    }
+
     gazePoint->subscribe();
+    #ifdef QTOBII_MSVC_QOVERLOAD_WORKAROUND
+      connect(gazePoint->getData(),
+              static_cast<void (QTobiiDataMessenger::*)(tobii_gaze_point_t)>(&QTobiiData<tobii_gaze_point_t>::transmit),
+              this, &QTobiiTrackingManager::displayGazePointData);
+    #else
+      connect(gazePoint->getData(), qOverload<tobii_gaze_point_t>(&QTobiiData<tobii_gaze_point_t>::transmit),
+              this, &QTobiiTrackingManager::displayGazePointData);
+    #endif
+    break;
 
-#ifdef QTOBII_MSVC_QOVERLOAD_WORKAROUND
-    connect(gazePoint->getData(),
-            static_cast<void (QTobiiDataMessenger::*)(tobii_gaze_point_t)>(&QTobiiData<tobii_gaze_point_t>::transmit),
-            this, &QTobiiTrackingManager::displayGazePointData);
-#else
-    connect(gazePoint->getData(), qOverload<tobii_gaze_point_t>(&QTobiiData<tobii_gaze_point_t>::transmit),
-            this, &QTobiiTrackingManager::displayGazePointData);
-#endif
+  case QTobiiTrackingMode::GAZE_ORIGIN:
+    if (!value) {
+      gazeOrigin->unsubscribe();
+      return;
+    }
 
-  } else {
-    gazePoint->unsubscribe();
+    gazeOrigin->subscribe();
+    #ifdef QTOBII_MSVC_QOVERLOAD_WORKAROUND
+      connect(gazeOrigin->getData(),
+              static_cast<void (QTobiiDataMessenger::*)(tobii_gaze_origin_t)>(&QTobiiData<tobii_gaze_origin_t>::transmit),
+              this, &QTobiiTrackingManager::displayGazeOriginData);
+    #else
+      connect(gazeOrigin->getData(), qOverload<tobii_gaze_origin_t>(&QTobiiData<tobii_gaze_origin_t>::transmit),
+              this, &QTobiiTrackingManager::displayGazeOriginData);
+    #endif
+    break;
+
+  default:
+    logger->log("Selected tracking is not yet implemented.");
+    break;
   }
 }
 
+void QTobiiTrackingManager::displayGazeOriginData(tobii_gaze_origin_t data) {
+  // todo: avoid implicit conversion from float to double (make it explicit)
+  devTrack->getGazeOriginLeftXValue()->display(data.left_xyz[0]);
+  devTrack->getGazeOriginLeftYValue()->display(data.left_xyz[1]);
+  devTrack->getGazeOriginLeftZValue()->display(data.left_xyz[2]);
+  devTrack->getGazeOriginRightXValue()->display(data.right_xyz[0]);
+  devTrack->getGazeOriginRightYValue()->display(data.right_xyz[1]);
+  devTrack->getGazeOriginRightZValue()->display(data.right_xyz[2]);
+}
+
 void QTobiiTrackingManager::displayGazePointData(tobii_gaze_point_t data) {
+  // todo: avoid implicit conversion from float to double (make it explicit)
   devTrack->getGazePointXValue()->display(data.position_xy[0]);
   devTrack->getGazePointYValue()->display(data.position_xy[1]);
 }

@@ -15,10 +15,11 @@
 
 namespace qtobii {
 
-void QTobiiGazePoint::callback(const tobii_gaze_point_t *gazePoint, void *exchange) {
+void QTobiiGazePoint::callback(tobii_gaze_point_t const* gazePoint, void* exchange) {
   auto exchangeContainer = static_cast<QTobiiExchangeContainer<tobii_gaze_point_t, QString>*>(exchange);
 
   exchangeContainer->getData()->send(*gazePoint);
+  // todo: also add a extract method like in the new QTobiiGazeOrigin
   exchangeContainer->getMessages()->send(QString("%1/%2")
     .arg(QString::number(gazePoint->position_xy[0]), QString::number(gazePoint->position_xy[1]))
   );
@@ -31,12 +32,12 @@ void QTobiiGazePoint::subscribe() {
   messages = new QTobiiData<QString>(this);
   exchangeContainer = new QTobiiExchangeContainer<tobii_gaze_point_t, QString>(data, messages);
 
-#ifdef QTOBII_MSVC_QOVERLOAD_WORKAROUND
-  connect(messages, static_cast<void (QTobiiDataMessenger::*)(QString)>(&QTobiiData<QString>::transmit),
-          api->getLogger(), &QTobiiLogger::data);
-#else
-  connect(messages, qOverload<QString>(&QTobiiData<QString>::transmit), api->getLogger(), &QTobiiLogger::data);
-#endif
+  #ifdef QTOBII_MSVC_QOVERLOAD_WORKAROUND
+    connect(messages, static_cast<void (QTobiiDataMessenger::*)(QString)>(&QTobiiData<QString>::transmit),
+            api->getLogger(), &QTobiiLogger::data);
+  #else
+    connect(messages, qOverload<QString>(&QTobiiData<QString>::transmit), api->getLogger(), &QTobiiLogger::data);
+  #endif
 
   result = api->call(tobii_gaze_point_subscribe(api->getDevice(), callback, exchangeContainer));
 

@@ -31,12 +31,23 @@ QTobiiDevTrack::~QTobiiDevTrack() {
   }
 }
 
+QTobiiTrackingMode QTobiiDevTrack::getTrackingMode() {
+  return static_cast<QTobiiTrackingMode>(ui->trackingBox->currentIndex());
+}
+
+// todo: check why inline definitions of all these methods are not possible
 QPushButton* QTobiiDevTrack::getStartThreadButton() { return ui->startThreadButton; }
 QPushButton* QTobiiDevTrack::getStartTrackingButton() { return ui->startTrackingButton; }
 QPlainTextEdit* QTobiiDevTrack::getDataLog() { return ui->dataLog; }
 QPlainTextEdit* QTobiiDevTrack::getMessageLog() { return ui->messageLog; }
 QLCDNumber* QTobiiDevTrack::getGazePointXValue() { return ui->gazePointXValue; }
 QLCDNumber* QTobiiDevTrack::getGazePointYValue() { return ui->gazePointYValue; }
+QLCDNumber* QTobiiDevTrack::getGazeOriginLeftXValue() { return ui->gazeOriginLeftEyeXValue; }
+QLCDNumber* QTobiiDevTrack::getGazeOriginLeftYValue() { return ui->gazeOriginLeftEyeYValue; }
+QLCDNumber* QTobiiDevTrack::getGazeOriginLeftZValue() { return ui->gazeOriginLeftEyeZValue; }
+QLCDNumber* QTobiiDevTrack::getGazeOriginRightXValue() { return ui->gazeOriginRightEyeXValue; }
+QLCDNumber* QTobiiDevTrack::getGazeOriginRightYValue() { return ui->gazeOriginRightEyeYValue; }
+QLCDNumber* QTobiiDevTrack::getGazeOriginRightZValue() { return ui->gazeOriginRightEyeZValue; }
 
 void QTobiiDevTrack::onStartThreadButtonToggled(bool value) {
   ui->startTrackingButton->setEnabled(value);

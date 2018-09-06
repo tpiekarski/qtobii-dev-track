@@ -29,7 +29,8 @@ SOURCES += \
     src/qtobii-gaze-point.cpp \
     src/qtobii-tracker.cpp \
     src/qtobii-tracking-manager.cpp \
-    src/qtobii-logger.cpp
+    src/qtobii-logger.cpp \
+    src/qtobii-gaze-origin.cpp
 
 HEADERS += \
     includes/qtobii-api-exception.h \
@@ -54,7 +55,9 @@ HEADERS += \
     includes/interfaces/qtobii-subscription.h \
     includes/qtobii-data-messenger.h \
     includes/qtobii-exchange-container.h \
-    includes/qtobii-exit.h
+    includes/qtobii-exit.h \
+    includes/qtobii-gaze-origin.h \
+    includes/qtobii-tracking-mode.h
 
 FORMS += \
     forms/qtobii-dev-track-window.ui

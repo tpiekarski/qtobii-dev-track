@@ -12,6 +12,7 @@
 #ifndef QTOBII_DEV_TRACK_H
 #define QTOBII_DEV_TRACK_H
 
+#include "qtobii-tracking-mode.h"
 #include <QLCDNumber>
 #include <QMainWindow>
 #include <QPlainTextEdit>
@@ -26,15 +27,25 @@ class QTobiiDevTrack : public QMainWindow {
   Q_OBJECT
 
 public:
-  explicit QTobiiDevTrack(QWidget *parent = 0);
+  explicit QTobiiDevTrack(QWidget *parent = nullptr);
   ~QTobiiDevTrack();
+
+  QTobiiTrackingMode getTrackingMode();
 
   QPushButton* getStartThreadButton();
   QPushButton* getStartTrackingButton();
   QPlainTextEdit* getDataLog();
   QPlainTextEdit* getMessageLog();
+
   QLCDNumber* getGazePointXValue();
   QLCDNumber* getGazePointYValue();
+
+  QLCDNumber* getGazeOriginLeftXValue();
+  QLCDNumber* getGazeOriginLeftYValue();
+  QLCDNumber* getGazeOriginLeftZValue();
+  QLCDNumber* getGazeOriginRightXValue();
+  QLCDNumber* getGazeOriginRightYValue();
+  QLCDNumber* getGazeOriginRightZValue();
 
 private slots:
   void onStartThreadButtonToggled(bool value);
