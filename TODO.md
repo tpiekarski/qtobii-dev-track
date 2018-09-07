@@ -9,7 +9,6 @@ QTobiiDevTrack::Todo
 - [ ] Disable other tracking tool pages as soon one tracking is started
 - [ ] Draft and add a generic interface for following tracking implementations
 - [ ] Find, check and integrate further static code analysers and code linters
-- [ ] Implement Eye Position tracking, approximation and data display
 - [ ] Implement Gaze Point tracking, approximation and data display
 - [ ] Implement Head Position tracking, approximation and data display
 - [ ] Implement reconnection method
@@ -28,6 +27,7 @@ QTobiiDevTrack::Todo
 - [x] Extend QTobiiData with templates for storing the data received by callback
 - [x] Find and integrate a package manager to pull in Tobii Stream Engine from nuget (chose [Paket](https://fsprojects.github.io/Paket/index.html))
 - [x] Implement a plugin loading mechanism and test within a ground zero
+- [x] Implement Eye Position tracking, approximation and data display
 - [x] Implement Gaze Origin tracking, approximation and data display
 - [x] Implement toggling button to start/stop tracking
 - [x] Implement toggling button to start/stop tracking thread

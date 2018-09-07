@@ -47,6 +47,12 @@ public:
   QLCDNumber* getGazeOriginRightXValue() { return m_ui->gazeOriginRightEyeXValue; }
   QLCDNumber* getGazeOriginRightYValue() { return m_ui->gazeOriginRightEyeYValue; }
   QLCDNumber* getGazeOriginRightZValue() { return m_ui->gazeOriginRightEyeZValue; }
+  QLCDNumber* getEyePositionLeftXValue() { return m_ui->eyePositionLeftEyeXValue; }
+  QLCDNumber* getEyePositionLeftYValue() { return m_ui->eyePositionLeftEyeYValue; }
+  QLCDNumber* getEyePositionLeftZValue() { return m_ui->eyePositionLeftEyeZValue; }
+  QLCDNumber* getEyePositionRightXValue() { return m_ui->eyePositionRightEyeXValue; }
+  QLCDNumber* getEyePositionRightYValue() { return m_ui->eyePositionRightEyeYValue; }
+  QLCDNumber* getEyePositionRightZValue() { return m_ui->eyePositionRightEyeZValue; }
 
 private slots:
   void onStartThreadButtonToggled(bool value);

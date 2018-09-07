@@ -70,7 +70,7 @@ mingw32-make
 1.|Gaze Point|Normalized X/Y-Tracking of gaze at the screen|done
 2.|Gaze Point|Denormalized X/Y-Tracking of gaze at the screen|todo
 3.|Gaze Origin|X/Y/Z-Tracking of gaze origin for each eye|done
-4.|Eye Position|X/Y/Z-Tracking of position for each eye|todo
+4.|Eye Position|X/Y/Z-Tracking of position for each eye|done
 5.|User Presence|Boolean for tracking if user is present|todo
 6.|Head Position|X/Y/Z-Tracking of head position and rotation|todo
 

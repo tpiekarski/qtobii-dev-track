@@ -15,8 +15,9 @@
 namespace qtobii {
 enum QTobiiTrackingMode {
 
-  GAZE_POINT = 0,
-  GAZE_ORIGIN = 1
+  GAZE_POINT   = 0,
+  GAZE_ORIGIN  = 1,
+  EYE_POSITION = 2
 
 };
 } // namespace qtobii

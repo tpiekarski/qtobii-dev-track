@@ -15,6 +15,8 @@
 #include "interfaces/qtobii-display.h"
 #include "qtobii-api.h"
 #include "qtobii-dev-track.h"
+#include "qtobii-eye-position.h"
+#include "qtobii-eye-position-lcd-display.h"
 #include "qtobii-gaze-origin.h"
 #include "qtobii-gaze-origin-lcd-display.h"
 #include "qtobii-gaze-point.h"
@@ -47,6 +49,8 @@ private:
   QTobiiDevTrack* m_devTrack;
   QTobiiLogger* m_logger;
   QTobiiTracker* m_tracker;
+  QTobiiEyePosition* m_eyePosition;
+  QTobiiEyePositionLCDDisplay* m_eyePositionDisplay;
   QTobiiGazeOrigin* m_gazeOrigin;
   QTobiiGazeOriginLCDDisplay* m_gazeOriginDisplay;
   QTobiiGazePoint* m_gazePoint;
