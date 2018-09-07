@@ -21,6 +21,8 @@
 #include "qtobii-gaze-origin-lcd-display.h"
 #include "qtobii-gaze-point.h"
 #include "qtobii-gaze-point-lcd-display.h"
+#include "qtobii-head-position.h"
+#include "qtobii-head-position-lcd-display.h"
 #include "qtobii-logger.h"
 #include "qtobii-tracker.h"
 #include "qtobii-tracking-mode.h"
@@ -55,6 +57,8 @@ private:
   QTobiiGazeOriginLCDDisplay* m_gazeOriginDisplay;
   QTobiiGazePoint* m_gazePoint;
   QTobiiGazePointLCDDisplay* m_gazePointDisplay;
+  QTobiiHeadPosition* m_headPosition;
+  QTobiiHeadPositionLCDDisplay* m_headPositionDisplay;
 
   QThread* m_thread;
 

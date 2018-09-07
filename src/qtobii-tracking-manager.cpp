@@ -28,6 +28,8 @@ QTobiiTrackingManager::QTobiiTrackingManager(QTobiiApi* api, QTobiiLogger* logge
     m_gazeOriginDisplay(new QTobiiGazeOriginLCDDisplay(m_devTrack, this)),
     m_gazePoint(new QTobiiGazePoint(api, this)),
     m_gazePointDisplay(new QTobiiGazePointLCDDisplay(m_devTrack, this)),
+    m_headPosition(new QTobiiHeadPosition(api, this)),
+    m_headPositionDisplay(new QTobiiHeadPositionLCDDisplay(m_devTrack, this)),
     m_thread(new QThread())
 {
   logger->log("Starting Tracking Manager...");
@@ -35,6 +37,7 @@ QTobiiTrackingManager::QTobiiTrackingManager(QTobiiApi* api, QTobiiLogger* logge
   qRegisterMetaType<tobii_eye_position_normalized_t>("tobii_eye_position_normalized_t");
   qRegisterMetaType<tobii_gaze_origin_t>("tobii_gaze_origin_t");
   qRegisterMetaType<tobii_gaze_point_t>("tobii_gaze_point_t");
+  qRegisterMetaType<tobii_head_pose_t>("tobii_head_pose_t");
 
   connect(m_devTrack->getStartThreadButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleThread);
   connect(m_devTrack->getStartTrackingButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleSubscription);
@@ -43,6 +46,7 @@ QTobiiTrackingManager::QTobiiTrackingManager(QTobiiApi* api, QTobiiLogger* logge
   connect(m_eyePosition, &QTobiiEyePosition::log, logger, &QTobiiLogger::log);
   connect(m_gazeOrigin, &QTobiiGazeOrigin::log, logger, &QTobiiLogger::log);
   connect(m_gazePoint, &QTobiiGazePoint::log, logger, &QTobiiLogger::log);
+  connect(m_headPosition, &QTobiiHeadPosition::log, logger, &QTobiiLogger::log);
 }
 
 void QTobiiTrackingManager::toggleThread(bool value) {
@@ -104,6 +108,25 @@ void QTobiiTrackingManager::toggleSubscription(bool value) {
       connect(m_eyePosition->getData(), qOverload<tobii_eye_position_normalized_t>
               (&QTobiiData<tobii_eye_position_normalized_t>::transmit),
               m_eyePositionDisplay, &QTobiiEyePositionLCDDisplay::displayEyePosition);
+    #endif
+
+    break;
+
+  case QTobiiTrackingMode::HEAD_POSITION:
+    if (!value) {
+      m_headPosition->unsubscribe();
+
+      return;
+    }
+
+    m_headPosition->subscribe();
+    #ifdef QTOBII_MSVC_QOVERLOAD_WORKAROUND
+      connect(m_headPosition->getData(),
+              static_cast<void (QTobiiDataMessenger::*)(tobii_head_pose_t)>(&QTobiiData<tobii_head_pose_t>::transmit),
+              m_headPositionDisplay, &QTobiiHeadPositionLCDDisplay::displayHeadPosition);
+    #else
+      connect(m_headPosition->getData(), qOverload<tobii_head_pose_t>(&QTobiiData<tobii_head_position_normalized_t>::transmit),
+              m_headPositionDisplay, &QTobiiHeadPositionLCDDisplay::displayHeadPosition);
     #endif
 
     break;

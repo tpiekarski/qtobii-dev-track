@@ -26,12 +26,14 @@ SOURCES += \
     src/main.cpp \
     src/qtobii-api.cpp \
     src/qtobii-dev-track.cpp \
+    src/qtobii-eye-position.cpp \
+    src/qtobii-eye-position-lcd-display.cpp \
     src/qtobii-gaze-origin.cpp \
     src/qtobii-gaze-origin-lcd-display.cpp \
     src/qtobii-gaze-point.cpp \
     src/qtobii-gaze-point-lcd-display.cpp \
-    src/qtobii-eye-position.cpp \
-    src/qtobii-eye-position-lcd-display.cpp \
+    src/qtobii-head-position.cpp \
+    src/qtobii-head-position-lcd-display.cpp \
     src/qtobii-logger.cpp \
     src/qtobii-tracker.cpp \
     src/qtobii-tracking-manager.cpp
@@ -45,14 +47,16 @@ HEADERS += \
     includes/qtobii-data.h \
     includes/qtobii-data-messenger.h \
     includes/qtobii-dev-track.h \
+    includes/qtobii-eye-position.h \
+    includes/qtobii-eye-position-lcd-display.h \
     includes/qtobii-exchange-container.h \
     includes/qtobii-exit.h \
     includes/qtobii-gaze-origin.h \
     includes/qtobii-gaze-origin-lcd-display.h \
     includes/qtobii-gaze-point.h \
     includes/qtobii-gaze-point-lcd-display.h \
-    includes/qtobii-eye-position.h \
-    includes/qtobii-eye-position-lcd-display.h \
+    includes/qtobii-head-position.h \
+    includes/qtobii-head-position-lcd-display.h \
     includes/qtobii-logger.h \
     includes/qtobii-result.h \
     includes/qtobii-tracker.h \

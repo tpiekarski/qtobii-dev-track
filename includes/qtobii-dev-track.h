@@ -47,12 +47,20 @@ public:
   QLCDNumber* getGazeOriginRightXValue() { return m_ui->gazeOriginRightEyeXValue; }
   QLCDNumber* getGazeOriginRightYValue() { return m_ui->gazeOriginRightEyeYValue; }
   QLCDNumber* getGazeOriginRightZValue() { return m_ui->gazeOriginRightEyeZValue; }
+
   QLCDNumber* getEyePositionLeftXValue() { return m_ui->eyePositionLeftEyeXValue; }
   QLCDNumber* getEyePositionLeftYValue() { return m_ui->eyePositionLeftEyeYValue; }
   QLCDNumber* getEyePositionLeftZValue() { return m_ui->eyePositionLeftEyeZValue; }
   QLCDNumber* getEyePositionRightXValue() { return m_ui->eyePositionRightEyeXValue; }
   QLCDNumber* getEyePositionRightYValue() { return m_ui->eyePositionRightEyeYValue; }
   QLCDNumber* getEyePositionRightZValue() { return m_ui->eyePositionRightEyeZValue; }
+
+  QLCDNumber* getHeadPositionXValue() { return m_ui->headPositionPositionXValue; }
+  QLCDNumber* getHeadPositionYValue() { return m_ui->headPositionPositionYValue; }
+  QLCDNumber* getHeadPositionZValue() { return m_ui->headPositionPositionZValue; }
+  QLCDNumber* getHeadRotationXValue() { return m_ui->headPositionRotationXValue; }
+  QLCDNumber* getHeadRotationYValue() { return m_ui->headPositionRotationYValue; }
+  QLCDNumber* getHeadRotationZValue() { return m_ui->headPositionRotationZValue; }
 
 private slots:
   void onStartThreadButtonToggled(bool value);
