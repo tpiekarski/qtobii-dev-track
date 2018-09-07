@@ -25,7 +25,7 @@ class QTobiiApi : public QObject {
   Q_OBJECT
 
 public:
-  explicit QTobiiApi(QObject* parent, QTobiiLogger* logger);
+  explicit QTobiiApi(QTobiiLogger* logger, QObject* parent = nullptr);
   QTobiiApi(const QTobiiApi&) = default;
   QTobiiApi(QTobiiApi &&) = default;
   ~QTobiiApi();

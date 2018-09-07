@@ -16,15 +16,15 @@
 
 namespace qtobii {
 
-QTobiiTrackingManager::QTobiiTrackingManager(QObject* parent, QTobiiApi* api, QTobiiLogger* logger)
+QTobiiTrackingManager::QTobiiTrackingManager(QTobiiApi* api, QTobiiLogger* logger, QObject* parent)
   : QObject(parent),
     m_api(api),
     m_devTrack(dynamic_cast<QTobiiDevTrack*>(parent)),
     m_logger(logger),
-    m_tracker(new QTobiiTracker(nullptr, api)),
-    m_gazeOrigin(new QTobiiGazeOrigin(this, api)),
+    m_tracker(new QTobiiTracker(api)),
+    m_gazeOrigin(new QTobiiGazeOrigin(api, this)),
     m_gazeOriginDisplay(new QTobiiGazeOriginLCDDisplay(m_devTrack, this)),
-    m_gazePoint(new QTobiiGazePoint(this, api)),
+    m_gazePoint(new QTobiiGazePoint(api, this)),
     m_gazePointDisplay(new QTobiiGazePointLCDDisplay(m_devTrack, this)),
     m_thread(new QThread())
 {

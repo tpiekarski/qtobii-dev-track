@@ -31,7 +31,7 @@ class QTobiiTrackingManager : public QObject {
   Q_OBJECT
 
 public:
-  explicit QTobiiTrackingManager(QObject* parent, QTobiiApi* api, QTobiiLogger* logger);
+  explicit QTobiiTrackingManager(QTobiiApi* api, QTobiiLogger* logger, QObject* parent = nullptr);
   QTobiiTrackingManager(const QTobiiTrackingManager&) = default;
   QTobiiTrackingManager(QTobiiTrackingManager&&) = default;
 

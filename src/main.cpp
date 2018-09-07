@@ -32,8 +32,8 @@ int main(int argc, char* argv[]) {
   QTobiiTrackingManager* manager = nullptr;
 
   try {
-    api = new QTobiiApi(devTrack, logger);
-    manager = new QTobiiTrackingManager(devTrack, api, logger);
+    api = new QTobiiApi(logger, devTrack);
+    manager = new QTobiiTrackingManager(api, logger, devTrack);
 
     devTrack->show();
     result = app.exec();

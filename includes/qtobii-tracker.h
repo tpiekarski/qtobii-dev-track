@@ -22,7 +22,8 @@ class QTobiiTracker : public QObject {
   Q_OBJECT
 
 public:
-  explicit QTobiiTracker(QObject* parent, QTobiiApi* api) : QObject(parent), m_api(api), m_tracking(DEFAULT_TRACKING) {}
+  explicit QTobiiTracker(QTobiiApi* api, QObject* parent = nullptr)
+    : QObject(parent), m_api(api), m_tracking(DEFAULT_TRACKING) {}
   QTobiiTracker(const QTobiiTracker&) = default;
   QTobiiTracker(QTobiiTracker&&) = default;
 
