@@ -30,6 +30,8 @@ QTobiiTrackingManager::QTobiiTrackingManager(QTobiiApi* api, QTobiiLogger* logge
     m_gazePointDisplay(new QTobiiGazePointLCDDisplay(m_devTrack, this)),
     m_headPosition(new QTobiiHeadPosition(api, this)),
     m_headPositionDisplay(new QTobiiHeadPositionLCDDisplay(m_devTrack, this)),
+    m_userPresence(new QTobiiUserPresence(api, this)),
+    m_userPresenceDisplay(new QTobiiUserPresenceImageDisplay(m_devTrack, this)),
     m_thread(new QThread())
 {
   logger->log("Starting Tracking Manager...");
@@ -38,6 +40,7 @@ QTobiiTrackingManager::QTobiiTrackingManager(QTobiiApi* api, QTobiiLogger* logge
   qRegisterMetaType<tobii_gaze_origin_t>("tobii_gaze_origin_t");
   qRegisterMetaType<tobii_gaze_point_t>("tobii_gaze_point_t");
   qRegisterMetaType<tobii_head_pose_t>("tobii_head_pose_t");
+  qRegisterMetaType<tobii_user_presence_status_t>("tobii_user_presence_status_t");
 
   connect(m_devTrack->getStartThreadButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleThread);
   connect(m_devTrack->getStartTrackingButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleSubscription);
@@ -47,6 +50,7 @@ QTobiiTrackingManager::QTobiiTrackingManager(QTobiiApi* api, QTobiiLogger* logge
   connect(m_gazeOrigin, &QTobiiGazeOrigin::log, logger, &QTobiiLogger::log);
   connect(m_gazePoint, &QTobiiGazePoint::log, logger, &QTobiiLogger::log);
   connect(m_headPosition, &QTobiiHeadPosition::log, logger, &QTobiiLogger::log);
+  connect(m_userPresence, &QTobiiUserPresence::log, logger, &QTobiiLogger::log);
 }
 
 void QTobiiTrackingManager::toggleThread(bool value) {
@@ -112,6 +116,30 @@ void QTobiiTrackingManager::toggleSubscription(bool value) {
 
     break;
 
+  case QTobiiTrackingMode::USER_PRESENCE:
+    if (!value) {
+      m_userPresence->unsubscribe();
+
+      return;
+    }
+
+    m_userPresence->subscribe();
+    #ifdef QTOBII_MSVC_QOVERLOAD_WORKAROUND
+      connect(m_userPresence->getData(),
+              static_cast<void (QTobiiDataMessenger::*)(tobii_user_presence_status_t)>
+              (&QTobiiData<tobii_user_presence_status_t>::transmit),
+              m_userPresenceDisplay, &QTobiiUserPresenceImageDisplay::displayUserPresence);
+    #else
+      connect(m_userPresence->getData(), qOverload<tobii_user_presence_status_t>
+              (&QTobiiData<tobii_user_presence_status_t>::transmit),
+              m_userPresenceDisplay, &QTobiiUserPresenceImageDisplay::displayUserPresence);
+    #endif
+
+    connect(m_userPresence->getData(), &QObject::destroyed,
+            m_userPresenceDisplay, &QTobiiUserPresenceImageDisplay::resetUserPresence);
+
+    break;
+
   case QTobiiTrackingMode::HEAD_POSITION:
     if (!value) {
       m_headPosition->unsubscribe();
@@ -131,10 +159,6 @@ void QTobiiTrackingManager::toggleSubscription(bool value) {
 
     break;
 
-  default:
-    m_logger->log("Selected tracking is not yet implemented.");
-
-    break;
   }
 }
 

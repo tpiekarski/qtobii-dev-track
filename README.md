@@ -3,13 +3,26 @@ QTobiiDevTrack
 
 [![Build status](https://ci.appveyor.com/api/projects/status/9vnj8neqba8cybmj?svg=true)](https://ci.appveyor.com/project/tpiekarski/qtobii-dev-track)
 
-*Future utility for discovering, testing and developing Eye and Gaze Tracking with [Qt](https://www.qt.io/),
+*Utility for discovering, testing and developing Eye and Gaze Tracking with [Qt](https://www.qt.io/),
 [Tobii Stream Engine Native](https://developer.tobii.com/consumer-eye-trackers/stream-engine/) and
 [Tobii Eye Tracking Device](https://tobiigaming.com/).*
 
+## Features
+![Screenshot of QTobiiDevTrack](images/screenshot.png?raw=true "Screenshot of QTobiiDevTrack")
+
+#|Tracker|Description|Status
+---|---|---|---
+1.|Gaze Point|Normalized X/Y-Tracking of gaze at the screen|done
+2.|Gaze Point|Denormalized X/Y-Tracking of gaze at the screen|todo
+3.|Gaze Origin|X/Y/Z-Tracking of gaze origin for each eye|done
+4.|Eye Position|X/Y/Z-Tracking of position for each eye|done
+5.|User Presence|Boolean for tracking if user is present|done
+6.|Head Position|X/Y/Z-Tracking of head position and rotation|done
+
 ## Development
-This utility is in very early development, see the [TODO](https://github.com/tpiekarski/qtobii-dev-track/blob/master/TODO.md).
-The tracking of the gaze point is already implemented, for further progress please see [Features, Progress](#progress).
+This utility provides all major tracking capabilities which the eye tracker from Tobii is offering, but still
+there are a few things to do, to learn and to tinker around with. 
+Please see the [TODO](https://github.com/tpiekarski/qtobii-dev-track/blob/master/TODO.md).
 
 ## Requirements
 * Tobii Eye Tracking Device (Developed and tested with [Tobii Eye Tracker 4C](https://tobiigaming.com/product/tobii-eye-tracker-4c/))
@@ -59,20 +72,3 @@ To compile and link the application with MinGW run:
 qmake qtobii-dev-track.pro
 mingw32-make
 ```
-
-## Features
-### Screenshot
-![Screenshot of QTobiiDevTrack](images/screenshot.png?raw=true "Screenshot of QTobiiDevTrack")
-
-### Progress
-#|Tracker|Description|Status
----|---|---|---
-1.|Gaze Point|Normalized X/Y-Tracking of gaze at the screen|done
-2.|Gaze Point|Denormalized X/Y-Tracking of gaze at the screen|todo
-3.|Gaze Origin|X/Y/Z-Tracking of gaze origin for each eye|done
-4.|Eye Position|X/Y/Z-Tracking of position for each eye|done
-5.|User Presence|Boolean for tracking if user is present|todo
-6.|Head Position|X/Y/Z-Tracking of head position and rotation|todo
-
-
-

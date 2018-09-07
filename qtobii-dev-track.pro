@@ -36,7 +36,9 @@ SOURCES += \
     src/qtobii-head-position-lcd-display.cpp \
     src/qtobii-logger.cpp \
     src/qtobii-tracker.cpp \
-    src/qtobii-tracking-manager.cpp
+    src/qtobii-tracking-manager.cpp \
+    src/qtobii-user-presence.cpp \
+    src/qtobii-user-presence-image-display.cpp
 
 HEADERS += \
     includes/interfaces/qtobii-display.h \
@@ -61,7 +63,9 @@ HEADERS += \
     includes/qtobii-result.h \
     includes/qtobii-tracker.h \
     includes/qtobii-tracking-manager.h \
-    includes/qtobii-tracking-mode.h
+    includes/qtobii-tracking-mode.h \
+    includes/qtobii-user-presence.h \
+    includes/qtobii-user-presence-image-display.h
 
 FORMS += \
     forms/qtobii-dev-track-window.ui

@@ -32,6 +32,7 @@ signals:
   void transmit(tobii_gaze_origin_t payload);
   void transmit(tobii_gaze_point_t payload);
   void transmit(tobii_head_pose_t payload);
+  void transmit(tobii_user_presence_status_t payload);
 
 };
 } // namespace tobii

@@ -26,6 +26,8 @@
 #include "qtobii-logger.h"
 #include "qtobii-tracker.h"
 #include "qtobii-tracking-mode.h"
+#include "qtobii-user-presence.h"
+#include "qtobii-user-presence-image-display.h"
 #include <QObject>
 #include <tobii/tobii_streams.h>
 
@@ -59,6 +61,8 @@ private:
   QTobiiGazePointLCDDisplay* m_gazePointDisplay;
   QTobiiHeadPosition* m_headPosition;
   QTobiiHeadPositionLCDDisplay* m_headPositionDisplay;
+  QTobiiUserPresence* m_userPresence;
+  QTobiiUserPresenceImageDisplay* m_userPresenceDisplay;
 
   QThread* m_thread;
 

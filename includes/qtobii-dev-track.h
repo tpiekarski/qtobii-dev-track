@@ -13,6 +13,7 @@
 #define QTOBII_DEV_TRACK_H
 
 #include "qtobii-tracking-mode.h"
+#include <QLabel>
 #include <QLCDNumber>
 #include <QMainWindow>
 #include <QPlainTextEdit>
@@ -61,6 +62,8 @@ public:
   QLCDNumber* getHeadRotationXValue() { return m_ui->headPositionRotationXValue; }
   QLCDNumber* getHeadRotationYValue() { return m_ui->headPositionRotationYValue; }
   QLCDNumber* getHeadRotationZValue() { return m_ui->headPositionRotationZValue; }
+
+  QLabel* getUserPresenceImageLabel() { return m_ui->userPresenceImageLabel; }
 
 private slots:
   void onStartThreadButtonToggled(bool value);

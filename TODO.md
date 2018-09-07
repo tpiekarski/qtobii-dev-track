@@ -10,9 +10,7 @@ QTobiiDevTrack::Todo
 - [ ] Draft and add a generic interface for following tracking implementations
 - [ ] Find, check and integrate further static code analysers and code linters
 - [ ] Implement Gaze Point tracking, approximation and data display
-- [ ] Implement Head Position tracking, approximation and data display
 - [ ] Implement reconnection method
-- [ ] Implement User Presence tracking and data display
 - [ ] Integrate public static code analysis like SonarCloud
 - [ ] Move from C-style array to STL array in extract methods of QTobiiGazePoint and QTobiiGazeOrigin
 - [ ] Use QTimer to slow down the display of tracking data in QLCDNumber (Reducing flickering of display)
@@ -29,8 +27,10 @@ QTobiiDevTrack::Todo
 - [x] Implement a plugin loading mechanism and test within a ground zero
 - [x] Implement Eye Position tracking, approximation and data display
 - [x] Implement Gaze Origin tracking, approximation and data display
+- [x] Implement Head Position tracking, approximation and data display
 - [x] Implement toggling button to start/stop tracking
 - [x] Implement toggling button to start/stop tracking thread
+- [x] Implement User Presence tracking and data display
 - [x] Integrate public CI build system like AppVeyor or Travis
 - [x] Integrate Tobii Stream Engine API
 - [x] Introduce subdirs for qmake and put final build files into one directory
@@ -53,6 +53,7 @@ QTobiiDevTrack::Todo
 - [ ] Consider to switch to smart pointers
 - [ ] Hunt for leaking memory
 - [ ] Pass reference arguments instead of pointers all over the place
+- [ ] Reducde as much as possible redundant code at tracking and displaying classes
 - [x] Streamline child constructors of QObject (parent should be always last, default assigned to nullptr)
 - [x] Clean present code base
 

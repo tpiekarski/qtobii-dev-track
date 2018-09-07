@@ -18,6 +18,7 @@ enum QTobiiTrackingMode {
   GAZE_POINT    = 0,
   GAZE_ORIGIN   = 1,
   EYE_POSITION  = 2,
+  USER_PRESENCE = 3,
   HEAD_POSITION = 4
 
 };

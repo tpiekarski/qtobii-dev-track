@@ -9,31 +9,26 @@
  *
  */
 
-#include "qtobii-gaze-point.h"
+#include "qtobii-user-presence.h"
 #include "qtobii-logger.h"
 #include <QThread>
 
 namespace qtobii {
 
-void QTobiiGazePoint::callback(tobii_gaze_point_t const* gazePoint, void* exchange) {
-  auto exchangeContainer = static_cast<QTobiiExchangeContainer<tobii_gaze_point_t, QString>*>(exchange);
+void QTobiiUserPresence::callback(tobii_user_presence_status_t userPresence, int64_t timestamp, void* exchange) {
+  auto exchangeContainer = static_cast<QTobiiExchangeContainer<tobii_user_presence_status_t, QString>*>(exchange);
 
-  if (gazePoint->validity == TOBII_VALIDITY_VALID) {
-    exchangeContainer->getData()->send(*gazePoint);
-    exchangeContainer->getMessages()->send(QString("X/Y: %1").arg(extract(gazePoint->position_xy)));
-  }
+  exchangeContainer->getData()->send(userPresence);
+  exchangeContainer->getMessages()->send(QString("User Presence: %1, Timestamp: %2").arg(
+                                           QString::number(userPresence), QString::number(timestamp)));
 }
 
-QString QTobiiGazePoint::extract(const float values[]) {
-  return QString("%1/%2").arg(QString::number(static_cast<double>(values[0])), QString::number(static_cast<double>(values[1])));
-}
+void QTobiiUserPresence::subscribe() {
+  emit log("Subscribing to user presence...");
 
-void QTobiiGazePoint::subscribe() {
-  emit log("Subscribing to gaze point...");
-
-  m_data = new QTobiiData<tobii_gaze_point_t>(this);
+  m_data = new QTobiiData<tobii_user_presence_status_t>(this);
   m_messages = new QTobiiData<QString>(this);
-  m_exchangeContainer = new QTobiiExchangeContainer<tobii_gaze_point_t, QString>(m_data, m_messages);
+  m_exchangeContainer = new QTobiiExchangeContainer<tobii_user_presence_status_t, QString>(m_data, m_messages);
 
   #ifdef QTOBII_MSVC_QOVERLOAD_WORKAROUND
     connect(m_messages, static_cast<void (QTobiiDataMessenger::*)(QString)>(&QTobiiData<QString>::transmit),
@@ -42,10 +37,10 @@ void QTobiiGazePoint::subscribe() {
     connect(messages, qOverload<QString>(&QTobiiData<QString>::transmit), api->getLogger(), &QTobiiLogger::data);
   #endif
 
-  m_result = m_api->call(tobii_gaze_point_subscribe(m_api->getDevice(), callback, m_exchangeContainer));
+  m_result = m_api->call(tobii_user_presence_subscribe(m_api->getDevice(), callback, m_exchangeContainer));
 
   if (m_result->isError()) {
-    emit log("Failed subscribing to gaze point.");
+    emit log("Failed subscribing to user presence.");
     delete m_result;
     m_result = nullptr;
     unsubscribe();
@@ -53,8 +48,8 @@ void QTobiiGazePoint::subscribe() {
 
 }
 
-void QTobiiGazePoint::unsubscribe() {
-  emit log("Unsubscribing from gaze point...");
+void QTobiiUserPresence::unsubscribe() {
+  emit log("Unsubscribing from user presence...");
 
   if (m_exchangeContainer != nullptr) {
 
@@ -74,10 +69,10 @@ void QTobiiGazePoint::unsubscribe() {
     m_exchangeContainer = nullptr;
   }
 
-  m_result = m_api->call(tobii_gaze_point_unsubscribe(m_api->getDevice()));
+  m_result = m_api->call(tobii_user_presence_unsubscribe(m_api->getDevice()));
 
   if (m_result->isError()) {
-    emit log("Failed unsubscribing from gaze point");
+    emit log("Failed unsubscribing from user presence");
 
     delete m_result;
     m_result = nullptr;
