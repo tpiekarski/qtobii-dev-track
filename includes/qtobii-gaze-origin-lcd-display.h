@@ -25,6 +25,8 @@ class QTobiiGazeOriginLCDDisplay : public QObject, public QTobiiDisplayInterface
 public:
   explicit QTobiiGazeOriginLCDDisplay(QTobiiDevTrack* device, QObject* parent = nullptr)
     : QObject(parent), QTobiiDisplayInterface<QTobiiDevTrack*, tobii_gaze_origin_t>(device) {}
+  QTobiiGazeOriginLCDDisplay(const QTobiiGazeOriginLCDDisplay&) = default;
+  QTobiiGazeOriginLCDDisplay(QTobiiGazeOriginLCDDisplay&&) = default;
 
   virtual void display(tobii_gaze_origin_t payload) override;
 

@@ -27,7 +27,12 @@ class QTobiiGazeOrigin : public QObject, public QTobiiSubscriptionInterface {
 
 public:
   explicit QTobiiGazeOrigin(QTobiiApi* api, QObject* parent = nullptr)
-    : QObject(parent), QTobiiSubscriptionInterface(api) {}
+    : QObject(parent),
+      QTobiiSubscriptionInterface(api),
+      m_exchangeContainer(nullptr),
+      m_data(nullptr),
+      m_messages(nullptr) {}
+
   QTobiiGazeOrigin(const QTobiiGazeOrigin&) = default;
   QTobiiGazeOrigin(QTobiiGazeOrigin&&) = default;
 

@@ -23,7 +23,6 @@ class QTobiiLogger : public QObject, QTobiiLoggingInterface {
   Q_OBJECT
 
 public:
-  // todo: check if passing a parent is needed, because devTrack is already the parent
   explicit QTobiiLogger(QTobiiDevTrack* devTrack) : QObject(devTrack), m_devTrack(devTrack) {}
   QTobiiLogger(const QTobiiLogger&) = default;
   QTobiiLogger(QTobiiLogger&&) = default;

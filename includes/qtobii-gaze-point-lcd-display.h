@@ -25,6 +25,8 @@ class QTobiiGazePointLCDDisplay : public QObject, public QTobiiDisplayInterface<
 public:
   explicit QTobiiGazePointLCDDisplay(QTobiiDevTrack* device, QObject* parent = nullptr)
     : QObject(parent), QTobiiDisplayInterface<QTobiiDevTrack*, tobii_gaze_point_t>(device) {}
+  QTobiiGazePointLCDDisplay(const QTobiiGazePointLCDDisplay&) = default;
+  QTobiiGazePointLCDDisplay(QTobiiGazePointLCDDisplay&&) = default;
 
   virtual void display(tobii_gaze_point_t payload) override;
 
