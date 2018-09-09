@@ -28,6 +28,7 @@
 #include "qtobii-tracking-mode.h"
 #include "qtobii-user-presence.h"
 #include "qtobii-user-presence-image-display.h"
+#include <memory>
 #include <QObject>
 #include <tobii/tobii_streams.h>
 
@@ -37,7 +38,7 @@ class QTobiiTrackingManager : public QObject {
   Q_OBJECT
 
 public:
-  explicit QTobiiTrackingManager(QTobiiApi* api, QTobiiLogger* logger, QObject* parent = nullptr);
+  explicit QTobiiTrackingManager(QTobiiApi* api, std::shared_ptr<QTobiiLogger> logger, QObject* parent = nullptr);
   QTobiiTrackingManager(const QTobiiTrackingManager&) = default;
   QTobiiTrackingManager(QTobiiTrackingManager&&) = default;
 
@@ -51,7 +52,7 @@ private:
 
   QTobiiApi* m_api;
   QTobiiDevTrack* m_devTrack;
-  QTobiiLogger* m_logger;
+  std::shared_ptr<QTobiiLogger> m_logger;
   QTobiiTracker* m_tracker;
   QTobiiEyePosition* m_eyePosition;
   QTobiiEyePositionLCDDisplay* m_eyePositionDisplay;

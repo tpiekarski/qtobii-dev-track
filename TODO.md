@@ -47,11 +47,11 @@ QTobiiDevTrack::Todo
 
 ## Development Improvements
 - [ ] Check destructors (few are missing)
-- [ ] Consider to switch to smart pointers
 - [ ] Hunt for leaking memory
 - [ ] Reducre as much as possible redundant code at tracking and displaying classes
 - [ ] Transition to unique and shared pointers
 - [x] Clean present code base
+- [x] Consider to switch to smart pointers
 - [x] Pass reference arguments instead of pointers (and copies) all over the place
 - [x] Streamline child constructors of QObject (parent should be always last, default assigned to nullptr)
 

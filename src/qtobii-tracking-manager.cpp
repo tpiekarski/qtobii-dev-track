@@ -16,7 +16,7 @@
 
 namespace qtobii {
 
-QTobiiTrackingManager::QTobiiTrackingManager(QTobiiApi* api, QTobiiLogger* logger, QObject* parent)
+QTobiiTrackingManager::QTobiiTrackingManager(QTobiiApi* api, std::shared_ptr<QTobiiLogger> logger, QObject* parent)
   : QObject(parent),
     m_api(api),
     m_devTrack(dynamic_cast<QTobiiDevTrack*>(parent)),
@@ -44,13 +44,13 @@ QTobiiTrackingManager::QTobiiTrackingManager(QTobiiApi* api, QTobiiLogger* logge
 
   connect(m_devTrack->getStartThreadButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleThread);
   connect(m_devTrack->getStartTrackingButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleSubscription);
-  connect(m_tracker, &QTobiiTracker::log, logger, &QTobiiLogger::log);
-  connect(m_tracker, &QTobiiTracker::error, logger, &QTobiiLogger::log);
-  connect(m_eyePosition, &QTobiiEyePosition::log, logger, &QTobiiLogger::log);
-  connect(m_gazeOrigin, &QTobiiGazeOrigin::log, logger, &QTobiiLogger::log);
-  connect(m_gazePoint, &QTobiiGazePoint::log, logger, &QTobiiLogger::log);
-  connect(m_headPosition, &QTobiiHeadPosition::log, logger, &QTobiiLogger::log);
-  connect(m_userPresence, &QTobiiUserPresence::log, logger, &QTobiiLogger::log);
+  connect(m_tracker, &QTobiiTracker::log, logger.get(), &QTobiiLogger::log);
+  connect(m_tracker, &QTobiiTracker::error, logger.get(), &QTobiiLogger::log);
+  connect(m_eyePosition, &QTobiiEyePosition::log, logger.get(), &QTobiiLogger::log);
+  connect(m_gazeOrigin, &QTobiiGazeOrigin::log, logger.get(), &QTobiiLogger::log);
+  connect(m_gazePoint, &QTobiiGazePoint::log, logger.get(), &QTobiiLogger::log);
+  connect(m_headPosition, &QTobiiHeadPosition::log, logger.get(), &QTobiiLogger::log);
+  connect(m_userPresence, &QTobiiUserPresence::log, logger.get(), &QTobiiLogger::log);
 }
 
 void QTobiiTrackingManager::toggleThread(const bool& value) {

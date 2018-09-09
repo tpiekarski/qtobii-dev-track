@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
 
   try {
     unique_ptr<QTobiiApi> api(new QTobiiApi(logger, devTrack.get()));
-    unique_ptr<QTobiiTrackingManager> manager(new QTobiiTrackingManager(api.get(), logger.get(), devTrack.get()));
+    unique_ptr<QTobiiTrackingManager> manager(new QTobiiTrackingManager(api.get(), logger, devTrack.get()));
 
     devTrack->show();
     result = app.exec();
