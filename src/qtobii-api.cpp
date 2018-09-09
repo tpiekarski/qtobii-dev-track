@@ -16,7 +16,7 @@
 
 namespace qtobii {
 
-QTobiiApi::QTobiiApi(QTobiiLogger* logger, QObject* parent)
+QTobiiApi::QTobiiApi(std::shared_ptr<QTobiiLogger> logger, QObject* parent)
   : QObject(parent), m_api(nullptr), m_device(nullptr), m_version(new tobii_version_t()), m_logger(logger), m_url("")
 {
   setup(tobii_get_api_version(m_version));

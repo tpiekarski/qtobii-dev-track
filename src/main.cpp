@@ -30,10 +30,10 @@ int main(int argc, char* argv[]) {
   int result = QTobiiExit::NORMAL;
 
   unique_ptr<QTobiiDevTrack> devTrack(new QTobiiDevTrack());
-  unique_ptr<QTobiiLogger> logger(new QTobiiLogger(devTrack.get()));
+  std::shared_ptr<QTobiiLogger> logger(new QTobiiLogger(devTrack.get()));
 
   try {
-    unique_ptr<QTobiiApi> api(new QTobiiApi(logger.get(), devTrack.get()));
+    unique_ptr<QTobiiApi> api(new QTobiiApi(logger, devTrack.get()));
     unique_ptr<QTobiiTrackingManager> manager(new QTobiiTrackingManager(api.get(), logger.get(), devTrack.get()));
 
     devTrack->show();

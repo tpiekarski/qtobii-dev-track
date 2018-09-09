@@ -14,6 +14,7 @@
 
 #include "qtobii-logger.h"
 #include "qtobii-result.h"
+#include <memory>
 #include <QObject>
 #include <QString>
 #include <QVector>
@@ -25,7 +26,7 @@ class QTobiiApi : public QObject {
   Q_OBJECT
 
 public:
-  explicit QTobiiApi(QTobiiLogger* logger, QObject* parent = nullptr);
+  explicit QTobiiApi(std::shared_ptr<QTobiiLogger> logger, QObject* parent = nullptr);
   QTobiiApi(const QTobiiApi&) = default;
   QTobiiApi(QTobiiApi &&) = default;
   ~QTobiiApi();
@@ -34,7 +35,7 @@ public:
 
   tobii_device_t* getDevice() { return m_device; }
   QTobiiResult* getLastResult() { return m_results.last(); }
-  QTobiiLogger* getLogger() { return m_logger; }
+  std::shared_ptr<QTobiiLogger> getLogger() { return m_logger; }
   QString getUrl() { return m_url; }
   QString getVersion();
 
@@ -42,7 +43,7 @@ private:
   tobii_api_t* m_api;
   tobii_device_t* m_device;
   tobii_version_t* m_version;
-  QTobiiLogger* m_logger;
+  std::shared_ptr<QTobiiLogger> m_logger;
   QString m_url;
 
   QVector<QTobiiResult*> m_results;

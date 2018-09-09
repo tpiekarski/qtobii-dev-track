@@ -47,7 +47,7 @@ void QTobiiHeadPosition::subscribe() {
 
   #ifdef QTOBII_MSVC_QOVERLOAD_WORKAROUND
     connect(m_messages, static_cast<void (QTobiiDataMessenger::*)(QString)>(&QTobiiData<QString>::transmit),
-            m_api->getLogger(), &QTobiiLogger::data);
+            m_api->getLogger().get(), &QTobiiLogger::data);
   #else
     connect(messages, qOverload<QString>(&QTobiiData<QString>::transmit), api->getLogger(), &QTobiiLogger::data);
   #endif
