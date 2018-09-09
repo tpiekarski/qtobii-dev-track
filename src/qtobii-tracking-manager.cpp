@@ -45,6 +45,8 @@ QTobiiTrackingManager::QTobiiTrackingManager(
 
   connect(m_devTrack->getStartThreadButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleThread);
   connect(m_devTrack->getStartTrackingButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleSubscription);
+  connect(m_thread, &QThread::started, m_tracker, &QTobiiTracker::start);
+  connect(m_tracker, &QTobiiTracker::finished, m_thread, &QThread::quit);
   connect(m_tracker, &QTobiiTracker::log, logger.get(), &QTobiiLogger::log);
   connect(m_tracker, &QTobiiTracker::error, logger.get(), &QTobiiLogger::log);
   connect(m_eyePosition, &QTobiiEyePosition::log, logger.get(), &QTobiiLogger::log);
@@ -63,6 +65,8 @@ void QTobiiTrackingManager::toggleSubscription(const bool& value) {
   case QTobiiTrackingMode::GAZE_POINT:
     if (!value) {
       m_gazePoint->unsubscribe();
+      m_gazePoint->getData()->disconnect();
+
       return;
     }
 
@@ -80,6 +84,7 @@ void QTobiiTrackingManager::toggleSubscription(const bool& value) {
   case QTobiiTrackingMode::GAZE_ORIGIN:
     if (!value) {
       m_gazeOrigin->unsubscribe();
+      m_gazeOrigin->getData()->disconnect();
 
       return;
     }
@@ -99,6 +104,7 @@ void QTobiiTrackingManager::toggleSubscription(const bool& value) {
   case QTobiiTrackingMode::EYE_POSITION:
     if (!value) {
       m_eyePosition->unsubscribe();
+      m_eyePosition->getData()->disconnect();
 
       return;
     }
@@ -120,6 +126,7 @@ void QTobiiTrackingManager::toggleSubscription(const bool& value) {
   case QTobiiTrackingMode::USER_PRESENCE:
     if (!value) {
       m_userPresence->unsubscribe();
+      m_userPresence->getData()->disconnect();
 
       return;
     }
@@ -144,6 +151,7 @@ void QTobiiTrackingManager::toggleSubscription(const bool& value) {
   case QTobiiTrackingMode::HEAD_POSITION:
     if (!value) {
       m_headPosition->unsubscribe();
+      m_headPosition->getData()->disconnect();
 
       return;
     }
@@ -165,15 +173,12 @@ void QTobiiTrackingManager::toggleSubscription(const bool& value) {
 
 void QTobiiTrackingManager::startThread() {
   m_tracker->moveToThread(m_thread);
-  connect(m_thread, &QThread::started, m_tracker, &QTobiiTracker::start);
-  connect(m_tracker, &QTobiiTracker::finished, m_thread, &QThread::quit);
-  connect(m_thread, &QThread::finished, m_tracker, &QObject::deleteLater);
-  connect(m_thread, &QThread::finished, m_thread, &QThread::deleteLater);
   m_thread->start();
 }
 
 void QTobiiTrackingManager::stopThread() {
   m_tracker->stop();
+
 }
 
 } // namespace qtobii

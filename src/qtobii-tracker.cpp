@@ -13,12 +13,14 @@
 #include "qtobii-tracker.h"
 #include <tobii/tobii.h>
 #include <tobii/tobii_streams.h>
+#include <QDebug>
 
 namespace qtobii {
 
 void QTobiiTracker::start() {
-  emit log("Starting to track...");
+  emit log("Starting tracking thread.");
   tobii_device_t* const device = m_api->getDevice();
+  m_tracking = true;
 
   do {
     shared_ptr<QTobiiResult> result(m_api->call(tobii_wait_for_callbacks(nullptr, DEFAULT_DEVICE, &device)));
@@ -31,11 +33,12 @@ void QTobiiTracker::start() {
     result.reset();
   } while (m_tracking);
 
+  emit log("Tracking thread has finished.");
   emit finished();
 }
 
 void QTobiiTracker::stop() {
-  emit log("Stopping to track...");
+  emit log("Stopping tracking thread.");
   m_tracking = false;
 }
 

@@ -10,8 +10,6 @@
  */
 
 #include "qtobii-gaze-origin.h"
-#include "qtobii-logger.h"
-#include <QThread>
 
 namespace qtobii {
 

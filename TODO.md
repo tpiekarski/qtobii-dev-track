@@ -49,7 +49,7 @@ QTobiiDevTrack::Todo
 - [ ] Check destructors (few are missing)
 - [ ] Getting LCDNumberLabels in groups instead of every single one
 - [ ] Hunt for leaking memory
-- [ ] Reducre as much as possible redundant code at tracking and displaying classes
+- [ ] Reduce as much as possible redundant code at tracking and displaying classes
 - [ ] Transition to unique and shared pointers
 - [x] Clean present code base
 - [x] Consider to switch to smart pointers
@@ -59,4 +59,4 @@ QTobiiDevTrack::Todo
 - [x] Streamline child constructors of QObject (parent should be always last, default assigned to nullptr)
 
 ## Bugs
-- [ ] Check and fix segfaults when trying to restart thread
+- [x] Check and fix segfaults when trying to restart thread

@@ -40,7 +40,7 @@ void QTobiiDevTrack::onStartThreadButtonToggled(const bool& value) {
 
 void QTobiiDevTrack::onStartTrackingButtonToggled(const bool& value) {
   m_ui->startThreadButton->setEnabled(!value);
-  m_ui->startTrackingButton->setText((value) ? "&Stop Tracking" : "&Start Tracking");
+  m_ui->startTrackingButton->setText((value) ? "Unsubscribe && &Stop Tracking" : "Subscribe && &Start Tracking");
 }
 
 } // namesapce qtobii

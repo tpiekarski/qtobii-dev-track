@@ -40,7 +40,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>&amp;Start Tracking</string>
+        <string>Subscribe &amp;&amp; &amp;Start Tracking</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
