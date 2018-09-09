@@ -20,7 +20,7 @@ public:
   QTobiiDisplayInterface(D device) : m_device(device) {}
   virtual ~QTobiiDisplayInterface() { /* Defined to make sure all destructors will be called */ }
 
-  virtual void display(P payload) = 0;
+  virtual void display(const P& payload) = 0;
 
 protected:
   D m_device;

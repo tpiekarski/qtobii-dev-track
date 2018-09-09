@@ -13,7 +13,7 @@
 
 namespace qtobii {
 
-void QTobiiHeadPositionLCDDisplay::display(tobii_head_pose_t payload) {
+void QTobiiHeadPositionLCDDisplay::display(const tobii_head_pose_t& payload) {
   m_device->getHeadPositionXValue()->display(static_cast<double>(payload.position_xyz[0]));
   m_device->getHeadPositionYValue()->display(static_cast<double>(payload.position_xyz[1]));
   m_device->getHeadPositionZValue()->display(static_cast<double>(payload.position_xyz[2]));
@@ -22,7 +22,7 @@ void QTobiiHeadPositionLCDDisplay::display(tobii_head_pose_t payload) {
   m_device->getHeadRotationZValue()->display(static_cast<double>(payload.rotation_xyz[2]));
 }
 
-void QTobiiHeadPositionLCDDisplay::displayHeadPosition(tobii_head_pose_t payload) {
+void QTobiiHeadPositionLCDDisplay::displayHeadPosition(const tobii_head_pose_t& payload) {
   display(payload);
 }
 

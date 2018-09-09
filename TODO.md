@@ -3,18 +3,13 @@ QTobiiDevTrack::Todo
 
 ## Development
 - [ ] Add a more reasonable error handling
-- [ ] Add an about dialog
 - [ ] Add manifest file and update description of build process
-- [ ] Add to gaze point tracking denormalization of coordinates
-- [ ] Disable other tracking tool pages as soon one tracking is started
-- [ ] Draft and add a generic interface for following tracking implementations
-- [ ] Find, check and integrate further static code analysers and code linters
-- [ ] Implement Gaze Point tracking, approximation and data display
+- [ ] Disable other tracking tool pages as soon as one tracking is started
+- [ ] Implement denormalization of coordinates for gaze point tracking
 - [ ] Implement reconnection method
-- [ ] Integrate public static code analysis like SonarCloud
 - [ ] Move from C-style array to STL array in extract methods of QTobiiGazePoint and QTobiiGazeOrigin
-- [ ] Use QTimer to slow down the display of tracking data in QLCDNumber (Reducing flickering of display)
 - [ ] Track subscriptions to enable multiple subscriptions instead of disabling other tracking box pages
+- [ ] Use QTimer to slow down the display of tracking data in QLCDNumber (Reducing flickering of display)
 - [x] Add a logger for signal/slot-based logging (instead of using QTobiiDevTrack)
 - [x] Add an enum for exit codes
 - [x] Add exception for failing loading and/or casting plugins
@@ -22,11 +17,14 @@ QTobiiDevTrack::Todo
 - [x] Consider introducing a generic logging interface
 - [x] Create and prepare structure for plug-able tracking
 - [x] Define a common plugin for all tracking subscriptions from SDK
+- [x] Draft and add a generic interface for following tracking implementations
 - [x] Extend QTobiiData with templates for storing the data received by callback
 - [x] Find and integrate a package manager to pull in Tobii Stream Engine from nuget (chose [Paket](https://fsprojects.github.io/Paket/index.html))
+- [x] Find, check and integrate further static code analysers and code linters (Integrated cppcheck and cppclean)
 - [x] Implement a plugin loading mechanism and test within a ground zero
 - [x] Implement Eye Position tracking, approximation and data display
 - [x] Implement Gaze Origin tracking, approximation and data display
+- [x] Implement Gaze Point tracking, approximation and data display
 - [x] Implement Head Position tracking, approximation and data display
 - [x] Implement toggling button to start/stop tracking
 - [x] Implement toggling button to start/stop tracking thread
@@ -42,20 +40,19 @@ QTobiiDevTrack::Todo
 - [x] Update description of build process and mention new package manager
 
 ## Documentation
-- [ ] Write more detailed README, describing requirements, build process and features
-- [ ] Write some description of tracking (gaze, eyes and head) in general
 - [x] Add license and license headers
 - [x] Add screenshots
 - [x] Write a first draft README, explaining utility, showing planed features and status tracking
+- [x] Write more detailed README, describing requirements, build process and features
 
 ## Development Improvements
 - [ ] Check destructors (few are missing)
 - [ ] Consider to switch to smart pointers
 - [ ] Hunt for leaking memory
-- [ ] Pass reference arguments instead of pointers all over the place
-- [ ] Reducde as much as possible redundant code at tracking and displaying classes
-- [x] Streamline child constructors of QObject (parent should be always last, default assigned to nullptr)
+- [ ] Reducre as much as possible redundant code at tracking and displaying classes
 - [x] Clean present code base
+- [x] Pass reference arguments instead of pointers (and copies) all over the place
+- [x] Streamline child constructors of QObject (parent should be always last, default assigned to nullptr)
 
 ## Bugs
 - [ ] Check and fix segfaults when trying to restart thread

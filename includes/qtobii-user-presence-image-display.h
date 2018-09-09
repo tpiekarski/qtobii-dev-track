@@ -30,10 +30,10 @@ public:
   QTobiiUserPresenceImageDisplay(const QTobiiUserPresenceImageDisplay&) = default;
   QTobiiUserPresenceImageDisplay(QTobiiUserPresenceImageDisplay&&) = default;
 
-  virtual void display(tobii_user_presence_status_t payload) override;
+  virtual void display(const tobii_user_presence_status_t& payload) override;
 
 public slots:
-  void displayUserPresence(tobii_user_presence_status_t payload);
+  void displayUserPresence(const tobii_user_presence_status_t& payload);
   void resetUserPresence();
 
 private:

@@ -30,10 +30,10 @@ public:
   QTobiiEyePositionLCDDisplay(const QTobiiEyePositionLCDDisplay&) = default;
   QTobiiEyePositionLCDDisplay(QTobiiEyePositionLCDDisplay&&) = default;
 
-  virtual void display(tobii_eye_position_normalized_t payload) override;
+  virtual void display(const tobii_eye_position_normalized_t& payload) override;
 
 public slots:
-  void displayEyePosition(tobii_eye_position_normalized_t payload);
+  void displayEyePosition(const tobii_eye_position_normalized_t& payload);
 
 };
 } // namespace qtobii

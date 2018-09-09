@@ -13,7 +13,7 @@
 
 namespace qtobii {
 
-void QTobiiUserPresenceImageDisplay::display(tobii_user_presence_status_t payload) {
+void QTobiiUserPresenceImageDisplay::display(const tobii_user_presence_status_t& payload) {
   QString image = QString::fromLatin1(IMAGE_USER_DEFAULT);
 
   switch (payload) {
@@ -33,7 +33,7 @@ void QTobiiUserPresenceImageDisplay::display(tobii_user_presence_status_t payloa
   m_device->getUserPresenceImageLabel()->setPixmap(QPixmap(image));
 }
 
-void QTobiiUserPresenceImageDisplay::displayUserPresence(tobii_user_presence_status_t payload) {
+void QTobiiUserPresenceImageDisplay::displayUserPresence(const tobii_user_presence_status_t& payload) {
   display(payload);
 }
 

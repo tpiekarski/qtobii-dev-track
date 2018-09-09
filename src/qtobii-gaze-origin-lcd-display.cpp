@@ -13,7 +13,7 @@
 
 namespace qtobii {
 
-void QTobiiGazeOriginLCDDisplay::display(tobii_gaze_origin_t payload) {
+void QTobiiGazeOriginLCDDisplay::display(const tobii_gaze_origin_t& payload) {
   m_device->getGazeOriginLeftXValue()->display(static_cast<double>(payload.left_xyz[0]));
   m_device->getGazeOriginLeftYValue()->display(static_cast<double>(payload.left_xyz[1]));
   m_device->getGazeOriginLeftZValue()->display(static_cast<double>(payload.left_xyz[2]));
@@ -22,7 +22,7 @@ void QTobiiGazeOriginLCDDisplay::display(tobii_gaze_origin_t payload) {
   m_device->getGazeOriginRightZValue()->display(static_cast<double>(payload.right_xyz[2]));
 }
 
-void QTobiiGazeOriginLCDDisplay::displayGazeOrigin(tobii_gaze_origin_t payload) {
+void QTobiiGazeOriginLCDDisplay::displayGazeOrigin(const tobii_gaze_origin_t& payload) {
   display(payload);
 }
 

@@ -13,12 +13,12 @@
 
 namespace qtobii {
 
-void QTobiiGazePointLCDDisplay::display(tobii_gaze_point_t payload) {
+void QTobiiGazePointLCDDisplay::display(const tobii_gaze_point_t& payload) {
   m_device->getGazePointXValue()->display(static_cast<double>(payload.position_xy[0]));
   m_device->getGazePointYValue()->display(static_cast<double>(payload.position_xy[1]));
 }
 
-void QTobiiGazePointLCDDisplay::displayGazePoint(tobii_gaze_point_t payload) {
+void QTobiiGazePointLCDDisplay::displayGazePoint(const tobii_gaze_point_t& payload) {
   display(payload);
 }
 

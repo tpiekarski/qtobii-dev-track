@@ -28,10 +28,10 @@ public:
   QTobiiGazeOriginLCDDisplay(const QTobiiGazeOriginLCDDisplay&) = default;
   QTobiiGazeOriginLCDDisplay(QTobiiGazeOriginLCDDisplay&&) = default;
 
-  virtual void display(tobii_gaze_origin_t payload) override;
+  virtual void display(const tobii_gaze_origin_t& payload) override;
 
 public slots:
-  void displayGazeOrigin(tobii_gaze_origin_t payload);
+  void displayGazeOrigin(const tobii_gaze_origin_t& payload);
 
 };
 } // namespace qtobii

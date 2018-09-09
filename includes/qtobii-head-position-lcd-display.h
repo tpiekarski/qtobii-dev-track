@@ -28,10 +28,10 @@ public:
   QTobiiHeadPositionLCDDisplay(const QTobiiHeadPositionLCDDisplay&) = default;
   QTobiiHeadPositionLCDDisplay(QTobiiHeadPositionLCDDisplay&&) = default;
 
-  virtual void display(tobii_head_pose_t payload) override;
+  virtual void display(const tobii_head_pose_t& payload) override;
 
 public slots:
-  void displayHeadPosition(tobii_head_pose_t payload);
+  void displayHeadPosition(const tobii_head_pose_t& payload);
 
 };
 } // namespace qtobii

@@ -28,10 +28,10 @@ public:
   QTobiiGazePointLCDDisplay(const QTobiiGazePointLCDDisplay&) = default;
   QTobiiGazePointLCDDisplay(QTobiiGazePointLCDDisplay&&) = default;
 
-  virtual void display(tobii_gaze_point_t payload) override;
+  virtual void display(const tobii_gaze_point_t& payload) override;
 
 public slots:
-  void displayGazePoint(tobii_gaze_point_t payload);
+  void displayGazePoint(const tobii_gaze_point_t& payload);
 
 };
 } // namespace qtobii
