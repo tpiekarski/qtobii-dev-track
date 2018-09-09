@@ -15,6 +15,7 @@
 #include "qtobii-exit.h"
 #include "qtobii-logger.h"
 #include "qtobii-tracking-manager.h"
+#include <memory>
 #include <QApplication>
 #include <QMessageBox>
 #include <QThread>
@@ -23,49 +24,30 @@ using namespace qtobii;
 
 int main(int argc, char* argv[]) {
 
+  using std::unique_ptr;
+
   QApplication app(argc, argv);
   int result = QTobiiExit::NORMAL;
-  QTobiiDevTrack* devTrack = new QTobiiDevTrack();
-  QTobiiLogger* logger = new QTobiiLogger(devTrack);
 
-  QTobiiApi* api = nullptr;
-  QTobiiTrackingManager* manager = nullptr;
+  unique_ptr<QTobiiDevTrack> devTrack(new QTobiiDevTrack());
+  unique_ptr<QTobiiLogger> logger(new QTobiiLogger(devTrack.get()));
 
   try {
-    api = new QTobiiApi(logger, devTrack);
-    manager = new QTobiiTrackingManager(api, logger, devTrack);
+    unique_ptr<QTobiiApi> api(new QTobiiApi(logger.get(), devTrack.get()));
+    unique_ptr<QTobiiTrackingManager> manager(new QTobiiTrackingManager(api.get(), logger.get(), devTrack.get()));
 
     devTrack->show();
     result = app.exec();
   } catch (QTobiiApiException& e) {
     QString lastMessage(QString::fromStdString(e.what()));
     logger->debug(QString("Last Message from API: %1").arg(lastMessage));
-    QMessageBox::critical(devTrack, "Error", lastMessage, QMessageBox::Ok);
+    QMessageBox::critical(devTrack.get(), "Error", lastMessage, QMessageBox::Ok);
 
     result = QTobiiExit::API_EXCEPTION;
   } catch (std::exception& e) {
     logger->debug(QString::fromLatin1(e.what()));
 
     result = QTobiiExit::GENERIC_EXCEPTION;
-  }
-
-  if (manager != nullptr) {
-    delete manager;
-    manager = nullptr;
-  }
-
-  if (api != nullptr) {
-    if (api->getLastResult()->isError()) {
-      result = QTobiiExit::UNKNOWN_ERROR;
-    }
-
-    delete api;
-    api = nullptr;
-  }
-
-  if (devTrack != nullptr) {
-    delete devTrack;
-    devTrack = nullptr;
   }
 
   return result;
