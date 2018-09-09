@@ -23,6 +23,7 @@
 namespace qtobii {
 
 using std::shared_ptr;
+using std::unique_ptr;
 
 class QTobiiApi : public QObject {
 

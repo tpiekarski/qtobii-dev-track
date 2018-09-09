@@ -69,17 +69,15 @@ shared_ptr<QTobiiResult> QTobiiApi::call(tobii_error_t error) {
 }
 
 void QTobiiApi::setup(tobii_error_t error) {
-  QTobiiResult* result = new QTobiiResult(error);
+  unique_ptr<QTobiiResult> result(new QTobiiResult(error));
 
   if (result->isError()) {
     QString lastMessage(result->getMessage());
-    delete result;
-    result = nullptr;
-
+    result.reset();
     throw QTobiiApiException(lastMessage.toStdString());
   }
 
-  m_results.append(result);
+  m_results.append(result.get());
 }
 
 void QTobiiApi::deviceReceiver(const char* url, void* data) {
