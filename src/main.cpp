@@ -20,21 +20,21 @@
 #include <QMessageBox>
 #include <QThread>
 
-using namespace qtobii;
-
 int main(int argc, char* argv[]) {
 
+  using namespace qtobii;
   using std::unique_ptr;
+  using std::shared_ptr;
 
   QApplication app(argc, argv);
   int result = QTobiiExit::NORMAL;
 
-  unique_ptr<QTobiiDevTrack> devTrack(new QTobiiDevTrack());
-  std::shared_ptr<QTobiiLogger> logger(new QTobiiLogger(devTrack.get()));
+  shared_ptr<QTobiiDevTrack> devTrack(new QTobiiDevTrack());
+  shared_ptr<QTobiiLogger> logger(new QTobiiLogger(devTrack));
 
   try {
-    unique_ptr<QTobiiApi> api(new QTobiiApi(logger, devTrack.get()));
-    unique_ptr<QTobiiTrackingManager> manager(new QTobiiTrackingManager(api.get(), logger, devTrack.get()));
+    shared_ptr<QTobiiApi> api(new QTobiiApi(logger, devTrack));
+    unique_ptr<QTobiiTrackingManager> manager(new QTobiiTrackingManager(api, logger, devTrack));
 
     devTrack->show();
     result = app.exec();

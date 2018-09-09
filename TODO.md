@@ -50,6 +50,8 @@ QTobiiDevTrack::Todo
 - [ ] Hunt for leaking memory
 - [ ] Reducre as much as possible redundant code at tracking and displaying classes
 - [ ] Transition to unique and shared pointers
+- [ ] Migrate QTobiiDisplayInterface to shared pointers to finish transition of QTobiiDevTrack
+- [ ] Migrate QTobiiSubscriptionInterface to shared pointers to finish transition of QTobiiApi
 - [x] Clean present code base
 - [x] Consider to switch to smart pointers
 - [x] Pass reference arguments instead of pointers (and copies) all over the place

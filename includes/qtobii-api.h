@@ -21,12 +21,15 @@
 #include <tobii/tobii.h>
 
 namespace qtobii {
+
+using std::shared_ptr;
+
 class QTobiiApi : public QObject {
 
   Q_OBJECT
 
 public:
-  explicit QTobiiApi(std::shared_ptr<QTobiiLogger> logger, QObject* parent = nullptr);
+  explicit QTobiiApi(shared_ptr<QTobiiLogger> logger, shared_ptr<QTobiiDevTrack> devTrack);
   QTobiiApi(const QTobiiApi&) = default;
   QTobiiApi(QTobiiApi &&) = default;
   ~QTobiiApi();
@@ -35,7 +38,7 @@ public:
 
   tobii_device_t* getDevice() { return m_device; }
   QTobiiResult* getLastResult() { return m_results.last(); }
-  std::shared_ptr<QTobiiLogger> getLogger() { return m_logger; }
+  shared_ptr<QTobiiLogger> getLogger() { return m_logger; }
   QString getUrl() { return m_url; }
   QString getVersion();
 
@@ -43,7 +46,7 @@ private:
   tobii_api_t* m_api;
   tobii_device_t* m_device;
   tobii_version_t* m_version;
-  std::shared_ptr<QTobiiLogger> m_logger;
+  shared_ptr<QTobiiLogger> m_logger;
   QString m_url;
 
   QVector<QTobiiResult*> m_results;

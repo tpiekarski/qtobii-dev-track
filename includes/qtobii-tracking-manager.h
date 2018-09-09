@@ -33,12 +33,15 @@
 #include <tobii/tobii_streams.h>
 
 namespace qtobii {
+
+using std::shared_ptr;
+
 class QTobiiTrackingManager : public QObject {
 
   Q_OBJECT
 
 public:
-  explicit QTobiiTrackingManager(QTobiiApi* api, std::shared_ptr<QTobiiLogger> logger, QObject* parent = nullptr);
+  explicit QTobiiTrackingManager(shared_ptr<QTobiiApi> api, shared_ptr<QTobiiLogger> logger, shared_ptr<QTobiiDevTrack> devTrack);
   QTobiiTrackingManager(const QTobiiTrackingManager&) = default;
   QTobiiTrackingManager(QTobiiTrackingManager&&) = default;
 
@@ -50,9 +53,10 @@ private:
   void startThread();
   void stopThread();
 
-  QTobiiApi* m_api;
-  QTobiiDevTrack* m_devTrack;
-  std::shared_ptr<QTobiiLogger> m_logger;
+  shared_ptr<QTobiiApi> m_api;
+  shared_ptr<QTobiiDevTrack> m_devTrack;
+  shared_ptr<QTobiiLogger> m_logger;
+
   QTobiiTracker* m_tracker;
   QTobiiEyePosition* m_eyePosition;
   QTobiiEyePositionLCDDisplay* m_eyePositionDisplay;

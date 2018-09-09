@@ -16,22 +16,23 @@
 
 namespace qtobii {
 
-QTobiiTrackingManager::QTobiiTrackingManager(QTobiiApi* api, std::shared_ptr<QTobiiLogger> logger, QObject* parent)
-  : QObject(parent),
+QTobiiTrackingManager::QTobiiTrackingManager(
+    shared_ptr<QTobiiApi> api, shared_ptr<QTobiiLogger> logger, shared_ptr<QTobiiDevTrack> devTrack
+  ) : QObject(devTrack.get()),
     m_api(api),
-    m_devTrack(dynamic_cast<QTobiiDevTrack*>(parent)),
+    m_devTrack(devTrack),
     m_logger(logger),
-    m_tracker(new QTobiiTracker(api)),
-    m_eyePosition(new QTobiiEyePosition(api, this)),
-    m_eyePositionDisplay(new QTobiiEyePositionLCDDisplay(m_devTrack, this)),
-    m_gazeOrigin(new QTobiiGazeOrigin(api, this)),
-    m_gazeOriginDisplay(new QTobiiGazeOriginLCDDisplay(m_devTrack, this)),
-    m_gazePoint(new QTobiiGazePoint(api, this)),
-    m_gazePointDisplay(new QTobiiGazePointLCDDisplay(m_devTrack, this)),
-    m_headPosition(new QTobiiHeadPosition(api, this)),
-    m_headPositionDisplay(new QTobiiHeadPositionLCDDisplay(m_devTrack, this)),
-    m_userPresence(new QTobiiUserPresence(api, this)),
-    m_userPresenceDisplay(new QTobiiUserPresenceImageDisplay(m_devTrack, this)),
+    m_tracker(new QTobiiTracker(api.get())),
+    m_eyePosition(new QTobiiEyePosition(api.get(), this)),
+    m_eyePositionDisplay(new QTobiiEyePositionLCDDisplay(m_devTrack.get(), this)),
+    m_gazeOrigin(new QTobiiGazeOrigin(api.get(), this)),
+    m_gazeOriginDisplay(new QTobiiGazeOriginLCDDisplay(m_devTrack.get(), this)),
+    m_gazePoint(new QTobiiGazePoint(api.get(), this)),
+    m_gazePointDisplay(new QTobiiGazePointLCDDisplay(m_devTrack.get(), this)),
+    m_headPosition(new QTobiiHeadPosition(api.get(), this)),
+    m_headPositionDisplay(new QTobiiHeadPositionLCDDisplay(m_devTrack.get(), this)),
+    m_userPresence(new QTobiiUserPresence(api.get(), this)),
+    m_userPresenceDisplay(new QTobiiUserPresenceImageDisplay(m_devTrack.get(), this)),
     m_thread(new QThread())
 {
   logger->log("Starting Tracking Manager...");

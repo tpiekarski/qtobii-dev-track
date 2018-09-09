@@ -14,16 +14,20 @@
 
 #include "interfaces/qtobii-logging.h"
 #include "qtobii-dev-track.h"
+#include <memory>
 #include <QObject>
 #include <QString>
 
 namespace qtobii {
+
+using std::shared_ptr;
+
 class QTobiiLogger : public QObject, QTobiiLoggingInterface {
 
   Q_OBJECT
 
 public:
-  explicit QTobiiLogger(QTobiiDevTrack* devTrack) : QObject(devTrack), m_devTrack(devTrack) {}
+  explicit QTobiiLogger(shared_ptr<QTobiiDevTrack> devTrack) : QObject(devTrack.get()), m_devTrack(devTrack) {}
   QTobiiLogger(const QTobiiLogger&) = default;
   QTobiiLogger(QTobiiLogger&&) = default;
 
@@ -36,7 +40,7 @@ protected:
   void write(const MessageType& type, const QString& message);
 
 private:
-  QTobiiDevTrack* m_devTrack;
+  shared_ptr<QTobiiDevTrack> m_devTrack;
 
 };
 } // namespace qtobii
