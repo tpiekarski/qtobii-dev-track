@@ -13,16 +13,20 @@
 #define QTOBIITRACKER_H
 
 #include "qtobii-api.h"
+#include <memory>
 #include <QObject>
 #include <QString>
 
 namespace qtobii {
+
+using std::shared_ptr;
+
 class QTobiiTracker : public QObject {
 
   Q_OBJECT
 
 public:
-  explicit QTobiiTracker(QTobiiApi* api, QObject* parent = nullptr)
+  explicit QTobiiTracker(shared_ptr<QTobiiApi> api, QObject* parent = nullptr)
     : QObject(parent), m_api(api), m_tracking(DEFAULT_TRACKING) {}
   QTobiiTracker(const QTobiiTracker&) = default;
   QTobiiTracker(QTobiiTracker&&) = default;
@@ -40,7 +44,7 @@ private:
   static constexpr int DEFAULT_DEVICE = 1;
   static constexpr bool DEFAULT_TRACKING = true;
 
-  QTobiiApi* m_api;
+  shared_ptr<QTobiiApi> m_api;
   bool m_tracking;
 
 };

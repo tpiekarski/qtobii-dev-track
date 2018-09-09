@@ -34,7 +34,7 @@ public:
   QTobiiApi(QTobiiApi &&) = default;
   ~QTobiiApi();
 
-  QTobiiResult* call(tobii_error_t error);
+  shared_ptr<QTobiiResult> call(tobii_error_t error);
 
   tobii_device_t* getDevice() { return m_device; }
   QTobiiResult* getLastResult() { return m_results.last(); }

@@ -19,19 +19,16 @@ namespace qtobii {
 void QTobiiTracker::start() {
   emit log("Starting to track...");
   tobii_device_t* const device = m_api->getDevice();
-  QTobiiResult* result = nullptr;
 
   do {
-    result = m_api->call(tobii_wait_for_callbacks(nullptr, DEFAULT_DEVICE, &device));
+    shared_ptr<QTobiiResult> result(m_api->call(tobii_wait_for_callbacks(nullptr, DEFAULT_DEVICE, &device)));
 
     if (result->getError() == TOBII_ERROR_TIMED_OUT) {
       continue;
     }
 
     m_api->call(tobii_device_process_callbacks(device));
-
-    delete result;
-    result = nullptr;
+    result.reset();
   } while (m_tracking);
 
   emit finished();

@@ -47,13 +47,14 @@ QTobiiDevTrack::Todo
 
 ## Development Improvements
 - [ ] Check destructors (few are missing)
+- [ ] Getting LCDNumberLabels in groups instead of every single one
 - [ ] Hunt for leaking memory
 - [ ] Reducre as much as possible redundant code at tracking and displaying classes
 - [ ] Transition to unique and shared pointers
-- [ ] Migrate QTobiiDisplayInterface to shared pointers to finish transition of QTobiiDevTrack
-- [ ] Migrate QTobiiSubscriptionInterface to shared pointers to finish transition of QTobiiApi
 - [x] Clean present code base
 - [x] Consider to switch to smart pointers
+- [x] Migrate QTobiiDisplayInterface to shared pointers to finish transition of QTobiiDevTrack
+- [x] Migrate QTobiiSubscriptionInterface to shared pointers to finish transition of QTobiiApi
 - [x] Pass reference arguments instead of pointers (and copies) all over the place
 - [x] Streamline child constructors of QObject (parent should be always last, default assigned to nullptr)
 

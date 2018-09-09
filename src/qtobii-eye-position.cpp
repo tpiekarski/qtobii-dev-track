@@ -52,8 +52,7 @@ void QTobiiEyePosition::subscribe() {
 
   if (m_result->isError()) {
     emit log("Failed subscribing to eye position.");
-    delete m_result;
-    m_result = nullptr;
+    m_result.reset();
     unsubscribe();
   }
 
@@ -84,9 +83,7 @@ void QTobiiEyePosition::unsubscribe() {
 
   if (m_result->isError()) {
     emit log("Failed unsubscribing from eye position.");
-
-    delete m_result;
-    m_result = nullptr;
+    m_result.reset();
   }
 }
 

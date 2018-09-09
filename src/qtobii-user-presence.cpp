@@ -41,8 +41,7 @@ void QTobiiUserPresence::subscribe() {
 
   if (m_result->isError()) {
     emit log("Failed subscribing to user presence.");
-    delete m_result;
-    m_result = nullptr;
+    m_result.reset();
     unsubscribe();
   }
 
@@ -73,9 +72,7 @@ void QTobiiUserPresence::unsubscribe() {
 
   if (m_result->isError()) {
     emit log("Failed unsubscribing from user presence");
-
-    delete m_result;
-    m_result = nullptr;
+    m_result.reset();
   }
 }
 

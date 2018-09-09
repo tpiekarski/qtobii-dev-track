@@ -54,8 +54,7 @@ void QTobiiGazeOrigin::subscribe() {
 
   if (m_result->isError()) {
     emit log("Failed subscribing to gaze origin.");
-    delete m_result;
-    m_result = nullptr;
+    m_result.reset();
     unsubscribe();
   }
 }
@@ -85,9 +84,7 @@ void QTobiiGazeOrigin::unsubscribe() {
 
   if (m_result->isError()) {
     emit log("Failed unsubscribing from gaze origin");
-
-    delete m_result;
-    m_result = nullptr;
+    m_result.reset();
   }
 }
 

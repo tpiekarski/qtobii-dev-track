@@ -14,19 +14,23 @@
 
 #include "interfaces/qtobii-display.h"
 #include "qtobii-dev-track.h"
+#include <memory>
 #include <QObject>
 #include <tobii/tobii_streams.h>
 
 namespace qtobii {
+
+using std::shared_ptr;
+
 class QTobiiUserPresenceImageDisplay
-    : public QObject, public QTobiiDisplayInterface<QTobiiDevTrack*, tobii_user_presence_status_t>
+    : public QObject, public QTobiiDisplayInterface<shared_ptr<QTobiiDevTrack>, tobii_user_presence_status_t>
 {
 
   Q_OBJECT
 
 public:
-  explicit QTobiiUserPresenceImageDisplay(QTobiiDevTrack* device, QObject* parent = nullptr)
-    : QObject(parent), QTobiiDisplayInterface<QTobiiDevTrack*, tobii_user_presence_status_t>(device) {}
+  explicit QTobiiUserPresenceImageDisplay(shared_ptr<QTobiiDevTrack> device, QObject* parent = nullptr)
+    : QObject(parent), QTobiiDisplayInterface<shared_ptr<QTobiiDevTrack>, tobii_user_presence_status_t>(device) {}
   QTobiiUserPresenceImageDisplay(const QTobiiUserPresenceImageDisplay&) = default;
   QTobiiUserPresenceImageDisplay(QTobiiUserPresenceImageDisplay&&) = default;
 

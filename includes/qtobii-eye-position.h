@@ -26,7 +26,7 @@ class QTobiiEyePosition : public QObject, public QTobiiSubscriptionInterface {
   Q_OBJECT
 
 public:
-  explicit QTobiiEyePosition(QTobiiApi* api, QObject* parent = nullptr)
+  explicit QTobiiEyePosition(shared_ptr<QTobiiApi> api, QObject* parent = nullptr)
     : QObject(parent), QTobiiSubscriptionInterface(api),
       m_exchangeContainer(nullptr),
       m_data(nullptr),

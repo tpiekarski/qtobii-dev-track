@@ -56,8 +56,7 @@ void QTobiiHeadPosition::subscribe() {
 
   if (m_result->isError()) {
     emit log("Failed subscribing to head position.");
-    delete m_result;
-    m_result = nullptr;
+    m_result.reset();
     unsubscribe();
   }
 
@@ -88,9 +87,7 @@ void QTobiiHeadPosition::unsubscribe() {
 
   if (m_result->isError()) {
     emit log("Failed unsubscribing from head position.");
-
-    delete m_result;
-    m_result = nullptr;
+    m_result.reset();
   }
 }
 

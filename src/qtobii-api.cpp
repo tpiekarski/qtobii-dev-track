@@ -64,8 +64,8 @@ QString QTobiiApi::getVersion() {
     QString::number(m_version->build));
 }
 
-QTobiiResult* QTobiiApi::call(tobii_error_t error) {
-  return new QTobiiResult(error);
+shared_ptr<QTobiiResult> QTobiiApi::call(tobii_error_t error) {
+  return shared_ptr<QTobiiResult>(new QTobiiResult(error));
 }
 
 void QTobiiApi::setup(tobii_error_t error) {

@@ -26,7 +26,7 @@ class QTobiiGazePoint : public QObject, public QTobiiSubscriptionInterface {
   Q_OBJECT
 
 public:
-  explicit QTobiiGazePoint(QTobiiApi* api, QObject* parent = nullptr)
+  explicit QTobiiGazePoint(shared_ptr<QTobiiApi> api, QObject* parent = nullptr)
     : QObject(parent), QTobiiSubscriptionInterface(api),
       m_exchangeContainer(nullptr),
       m_data(nullptr),

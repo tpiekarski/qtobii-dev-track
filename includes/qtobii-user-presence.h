@@ -26,7 +26,7 @@ class QTobiiUserPresence : public QObject, public QTobiiSubscriptionInterface {
   Q_OBJECT
 
 public:
-  explicit QTobiiUserPresence(QTobiiApi* api, QObject* parent = nullptr)
+  explicit QTobiiUserPresence(shared_ptr<QTobiiApi> api, QObject* parent = nullptr)
     : QObject(parent), QTobiiSubscriptionInterface(api),
       m_exchangeContainer(nullptr),
       m_data(nullptr),

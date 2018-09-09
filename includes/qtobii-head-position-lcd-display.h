@@ -14,17 +14,21 @@
 
 #include "interfaces/qtobii-display.h"
 #include "qtobii-dev-track.h"
+#include <memory>
 #include <QObject>
 #include <tobii/tobii_streams.h>
 
 namespace qtobii {
-class QTobiiHeadPositionLCDDisplay : public QObject, public QTobiiDisplayInterface<QTobiiDevTrack*, tobii_head_pose_t> {
+
+using std::shared_ptr;
+
+class QTobiiHeadPositionLCDDisplay : public QObject, public QTobiiDisplayInterface<shared_ptr<QTobiiDevTrack>, tobii_head_pose_t> {
 
   Q_OBJECT
 
 public:
-  explicit QTobiiHeadPositionLCDDisplay(QTobiiDevTrack* device, QObject* parent = nullptr)
-    : QObject(parent), QTobiiDisplayInterface<QTobiiDevTrack*, tobii_head_pose_t>(device) {}
+  explicit QTobiiHeadPositionLCDDisplay(shared_ptr<QTobiiDevTrack> device, QObject* parent = nullptr)
+    : QObject(parent), QTobiiDisplayInterface<shared_ptr<QTobiiDevTrack>, tobii_head_pose_t>(device) {}
   QTobiiHeadPositionLCDDisplay(const QTobiiHeadPositionLCDDisplay&) = default;
   QTobiiHeadPositionLCDDisplay(QTobiiHeadPositionLCDDisplay&&) = default;
 

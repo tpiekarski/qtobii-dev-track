@@ -14,20 +14,24 @@
 
 #include "qtobii-api.h"
 #include "qtobii-result.h"
+#include <memory>
 
 namespace qtobii {
+
+using std::shared_ptr;
+
 class QTobiiSubscriptionInterface {
 
 public:
-  QTobiiSubscriptionInterface(QTobiiApi* api) : m_api(api), m_result(nullptr), m_tracking(true) {}
+  QTobiiSubscriptionInterface(shared_ptr<QTobiiApi> api) : m_api(api), m_result(nullptr), m_tracking(true) {}
   virtual ~QTobiiSubscriptionInterface() { /* Defined to make sure all destructors will be called */ }
 
   virtual void subscribe() = 0;
   virtual void unsubscribe() = 0;
 
 protected:
-  QTobiiApi* m_api;
-  QTobiiResult* m_result;
+  shared_ptr<QTobiiApi> m_api;
+  shared_ptr<QTobiiResult> m_result;
   bool m_tracking;
 
 };

@@ -14,19 +14,23 @@
 
 #include "interfaces/qtobii-display.h"
 #include "qtobii-dev-track.h"
+#include <memory>
 #include <QObject>
 #include <tobii/tobii_streams.h>
 
 namespace qtobii {
+
+using std::shared_ptr;
+
 class QTobiiEyePositionLCDDisplay
-    : public QObject, public QTobiiDisplayInterface<QTobiiDevTrack*, tobii_eye_position_normalized_t>
+    : public QObject, public QTobiiDisplayInterface<shared_ptr<QTobiiDevTrack> , tobii_eye_position_normalized_t>
 {
 
   Q_OBJECT
 
 public:
-  explicit QTobiiEyePositionLCDDisplay(QTobiiDevTrack* device, QObject* parent = nullptr)
-    : QObject(parent), QTobiiDisplayInterface<QTobiiDevTrack*, tobii_eye_position_normalized_t>(device) {}
+  explicit QTobiiEyePositionLCDDisplay(shared_ptr<QTobiiDevTrack> device, QObject* parent = nullptr)
+    : QObject(parent), QTobiiDisplayInterface<shared_ptr<QTobiiDevTrack>, tobii_eye_position_normalized_t>(device) {}
   QTobiiEyePositionLCDDisplay(const QTobiiEyePositionLCDDisplay&) = default;
   QTobiiEyePositionLCDDisplay(QTobiiEyePositionLCDDisplay&&) = default;
 

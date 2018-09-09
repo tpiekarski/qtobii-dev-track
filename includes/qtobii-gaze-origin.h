@@ -26,7 +26,7 @@ class QTobiiGazeOrigin : public QObject, public QTobiiSubscriptionInterface {
   Q_OBJECT
 
 public:
-  explicit QTobiiGazeOrigin(QTobiiApi* api, QObject* parent = nullptr)
+  explicit QTobiiGazeOrigin(shared_ptr<QTobiiApi> api, QObject* parent = nullptr)
     : QObject(parent),
       QTobiiSubscriptionInterface(api),
       m_exchangeContainer(nullptr),

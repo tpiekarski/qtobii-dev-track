@@ -14,17 +14,21 @@
 
 #include "interfaces/qtobii-display.h"
 #include "qtobii-dev-track.h"
+#include <memory>
 #include <QObject>
 #include <tobii/tobii_streams.h>
 
 namespace qtobii {
-class QTobiiGazeOriginLCDDisplay : public QObject, public QTobiiDisplayInterface<QTobiiDevTrack*, tobii_gaze_origin_t> {
+
+using std::shared_ptr;
+
+class QTobiiGazeOriginLCDDisplay : public QObject, public QTobiiDisplayInterface<shared_ptr<QTobiiDevTrack>, tobii_gaze_origin_t> {
 
   Q_OBJECT
 
 public:
-  explicit QTobiiGazeOriginLCDDisplay(QTobiiDevTrack* device, QObject* parent = nullptr)
-    : QObject(parent), QTobiiDisplayInterface<QTobiiDevTrack*, tobii_gaze_origin_t>(device) {}
+  explicit QTobiiGazeOriginLCDDisplay(shared_ptr<QTobiiDevTrack> device, QObject* parent = nullptr)
+    : QObject(parent), QTobiiDisplayInterface<shared_ptr<QTobiiDevTrack>, tobii_gaze_origin_t>(device) {}
   QTobiiGazeOriginLCDDisplay(const QTobiiGazeOriginLCDDisplay&) = default;
   QTobiiGazeOriginLCDDisplay(QTobiiGazeOriginLCDDisplay&&) = default;
 
