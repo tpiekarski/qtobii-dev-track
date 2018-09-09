@@ -59,4 +59,6 @@ QTobiiDevTrack::Todo
 - [x] Streamline child constructors of QObject (parent should be always last, default assigned to nullptr)
 
 ## Bugs
+- [ ] Check and debug unexpected null parameter when disconnection data objects
 - [x] Check and fix segfaults when trying to restart thread
+

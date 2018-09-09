@@ -65,7 +65,7 @@
      <enum>QFrame::Plain</enum>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="gazePointPage">
      <property name="geometry">
@@ -119,6 +119,12 @@
            </item>
            <item row="7" column="0" colspan="2">
             <widget class="QCheckBox" name="gazePointDenormalizeCheckBox">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="toolTip">
+              <string>Denormalization is not yet implemented.</string>
+             </property>
              <property name="text">
               <string>Denormalize coordinates</string>
              </property>
@@ -1200,7 +1206,7 @@
      <item>
       <widget class="QGroupBox" name="dataLogBox">
        <property name="title">
-        <string>&amp;Data</string>
+        <string>Data</string>
        </property>
        <widget class="QPlainTextEdit" name="dataLog">
         <property name="geometry">
@@ -1217,7 +1223,7 @@
      <item>
       <widget class="QGroupBox" name="messageLogBox">
        <property name="title">
-        <string>&amp;Messages</string>
+        <string>Messages</string>
        </property>
        <widget class="QPlainTextEdit" name="messageLog">
         <property name="geometry">

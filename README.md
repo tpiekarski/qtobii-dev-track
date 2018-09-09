@@ -8,7 +8,7 @@ QTobiiDevTrack
 [Tobii Eye Tracking Device](https://tobiigaming.com/).*
 
 ## Features
-![Screenshot of QTobiiDevTrack](images/screenshot.png?raw=true "Screenshot of QTobiiDevTrack")
+![Screenshots of QTobiiDevTrack](images/screenshots.gif?raw=true "Screenshots of QTobiiDevTrack")
 
 #|Tracker|Description|Status
 ---|---|---|---
