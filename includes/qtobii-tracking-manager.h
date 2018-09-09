@@ -42,8 +42,8 @@ public:
   QTobiiTrackingManager(QTobiiTrackingManager&&) = default;
 
 public slots:
-  void toggleThread(bool value);
-  void toggleSubscription(bool value);
+  void toggleThread(const bool& value);
+  void toggleSubscription(const bool& value);
 
 private:
   void startThread();

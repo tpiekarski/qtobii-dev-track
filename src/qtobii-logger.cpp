@@ -14,19 +14,19 @@
 
 namespace qtobii {
 
-void QTobiiLogger::debug(QString message) {
+void QTobiiLogger::debug(const QString& message) {
   write(MessageType::DEBUG, message);
 }
 
-void QTobiiLogger::data(QString message) {
+void QTobiiLogger::data(const QString& message) {
   write(MessageType::DATA, message);
 }
 
-void QTobiiLogger::log(QString message) {
+void QTobiiLogger::log(const QString& message) {
   write(MessageType::MESSAGE, message);
 }
 
-void QTobiiLogger::write(MessageType type, QString message) {
+void QTobiiLogger::write(const MessageType& type, const QString& message) {
   if (message.isEmpty()) {
     return;
   }

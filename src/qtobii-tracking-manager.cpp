@@ -53,11 +53,11 @@ QTobiiTrackingManager::QTobiiTrackingManager(QTobiiApi* api, QTobiiLogger* logge
   connect(m_userPresence, &QTobiiUserPresence::log, logger, &QTobiiLogger::log);
 }
 
-void QTobiiTrackingManager::toggleThread(bool value) {
+void QTobiiTrackingManager::toggleThread(const bool& value) {
   value ? startThread() : stopThread();
 }
 
-void QTobiiTrackingManager::toggleSubscription(bool value) {
+void QTobiiTrackingManager::toggleSubscription(const bool& value) {
   switch (m_devTrack->getTrackingMode()) {
   case QTobiiTrackingMode::GAZE_POINT:
     if (!value) {

@@ -33,12 +33,12 @@ QTobiiTrackingMode QTobiiDevTrack::getTrackingMode() {
   return static_cast<QTobiiTrackingMode>(m_ui->trackingBox->currentIndex());
 }
 
-void QTobiiDevTrack::onStartThreadButtonToggled(bool value) {
+void QTobiiDevTrack::onStartThreadButtonToggled(const bool& value) {
   m_ui->startTrackingButton->setEnabled(value);
   m_ui->startThreadButton->setText((value) ? "Stop Tracking &Thread" : "Start Tracking &Thread");
 }
 
-void QTobiiDevTrack::onStartTrackingButtonToggled(bool value) {
+void QTobiiDevTrack::onStartTrackingButtonToggled(const bool& value) {
   m_ui->startThreadButton->setEnabled(!value);
   m_ui->startTrackingButton->setText((value) ? "&Stop Tracking" : "&Start Tracking");
 }

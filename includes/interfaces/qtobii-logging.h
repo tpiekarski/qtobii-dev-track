@@ -30,9 +30,9 @@ public:
   };
 
 public slots:
-  virtual void debug(QString message) = 0;
-  virtual void data(QString message) = 0;
-  virtual void log(QString message) = 0;
+  virtual void debug(const QString& message) = 0;
+  virtual void data(const QString& message) = 0;
+  virtual void log(const QString& message) = 0;
 
 };
 } // namespace qtobii

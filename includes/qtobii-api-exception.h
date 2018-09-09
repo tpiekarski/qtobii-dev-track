@@ -23,7 +23,7 @@ using std::string;
 class QTobiiApiException : public exception {
 
 public:
-  explicit QTobiiApiException(string message = "Failed initializing tracking device.") : m_message(message) {}
+  explicit QTobiiApiException(const string& message = "Failed initializing tracking device.") : m_message(message) {}
   string what() { return m_message; }
 
 private:

@@ -33,8 +33,8 @@ public slots:
 
 signals:
   void finished();
-  void log(QString message);
-  void error(QString error);
+  void log(const QString& message);
+  void error(const QString& error);
 
 private:
   static constexpr int DEFAULT_DEVICE = 1;

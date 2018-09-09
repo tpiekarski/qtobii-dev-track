@@ -66,8 +66,8 @@ public:
   QLabel* getUserPresenceImageLabel() { return m_ui->userPresenceImageLabel; }
 
 private slots:
-  void onStartThreadButtonToggled(bool value);
-  void onStartTrackingButtonToggled(bool value);
+  void onStartThreadButtonToggled(const bool& value);
+  void onStartTrackingButtonToggled(const bool& value);
 
 private:
   Ui::QTobiiDevTrackWindow* m_ui;

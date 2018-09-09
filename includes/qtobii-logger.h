@@ -28,12 +28,12 @@ public:
   QTobiiLogger(QTobiiLogger&&) = default;
 
 public slots:
-  void debug(QString message) override;
-  void data(QString message) override;
-  void log(QString message) override;
+  void debug(const QString& message) override;
+  void data(const QString& message) override;
+  void log(const QString& message) override;
 
 protected:
-  void write(MessageType type, QString message);
+  void write(const MessageType& type, const QString& message);
 
 private:
   QTobiiDevTrack* m_devTrack;
