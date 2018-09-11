@@ -22,6 +22,7 @@ QTobiiTrackingManager::QTobiiTrackingManager(
     m_api(api),
     m_devTrack(devTrack),
     m_logger(logger),
+    m_timer(new QTimer(this)),
     m_tracker(new QTobiiTracker(api)),
     m_eyePosition(new QTobiiEyePosition(api, this)),
     m_eyePositionDisplay(new QTobiiEyePositionLCDDisplay(m_devTrack, this)),
@@ -45,6 +46,7 @@ QTobiiTrackingManager::QTobiiTrackingManager(
 
   connect(m_devTrack->getStartThreadButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleThread);
   connect(m_devTrack->getStartTrackingButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleSubscription);
+  connect(m_devTrack->getStartTrackingButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleTimer);
   connect(m_thread, &QThread::started, m_tracker, &QTobiiTracker::start);
   connect(m_tracker, &QTobiiTracker::finished, m_thread, &QThread::quit);
   connect(m_tracker, &QTobiiTracker::log, logger.get(), &QTobiiLogger::log);
@@ -169,6 +171,25 @@ void QTobiiTrackingManager::toggleSubscription(const bool& value) {
     break;
 
   }
+}
+
+void QTobiiTrackingManager::toggleTimer(const bool& value) {
+  if (!value) {
+    if (m_timer->isActive()) {
+      m_timer->stop();
+    }
+
+    m_timer->disconnect();
+
+    return;
+  }
+
+  connect(m_timer.get(), &QTimer::timeout, this, &QTobiiTrackingManager::processCallback);
+  m_timer->start(CALLBACK_PROCESS_TIMER);
+}
+
+void QTobiiTrackingManager::processCallback() {
+  m_api->call(tobii_device_process_callbacks(m_api->getDevice()));
 }
 
 void QTobiiTrackingManager::startThread() {

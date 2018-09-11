@@ -13,7 +13,6 @@
 #include "qtobii-tracker.h"
 #include <tobii/tobii.h>
 #include <tobii/tobii_streams.h>
-#include <QDebug>
 
 namespace qtobii {
 
@@ -29,7 +28,6 @@ void QTobiiTracker::start() {
       continue;
     }
 
-    m_api->call(tobii_device_process_callbacks(device));
     result.reset();
   } while (m_tracking);
 

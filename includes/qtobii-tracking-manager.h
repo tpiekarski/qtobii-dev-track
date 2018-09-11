@@ -30,6 +30,7 @@
 #include "qtobii-user-presence-image-display.h"
 #include <memory>
 #include <QObject>
+#include <QTimer>
 #include <tobii/tobii_streams.h>
 
 namespace qtobii {
@@ -48,14 +49,19 @@ public:
 public slots:
   void toggleThread(const bool& value);
   void toggleSubscription(const bool& value);
+  void toggleTimer(const bool& value);
+  void processCallback();
 
 private:
   void startThread();
   void stopThread();
 
+  static constexpr int CALLBACK_PROCESS_TIMER = 100;
+
   shared_ptr<QTobiiApi> m_api;
   shared_ptr<QTobiiDevTrack> m_devTrack;
   shared_ptr<QTobiiLogger> m_logger;
+  unique_ptr<QTimer> m_timer;
 
   QTobiiTracker* m_tracker;
   QTobiiEyePosition* m_eyePosition;

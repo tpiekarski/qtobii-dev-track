@@ -3,13 +3,13 @@ QTobiiDevTrack::Todo
 
 ## Development
 - [ ] Add a more reasonable error handling
+- [ ] Add a way to set the time between processing callbacks (CALLBACK_PROCESS_TIMER)
 - [ ] Add manifest file and update description of build process
 - [ ] Disable other tracking tool pages as soon as one tracking is started
 - [ ] Implement denormalization of coordinates for gaze point tracking
 - [ ] Implement reconnection method
 - [ ] Move from C-style array to STL array in extract methods of QTobiiGazePoint and QTobiiGazeOrigin
 - [ ] Track subscriptions to enable multiple subscriptions instead of disabling other tracking box pages
-- [ ] Use QTimer to slow down the display of tracking data in QLCDNumber (Reducing flickering of display)
 - [x] Add a logger for signal/slot-based logging (instead of using QTobiiDevTrack)
 - [x] Add an enum for exit codes
 - [x] Add exception for failing loading and/or casting plugins
@@ -38,6 +38,7 @@ QTobiiDevTrack::Todo
 - [x] Start tracking engine in a separate thread
 - [x] Transmitting tracking data (tobii_gaze_point_t)
 - [x] Update description of build process and mention new package manager
+- [x] Use QTimer to slow down the display of tracking data in QLCDNumber (Reducing flickering of display)
 
 ## Documentation
 - [x] Add license and license headers
@@ -57,6 +58,9 @@ QTobiiDevTrack::Todo
 - [x] Migrate QTobiiSubscriptionInterface to shared pointers to finish transition of QTobiiApi
 - [x] Pass reference arguments instead of pointers (and copies) all over the place
 - [x] Streamline child constructors of QObject (parent should be always last, default assigned to nullptr)
+
+## Performance
+- [ ] Investigate high CPU load when the tracking thread runs
 
 ## Bugs
 - [ ] Check and debug unexpected null parameter when disconnection data objects
