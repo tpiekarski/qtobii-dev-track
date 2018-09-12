@@ -23,6 +23,7 @@ QTobiiTrackingManager::QTobiiTrackingManager(
     m_devTrack(devTrack),
     m_logger(logger),
     m_timer(new QTimer(this)),
+    m_thread(new QThread()),
     m_tracker(new QTobiiTracker(api)),
     m_eyePosition(new QTobiiEyePosition(api, this)),
     m_eyePositionDisplay(new QTobiiEyePositionLCDDisplay(m_devTrack, this)),
@@ -33,8 +34,7 @@ QTobiiTrackingManager::QTobiiTrackingManager(
     m_headPosition(new QTobiiHeadPosition(api, this)),
     m_headPositionDisplay(new QTobiiHeadPositionLCDDisplay(m_devTrack, this)),
     m_userPresence(new QTobiiUserPresence(api, this)),
-    m_userPresenceDisplay(new QTobiiUserPresenceImageDisplay(m_devTrack, this)),
-    m_thread(new QThread())
+    m_userPresenceDisplay(new QTobiiUserPresenceImageDisplay(m_devTrack, this))
 {
   logger->log("Starting Tracking Manager...");
 
@@ -47,15 +47,15 @@ QTobiiTrackingManager::QTobiiTrackingManager(
   connect(m_devTrack->getStartThreadButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleThread);
   connect(m_devTrack->getStartTrackingButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleSubscription);
   connect(m_devTrack->getStartTrackingButton(), &QPushButton::toggled, this, &QTobiiTrackingManager::toggleTimer);
-  connect(m_thread, &QThread::started, m_tracker, &QTobiiTracker::start);
-  connect(m_tracker, &QTobiiTracker::finished, m_thread, &QThread::quit);
-  connect(m_tracker, &QTobiiTracker::log, logger.get(), &QTobiiLogger::log);
-  connect(m_tracker, &QTobiiTracker::error, logger.get(), &QTobiiLogger::log);
-  connect(m_eyePosition, &QTobiiEyePosition::log, logger.get(), &QTobiiLogger::log);
-  connect(m_gazeOrigin, &QTobiiGazeOrigin::log, logger.get(), &QTobiiLogger::log);
-  connect(m_gazePoint, &QTobiiGazePoint::log, logger.get(), &QTobiiLogger::log);
-  connect(m_headPosition, &QTobiiHeadPosition::log, logger.get(), &QTobiiLogger::log);
-  connect(m_userPresence, &QTobiiUserPresence::log, logger.get(), &QTobiiLogger::log);
+  connect(m_thread.get(), &QThread::started, m_tracker.get(), &QTobiiTracker::start);
+  connect(m_tracker.get(), &QTobiiTracker::finished, m_thread.get(), &QThread::quit);
+  connect(m_tracker.get(), &QTobiiTracker::log, logger.get(), &QTobiiLogger::log);
+  connect(m_tracker.get(), &QTobiiTracker::error, logger.get(), &QTobiiLogger::log);
+  connect(m_eyePosition.get(), &QTobiiEyePosition::log, logger.get(), &QTobiiLogger::log);
+  connect(m_gazeOrigin.get(), &QTobiiGazeOrigin::log, logger.get(), &QTobiiLogger::log);
+  connect(m_gazePoint.get(), &QTobiiGazePoint::log, logger.get(), &QTobiiLogger::log);
+  connect(m_headPosition.get(), &QTobiiHeadPosition::log, logger.get(), &QTobiiLogger::log);
+  connect(m_userPresence.get(), &QTobiiUserPresence::log, logger.get(), &QTobiiLogger::log);
 }
 
 void QTobiiTrackingManager::toggleThread(const bool& value) {
@@ -76,10 +76,10 @@ void QTobiiTrackingManager::toggleSubscription(const bool& value) {
     #ifdef QTOBII_MSVC_QOVERLOAD_WORKAROUND
       connect(m_gazePoint->getData(),
               static_cast<void (QTobiiDataMessenger::*)(tobii_gaze_point_t)>(&QTobiiData<tobii_gaze_point_t>::transmit),
-              m_gazePointDisplay, &QTobiiGazePointLCDDisplay::displayGazePoint);
+              m_gazePointDisplay.get(), &QTobiiGazePointLCDDisplay::displayGazePoint);
     #else
       connect(gazePoint->getData(), qOverload<tobii_gaze_point_t>(&QTobiiData<tobii_gaze_point_t>::transmit),
-              m_gazePointDisplay, &QTobiiGazePointLCDDisplay::displayGazePoint);
+              m_gazePointDisplay.get(), &QTobiiGazePointLCDDisplay::displayGazePoint);
     #endif
     break;
 
@@ -95,10 +95,10 @@ void QTobiiTrackingManager::toggleSubscription(const bool& value) {
     #ifdef QTOBII_MSVC_QOVERLOAD_WORKAROUND
       connect(m_gazeOrigin->getData(),
               static_cast<void (QTobiiDataMessenger::*)(tobii_gaze_origin_t)>(&QTobiiData<tobii_gaze_origin_t>::transmit),
-              m_gazeOriginDisplay, &QTobiiGazeOriginLCDDisplay::displayGazeOrigin);
+              m_gazeOriginDisplay.get(), &QTobiiGazeOriginLCDDisplay::displayGazeOrigin);
     #else
       connect(gazeOrigin->getData(), qOverload<tobii_gaze_origin_t>(&QTobiiData<tobii_gaze_origin_t>::transmit),
-              m_gazeOriginDisplay, &QTobiiGazeOriginLCDDisplay::displayGazeOrigin);
+              m_gazeOriginDisplay.get(), &QTobiiGazeOriginLCDDisplay::displayGazeOrigin);
     #endif
 
     break;
@@ -116,11 +116,11 @@ void QTobiiTrackingManager::toggleSubscription(const bool& value) {
       connect(m_eyePosition->getData(),
               static_cast<void (QTobiiDataMessenger::*)(tobii_eye_position_normalized_t)>
               (&QTobiiData<tobii_eye_position_normalized_t>::transmit),
-              m_eyePositionDisplay, &QTobiiEyePositionLCDDisplay::displayEyePosition);
+              m_eyePositionDisplay.get(), &QTobiiEyePositionLCDDisplay::displayEyePosition);
     #else
       connect(m_eyePosition->getData(), qOverload<tobii_eye_position_normalized_t>
               (&QTobiiData<tobii_eye_position_normalized_t>::transmit),
-              m_eyePositionDisplay, &QTobiiEyePositionLCDDisplay::displayEyePosition);
+              m_eyePositionDisplay.get(), &QTobiiEyePositionLCDDisplay::displayEyePosition);
     #endif
 
     break;
@@ -138,15 +138,15 @@ void QTobiiTrackingManager::toggleSubscription(const bool& value) {
       connect(m_userPresence->getData(),
               static_cast<void (QTobiiDataMessenger::*)(tobii_user_presence_status_t)>
               (&QTobiiData<tobii_user_presence_status_t>::transmit),
-              m_userPresenceDisplay, &QTobiiUserPresenceImageDisplay::displayUserPresence);
+              m_userPresenceDisplay.get(), &QTobiiUserPresenceImageDisplay::displayUserPresence);
     #else
       connect(m_userPresence->getData(), qOverload<tobii_user_presence_status_t>
               (&QTobiiData<tobii_user_presence_status_t>::transmit),
-              m_userPresenceDisplay, &QTobiiUserPresenceImageDisplay::displayUserPresence);
+              m_userPresenceDisplay.get(), &QTobiiUserPresenceImageDisplay::displayUserPresence);
     #endif
 
     connect(m_userPresence->getData(), &QObject::destroyed,
-            m_userPresenceDisplay, &QTobiiUserPresenceImageDisplay::resetUserPresence);
+            m_userPresenceDisplay.get(), &QTobiiUserPresenceImageDisplay::resetUserPresence);
 
     break;
 
@@ -162,10 +162,10 @@ void QTobiiTrackingManager::toggleSubscription(const bool& value) {
     #ifdef QTOBII_MSVC_QOVERLOAD_WORKAROUND
       connect(m_headPosition->getData(),
               static_cast<void (QTobiiDataMessenger::*)(tobii_head_pose_t)>(&QTobiiData<tobii_head_pose_t>::transmit),
-              m_headPositionDisplay, &QTobiiHeadPositionLCDDisplay::displayHeadPosition);
+              m_headPositionDisplay.get(), &QTobiiHeadPositionLCDDisplay::displayHeadPosition);
     #else
       connect(m_headPosition->getData(), qOverload<tobii_head_pose_t>(&QTobiiData<tobii_head_position_normalized_t>::transmit),
-              m_headPositionDisplay, &QTobiiHeadPositionLCDDisplay::displayHeadPosition);
+              m_headPositionDisplay.get(), &QTobiiHeadPositionLCDDisplay::displayHeadPosition);
     #endif
 
     break;
@@ -193,13 +193,12 @@ void QTobiiTrackingManager::processCallback() {
 }
 
 void QTobiiTrackingManager::startThread() {
-  m_tracker->moveToThread(m_thread);
+  m_tracker->moveToThread(m_thread.get());
   m_thread->start();
 }
 
 void QTobiiTrackingManager::stopThread() {
   m_tracker->stop();
-
 }
 
 } // namespace qtobii

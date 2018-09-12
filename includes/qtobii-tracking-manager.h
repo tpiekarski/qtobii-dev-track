@@ -36,6 +36,7 @@
 namespace qtobii {
 
 using std::shared_ptr;
+using std::unique_ptr;
 
 class QTobiiTrackingManager : public QObject {
 
@@ -53,29 +54,29 @@ public slots:
   void processCallback();
 
 private:
-  void startThread();
-  void stopThread();
-
   static constexpr int CALLBACK_PROCESS_TIMER = 100;
 
   shared_ptr<QTobiiApi> m_api;
   shared_ptr<QTobiiDevTrack> m_devTrack;
   shared_ptr<QTobiiLogger> m_logger;
+
   unique_ptr<QTimer> m_timer;
+  unique_ptr<QThread> m_thread;
+  unique_ptr<QTobiiTracker> m_tracker;
 
-  QTobiiTracker* m_tracker;
-  QTobiiEyePosition* m_eyePosition;
-  QTobiiEyePositionLCDDisplay* m_eyePositionDisplay;
-  QTobiiGazeOrigin* m_gazeOrigin;
-  QTobiiGazeOriginLCDDisplay* m_gazeOriginDisplay;
-  QTobiiGazePoint* m_gazePoint;
-  QTobiiGazePointLCDDisplay* m_gazePointDisplay;
-  QTobiiHeadPosition* m_headPosition;
-  QTobiiHeadPositionLCDDisplay* m_headPositionDisplay;
-  QTobiiUserPresence* m_userPresence;
-  QTobiiUserPresenceImageDisplay* m_userPresenceDisplay;
+  unique_ptr<QTobiiEyePosition> m_eyePosition;
+  unique_ptr<QTobiiEyePositionLCDDisplay> m_eyePositionDisplay;
+  unique_ptr<QTobiiGazeOrigin> m_gazeOrigin;
+  unique_ptr<QTobiiGazeOriginLCDDisplay> m_gazeOriginDisplay;
+  unique_ptr<QTobiiGazePoint> m_gazePoint;
+  unique_ptr<QTobiiGazePointLCDDisplay> m_gazePointDisplay;
+  unique_ptr<QTobiiHeadPosition> m_headPosition;
+  unique_ptr<QTobiiHeadPositionLCDDisplay> m_headPositionDisplay;
+  unique_ptr<QTobiiUserPresence> m_userPresence;
+  unique_ptr<QTobiiUserPresenceImageDisplay> m_userPresenceDisplay;
 
-  QThread* m_thread;
+  void startThread();
+  void stopThread();
 
 };
 } // namespace qtobii
