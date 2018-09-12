@@ -22,7 +22,6 @@ public:
   QTobiiExchangeContainer(QTobiiData<D>* data, QTobiiData<M>* messages) : m_data(data), m_messages(messages) {}
   QTobiiExchangeContainer(const QTobiiExchangeContainer&) = default;
   QTobiiExchangeContainer(QTobiiExchangeContainer&&) = default;
-  ~QTobiiExchangeContainer() = default;
 
   QTobiiData<D>* getData() { return m_data; }
   QTobiiData<M>* getMessages() { return m_messages; }

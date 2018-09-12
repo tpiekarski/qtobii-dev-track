@@ -25,7 +25,6 @@ public:
   explicit QTobiiResult(tobii_error_t error, QObject* parent = nullptr) : QObject(parent), m_error(error) {}
   QTobiiResult(const QTobiiResult&) = default;
   QTobiiResult(QTobiiResult&&) = default;
-  ~QTobiiResult() = default;
 
   bool isError() { return (m_error != TOBII_ERROR_NO_ERROR); }
   tobii_error_t getError() { return m_error; }

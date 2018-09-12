@@ -23,6 +23,7 @@ public:
   explicit QTobiiData(QObject* parent = nullptr) : QTobiiDataMessenger(parent) {}
   QTobiiData(const QTobiiData&) = default;
   QTobiiData(QTobiiData&&) = default;
+
   void send(T data) { emit transmit(data); }
 
 };

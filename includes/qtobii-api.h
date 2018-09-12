@@ -49,7 +49,6 @@ private:
   tobii_version_t* m_version;
   shared_ptr<QTobiiLogger> m_logger;
   QString m_url;
-
   QVector<QTobiiResult*> m_results;
 
   static void deviceReceiver(const char* url, void* data);
