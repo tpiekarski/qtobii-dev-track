@@ -48,10 +48,11 @@ the version of VS 2015/2017/etc. and [target] is either x86 or x64.
 ```
 "C:\Program Files (x86)\Microsoft Visual Studio\[YYYY]\[product]\VC\Auxiliary\Build\vcvarsall.bat" [target]
 ```
-Inside this environment run qmake and nmake to build either a debug or release builds:
+Inside this environment run qmake, nmake and mt to build either a debug or release build:
 ```
 qmake qtobii-dev-track.pro
 nmake [debug|release]
+mt.exe -manifest ..\qtobii-dev-track.mf -outputresource:qtobii-dev-track.exe
 ```
 
 ### Qt Creator

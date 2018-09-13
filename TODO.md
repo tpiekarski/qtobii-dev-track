@@ -4,7 +4,6 @@ QTobiiDevTrack::Todo
 ## Development
 - [ ] Add a more reasonable error handling
 - [ ] Add a way to set the time between processing callbacks (CALLBACK_PROCESS_TIMER)
-- [ ] Add manifest file and update description of build process
 - [ ] Disable other tracking tool pages as soon as one tracking is started
 - [ ] Implement denormalization of coordinates for gaze point tracking
 - [ ] Implement reconnection method
@@ -13,6 +12,7 @@ QTobiiDevTrack::Todo
 - [x] Add a logger for signal/slot-based logging (instead of using QTobiiDevTrack)
 - [x] Add an enum for exit codes
 - [x] Add exception for failing loading and/or casting plugins
+- [x] Add manifest file and update description of build process
 - [x] Check and enable/disable buttons appropriately for starting/stopping thread and tracking
 - [x] Consider introducing a generic logging interface
 - [x] Create and prepare structure for plug-able tracking
