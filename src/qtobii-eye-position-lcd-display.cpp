@@ -14,12 +14,12 @@
 namespace qtobii {
 
 void QTobiiEyePositionLCDDisplay::display(const tobii_eye_position_normalized_t& payload) {
-  m_device->getEyePositionLeftXValue()->display(static_cast<double>(payload.left_xyz[0]));
-  m_device->getEyePositionLeftYValue()->display(static_cast<double>(payload.left_xyz[1]));
-  m_device->getEyePositionLeftZValue()->display(static_cast<double>(payload.left_xyz[2]));
-  m_device->getEyePositionRightXValue()->display(static_cast<double>(payload.right_xyz[0]));
-  m_device->getEyePositionRightYValue()->display(static_cast<double>(payload.right_xyz[1]));
-  m_device->getEyePositionRightZValue()->display(static_cast<double>(payload.right_xyz[2]));
+  m_device->getEyePositionLeftXValue()->display(static_cast<double>(payload.left_xyz[QTobiiDevTrack::X]));
+  m_device->getEyePositionLeftYValue()->display(static_cast<double>(payload.left_xyz[QTobiiDevTrack::Y]));
+  m_device->getEyePositionLeftZValue()->display(static_cast<double>(payload.left_xyz[QTobiiDevTrack::Z]));
+  m_device->getEyePositionRightXValue()->display(static_cast<double>(payload.right_xyz[QTobiiDevTrack::X]));
+  m_device->getEyePositionRightYValue()->display(static_cast<double>(payload.right_xyz[QTobiiDevTrack::Y]));
+  m_device->getEyePositionRightZValue()->display(static_cast<double>(payload.right_xyz[QTobiiDevTrack::Z]));
 }
 
 void QTobiiEyePositionLCDDisplay::displayEyePosition(const tobii_eye_position_normalized_t& payload) {

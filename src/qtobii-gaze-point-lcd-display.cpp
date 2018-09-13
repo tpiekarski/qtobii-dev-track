@@ -14,8 +14,8 @@
 namespace qtobii {
 
 void QTobiiGazePointLCDDisplay::display(const tobii_gaze_point_t& payload) {
-  m_device->getGazePointXValue()->display(static_cast<double>(payload.position_xy[0]));
-  m_device->getGazePointYValue()->display(static_cast<double>(payload.position_xy[1]));
+  m_device->getGazePointXValue()->display(static_cast<double>(payload.position_xy[QTobiiDevTrack::X]));
+  m_device->getGazePointYValue()->display(static_cast<double>(payload.position_xy[QTobiiDevTrack::Y]));
 }
 
 void QTobiiGazePointLCDDisplay::displayGazePoint(const tobii_gaze_point_t& payload) {

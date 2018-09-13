@@ -14,12 +14,12 @@
 namespace qtobii {
 
 void QTobiiHeadPositionLCDDisplay::display(const tobii_head_pose_t& payload) {
-  m_device->getHeadPositionXValue()->display(static_cast<double>(payload.position_xyz[0]));
-  m_device->getHeadPositionYValue()->display(static_cast<double>(payload.position_xyz[1]));
-  m_device->getHeadPositionZValue()->display(static_cast<double>(payload.position_xyz[2]));
-  m_device->getHeadRotationXValue()->display(static_cast<double>(payload.rotation_xyz[0]));
-  m_device->getHeadRotationYValue()->display(static_cast<double>(payload.rotation_xyz[1]));
-  m_device->getHeadRotationZValue()->display(static_cast<double>(payload.rotation_xyz[2]));
+  m_device->getHeadPositionXValue()->display(static_cast<double>(payload.position_xyz[QTobiiDevTrack::X]));
+  m_device->getHeadPositionYValue()->display(static_cast<double>(payload.position_xyz[QTobiiDevTrack::Y]));
+  m_device->getHeadPositionZValue()->display(static_cast<double>(payload.position_xyz[QTobiiDevTrack::Z]));
+  m_device->getHeadRotationXValue()->display(static_cast<double>(payload.rotation_xyz[QTobiiDevTrack::X]));
+  m_device->getHeadRotationYValue()->display(static_cast<double>(payload.rotation_xyz[QTobiiDevTrack::Y]));
+  m_device->getHeadRotationZValue()->display(static_cast<double>(payload.rotation_xyz[QTobiiDevTrack::Z]));
 }
 
 void QTobiiHeadPositionLCDDisplay::displayHeadPosition(const tobii_head_pose_t& payload) {

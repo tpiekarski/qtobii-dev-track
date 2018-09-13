@@ -65,6 +65,8 @@ public:
 
   QLabel* getUserPresenceImageLabel() { return m_ui->userPresenceImageLabel; }
 
+  enum XYZ { X = 0, Y = 1, Z = 2 };
+
 private slots:
   void onStartThreadButtonToggled(const bool& value);
   void onStartTrackingButtonToggled(const bool& value);

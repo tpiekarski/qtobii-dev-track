@@ -47,7 +47,6 @@ QTobiiDevTrack::Todo
 - [x] Write more detailed README, describing requirements, build process and features
 
 ## Development Improvements
-- [ ] Getting LCDNumberLabels in groups instead of every single one
 - [ ] Reduce as much as possible redundant code at tracking and displaying classes
 - [x] Check destructors (counting on the compiler to provide default destructors)
 - [x] Clean present code base
@@ -58,6 +57,7 @@ QTobiiDevTrack::Todo
 - [x] Pass reference arguments instead of pointers (and copies) all over the place
 - [x] Streamline child constructors of QObject (parent should be always last, default assigned to nullptr)
 - [x] Transition to unique and shared pointers (where it is straight-forward, it is done)
+- [-] Getting LCDNumberLabels in groups instead of every single one (it's not worth to get them in groups)
 
 ## Performance
 - [ ] Investigate high CPU load when the tracking thread runs
