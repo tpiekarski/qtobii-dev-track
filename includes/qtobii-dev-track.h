@@ -13,11 +13,13 @@
 #define QTOBII_DEV_TRACK_H
 
 #include "qtobii-tracking-mode.h"
+#include <QCheckBox>
 #include <QLabel>
 #include <QLCDNumber>
 #include <QMainWindow>
 #include <QPlainTextEdit>
 #include <QPushButton>
+#include <QSize>
 
 #include "ui_qtobii-dev-track-window.h"
 
@@ -33,6 +35,7 @@ public:
   ~QTobiiDevTrack();
 
   QTobiiTrackingMode getTrackingMode();
+  QSize getScreenSize() { return m_screenSize; }
 
   QPushButton* getStartThreadButton() { return m_ui->startThreadButton; }
   QPushButton* getStartTrackingButton() { return m_ui->startTrackingButton; }
@@ -41,6 +44,7 @@ public:
 
   QLCDNumber* getGazePointXValue() { return m_ui->gazePointXValue; }
   QLCDNumber* getGazePointYValue() { return m_ui->gazePointYValue; }
+  bool denormalizeGazePoint() { return m_ui->gazePointDenormalizeCheckBox->isChecked(); }
 
   QLCDNumber* getGazeOriginLeftXValue() { return m_ui->gazeOriginLeftEyeXValue; }
   QLCDNumber* getGazeOriginLeftYValue() { return m_ui->gazeOriginLeftEyeYValue; }
@@ -73,6 +77,7 @@ private slots:
 
 private:
   Ui::QTobiiDevTrackWindow* m_ui;
+  QSize m_screenSize;
 
 };
 } // namespace qtobii

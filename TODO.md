@@ -5,7 +5,6 @@ QTobiiDevTrack::Todo
 - [ ] Add a more reasonable error handling
 - [ ] Add a way to set the time between processing callbacks (CALLBACK_PROCESS_TIMER)
 - [ ] Disable other tracking tool pages as soon as one tracking is started
-- [ ] Implement denormalization of coordinates for gaze point tracking
 - [ ] Implement reconnection method
 - [ ] Move from C-style array to STL array in extract methods of QTobiiGazePoint and QTobiiGazeOrigin
 - [ ] Track subscriptions to enable multiple subscriptions instead of disabling other tracking box pages
@@ -22,6 +21,7 @@ QTobiiDevTrack::Todo
 - [x] Find and integrate a package manager to pull in Tobii Stream Engine from nuget (chose [Paket](https://fsprojects.github.io/Paket/index.html))
 - [x] Find, check and integrate further static code analysers and code linters (Integrated cppcheck and cppclean)
 - [x] Implement a plugin loading mechanism and test within a ground zero
+- [x] Implement denormalization of coordinates for gaze point tracking
 - [x] Implement Eye Position tracking, approximation and data display
 - [x] Implement Gaze Origin tracking, approximation and data display
 - [x] Implement Gaze Point tracking, approximation and data display

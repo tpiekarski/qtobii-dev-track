@@ -10,10 +10,16 @@
  */
 
 #include "qtobii-dev-track.h"
+#include <QGuiApplication>
+#include <QScreen>
 
 namespace qtobii {
 
-QTobiiDevTrack::QTobiiDevTrack(QWidget* parent) : QMainWindow(parent), m_ui(new Ui::QTobiiDevTrackWindow) {
+QTobiiDevTrack::QTobiiDevTrack(QWidget* parent)
+  : QMainWindow(parent),
+    m_ui(new Ui::QTobiiDevTrackWindow),
+    m_screenSize(QGuiApplication::primaryScreen()->availableSize())
+{
   m_ui->setupUi(this);
   m_ui->dataLog->setReadOnly(true);
   m_ui->messageLog->setReadOnly(true);

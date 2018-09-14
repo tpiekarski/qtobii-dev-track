@@ -37,6 +37,10 @@ public:
 public slots:
   void displayGazePoint(const tobii_gaze_point_t& payload);
 
+private:
+  void displayNormalized(const tobii_gaze_point_t& payload);
+  void displayDenormalized(const tobii_gaze_point_t& payload);
+
 };
 } // namespace qtobii
 

@@ -17,6 +17,7 @@
 #include "qtobii-tracking-manager.h"
 #include <memory>
 #include <QApplication>
+#include <QDesktopWidget>
 #include <QMessageBox>
 #include <QThread>
 
@@ -29,7 +30,7 @@ int main(int argc, char* argv[]) {
   QApplication app(argc, argv);
   int result = QTobiiExit::NORMAL;
 
-  shared_ptr<QTobiiDevTrack> devTrack(new QTobiiDevTrack());
+  shared_ptr<QTobiiDevTrack> devTrack(new QTobiiDevTrack(app.desktop()));
   shared_ptr<QTobiiLogger> logger(new QTobiiLogger(devTrack));
 
   try {
