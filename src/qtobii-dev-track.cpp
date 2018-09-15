@@ -26,6 +26,7 @@ QTobiiDevTrack::QTobiiDevTrack(QWidget* parent)
 
   connect(m_ui->startThreadButton, &QPushButton::toggled, this, &QTobiiDevTrack::onStartThreadButtonToggled);
   connect(m_ui->startTrackingButton, &QPushButton::toggled, this, &QTobiiDevTrack::onStartTrackingButtonToggled);
+  connect(m_ui->startTrackingButton, &QPushButton::toggled, this, &QTobiiDevTrack::onStartTrackingBoxToggled);
 }
 
 QTobiiDevTrack::~QTobiiDevTrack() {
@@ -47,6 +48,14 @@ void QTobiiDevTrack::onStartThreadButtonToggled(const bool& value) {
 void QTobiiDevTrack::onStartTrackingButtonToggled(const bool& value) {
   m_ui->startThreadButton->setEnabled(!value);
   m_ui->startTrackingButton->setText((value) ? "Unsubscribe && &Stop Tracking" : "Subscribe && &Start Tracking");
+}
+
+void QTobiiDevTrack::onStartTrackingBoxToggled(const bool& value) {
+  for (int n = 0; n < m_ui->trackingBox->count(); ++n) {
+    if (n != m_ui->trackingBox->currentIndex()) {
+      m_ui->trackingBox->setItemEnabled(n, !value);
+    }
+  }
 }
 
 } // namesapce qtobii

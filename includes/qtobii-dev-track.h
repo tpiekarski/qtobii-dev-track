@@ -74,6 +74,7 @@ public:
 private slots:
   void onStartThreadButtonToggled(const bool& value);
   void onStartTrackingButtonToggled(const bool& value);
+  void onStartTrackingBoxToggled(const bool& value);
 
 private:
   Ui::QTobiiDevTrackWindow* m_ui;

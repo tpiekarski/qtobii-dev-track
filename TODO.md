@@ -1,12 +1,9 @@
 QTobiiDevTrack::Todo
 --
 
-## Development
-- [ ] Add a more reasonable error handling
+## Features
 - [ ] Add a way to set the time between processing callbacks (CALLBACK_PROCESS_TIMER)
-- [ ] Disable other tracking tool pages as soon as one tracking is started
 - [ ] Implement reconnection method
-- [ ] Move from C-style array to STL array in extract methods of QTobiiGazePoint and QTobiiGazeOrigin
 - [ ] Track subscriptions to enable multiple subscriptions instead of disabling other tracking box pages
 - [x] Add a logger for signal/slot-based logging (instead of using QTobiiDevTrack)
 - [x] Add an enum for exit codes
@@ -16,6 +13,7 @@ QTobiiDevTrack::Todo
 - [x] Consider introducing a generic logging interface
 - [x] Create and prepare structure for plug-able tracking
 - [x] Define a common plugin for all tracking subscriptions from SDK
+- [x] Disable other tracking tool pages as soon as one tracking is started
 - [x] Draft and add a generic interface for following tracking implementations
 - [x] Extend QTobiiData with templates for storing the data received by callback
 - [x] Find and integrate a package manager to pull in Tobii Stream Engine from nuget (chose [Paket](https://fsprojects.github.io/Paket/index.html))
@@ -47,6 +45,8 @@ QTobiiDevTrack::Todo
 - [x] Write more detailed README, describing requirements, build process and features
 
 ## Development Improvements
+- [ ] Add a more reasonable error handling
+- [ ] Move from C-style array to STL array in extract methods of QTobiiGazePoint and QTobiiGazeOrigin
 - [ ] Reduce as much as possible redundant code at tracking and displaying classes
 - [x] Check destructors (counting on the compiler to provide default destructors)
 - [x] Clean present code base
