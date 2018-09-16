@@ -28,6 +28,8 @@ int main(int argc, char* argv[]) {
   using std::shared_ptr;
 
   QApplication app(argc, argv);
+  QApplication::setApplicationName("QTobiiDevTrack");
+  QApplication::setApplicationVersion("1.0.0");
   int result = QTobiiExit::NORMAL;
 
   shared_ptr<QTobiiDevTrack> devTrack(new QTobiiDevTrack(app.desktop()));
@@ -35,7 +37,7 @@ int main(int argc, char* argv[]) {
 
   try {
     shared_ptr<QTobiiApi> api(new QTobiiApi(logger, devTrack));
-    unique_ptr<QTobiiTrackingManager> manager(new QTobiiTrackingManager(api, logger, devTrack));
+    unique_ptr<QTobiiTrackingManager> manager(new QTobiiTrackingManager(api, logger, devTrack, app.arguments()));
 
     devTrack->show();
     result = app.exec();

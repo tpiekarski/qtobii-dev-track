@@ -17,11 +17,15 @@
 namespace qtobii {
 
 QTobiiTrackingManager::QTobiiTrackingManager(
-    shared_ptr<QTobiiApi> api, shared_ptr<QTobiiLogger> logger, shared_ptr<QTobiiDevTrack> devTrack
+    shared_ptr<QTobiiApi> api,
+    shared_ptr<QTobiiLogger> logger,
+    shared_ptr<QTobiiDevTrack> devTrack,
+    const QStringList& arguments
   ) : QObject(devTrack.get()),
     m_api(api),
     m_devTrack(devTrack),
     m_logger(logger),
+    m_commandLine(new QTobiiCommandLine(arguments, this)),
     m_timer(new QTimer(this)),
     m_thread(new QThread()),
     m_tracker(new QTobiiTracker(api)),
@@ -185,7 +189,7 @@ void QTobiiTrackingManager::toggleTimer(const bool& value) {
   }
 
   connect(m_timer.get(), &QTimer::timeout, this, &QTobiiTrackingManager::processCallback);
-  m_timer->start(CALLBACK_PROCESS_TIMER);
+  m_timer->start(m_commandLine->getProcessCallbackIntervall());
 }
 
 void QTobiiTrackingManager::processCallback() {

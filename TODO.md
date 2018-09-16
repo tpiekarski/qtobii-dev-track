@@ -2,11 +2,11 @@ QTobiiDevTrack::Todo
 --
 
 ## Features
-- [ ] Add a way to set the time between processing callbacks (CALLBACK_PROCESS_TIMER)
 - [ ] Implement reconnection method
 - [ ] Track subscriptions to enable multiple subscriptions instead of disabling other tracking box pages
 - [x] Add a logger for signal/slot-based logging (instead of using QTobiiDevTrack)
 - [x] Add an enum for exit codes
+- [x] Add a way to set the time between processing callbacks (CALLBACK_PROCESS_TIMER)
 - [x] Add exception for failing loading and/or casting plugins
 - [x] Add manifest file and update description of build process
 - [x] Check and enable/disable buttons appropriately for starting/stopping thread and tracking

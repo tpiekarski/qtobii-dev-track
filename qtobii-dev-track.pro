@@ -25,6 +25,7 @@ include(imports/tobii-stream-sdk.pri)
 SOURCES += \
     src/main.cpp \
     src/qtobii-api.cpp \
+    src/qtobii-command-line.cpp \
     src/qtobii-dev-track.cpp \
     src/qtobii-eye-position.cpp \
     src/qtobii-eye-position-lcd-display.cpp \
@@ -46,6 +47,7 @@ HEADERS += \
     includes/interfaces/qtobii-subscription.h \
     includes/qtobii-api.h \
     includes/qtobii-api-exception.h \
+    includes/qtobii-command-line.h \
     includes/qtobii-data.h \
     includes/qtobii-data-messenger.h \
     includes/qtobii-dev-track.h \

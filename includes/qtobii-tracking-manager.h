@@ -14,6 +14,7 @@
 
 #include "interfaces/qtobii-display.h"
 #include "qtobii-api.h"
+#include "qtobii-command-line.h"
 #include "qtobii-dev-track.h"
 #include "qtobii-eye-position.h"
 #include "qtobii-eye-position-lcd-display.h"
@@ -31,6 +32,7 @@
 #include <memory>
 #include <QObject>
 #include <QTimer>
+#include <QStringList>
 #include <tobii/tobii_streams.h>
 
 namespace qtobii {
@@ -43,7 +45,13 @@ class QTobiiTrackingManager : public QObject {
   Q_OBJECT
 
 public:
-  explicit QTobiiTrackingManager(shared_ptr<QTobiiApi> api, shared_ptr<QTobiiLogger> logger, shared_ptr<QTobiiDevTrack> devTrack);
+  explicit QTobiiTrackingManager(
+      shared_ptr<QTobiiApi> api,
+      shared_ptr<QTobiiLogger> logger,
+      shared_ptr<QTobiiDevTrack> devTrack,
+      const QStringList& arguments
+  );
+
   QTobiiTrackingManager(const QTobiiTrackingManager&) = default;
   QTobiiTrackingManager(QTobiiTrackingManager&&) = default;
 
@@ -54,12 +62,11 @@ public slots:
   void processCallback();
 
 private:
-  static constexpr int CALLBACK_PROCESS_TIMER = 100;
-
   shared_ptr<QTobiiApi> m_api;
   shared_ptr<QTobiiDevTrack> m_devTrack;
   shared_ptr<QTobiiLogger> m_logger;
 
+  unique_ptr<QTobiiCommandLine> m_commandLine;
   unique_ptr<QTimer> m_timer;
   unique_ptr<QThread> m_thread;
   unique_ptr<QTobiiTracker> m_tracker;
