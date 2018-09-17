@@ -13,6 +13,7 @@
 #include "qtobii-api-exception.h"
 #include <algorithm>
 #include <QDebug>
+#include <QThread>
 
 namespace qtobii {
 
@@ -66,6 +67,33 @@ QString QTobiiApi::getVersion() {
 
 shared_ptr<QTobiiResult> QTobiiApi::call(tobii_error_t error) {
   return shared_ptr<QTobiiResult>(new QTobiiResult(error));
+}
+
+shared_ptr<QTobiiResult> QTobiiApi::reconnect() {
+  m_logger->log("Trying to reconnect...");
+  int tries = 0;
+  shared_ptr<QTobiiResult> result = nullptr;
+
+  do {
+    result = call(tobii_device_reconnect(m_device));
+
+    if (result->getError() != TOBII_ERROR_CONNECTION_FAILED) {
+      m_logger->log("Successfully reconnected.");
+
+      break;
+    }
+
+    QThread::msleep(RECONNECTION_TIMEOUT);
+  } while (++tries < RECONNECTION_TRIES);
+
+  return result;
+}
+
+bool QTobiiApi::isPaused() {
+  tobii_state_bool_t state;
+  shared_ptr<QTobiiResult> result = call(tobii_get_state_bool(m_device, TOBII_STATE_DEVICE_PAUSED, &state));
+
+  return (state == TOBII_STATE_BOOL_TRUE) ? true : false;
 }
 
 void QTobiiApi::setup(tobii_error_t error) {

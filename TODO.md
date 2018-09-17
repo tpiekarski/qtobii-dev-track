@@ -2,7 +2,6 @@ QTobiiDevTrack::Todo
 --
 
 ## Features
-- [ ] Implement reconnection method
 - [ ] Track subscriptions to enable multiple subscriptions instead of disabling other tracking box pages
 - [x] Add a logger for signal/slot-based logging (instead of using QTobiiDevTrack)
 - [x] Add an enum for exit codes
@@ -24,6 +23,7 @@ QTobiiDevTrack::Todo
 - [x] Implement Gaze Origin tracking, approximation and data display
 - [x] Implement Gaze Point tracking, approximation and data display
 - [x] Implement Head Position tracking, approximation and data display
+- [ ] Implement reconnection method
 - [x] Implement toggling button to start/stop tracking
 - [x] Implement toggling button to start/stop tracking thread
 - [x] Implement User Presence tracking and data display

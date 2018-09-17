@@ -13,6 +13,7 @@
 #include "qtobii-tracker.h"
 #include <tobii/tobii.h>
 #include <tobii/tobii_streams.h>
+#include <QDebug>
 
 namespace qtobii {
 
@@ -21,11 +22,27 @@ void QTobiiTracker::start() {
   tobii_device_t* const device = m_api->getDevice();
   m_tracking = true;
 
+  if (m_api->isPaused()) {
+    emit log("Device is paused, no tracking data will be available.");
+  }
+
   do {
     shared_ptr<QTobiiResult> result(m_api->call(tobii_wait_for_callbacks(nullptr, DEFAULT_DEVICE, &device)));
 
     if (result->getError() == TOBII_ERROR_TIMED_OUT) {
       continue;
+    }
+
+    if (result->getError() == TOBII_ERROR_CONNECTION_FAILED) {
+      shared_ptr<QTobiiResult> result(m_api->reconnect());
+
+      if (result->isError()) {
+        emit log("Connection lost and failed to reconnect, aborting.");
+        stop();
+        emit error(result->getMessage());
+
+        break;
+      }
     }
 
     result.reset();

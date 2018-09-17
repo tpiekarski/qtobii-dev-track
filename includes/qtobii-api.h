@@ -36,6 +36,8 @@ public:
   ~QTobiiApi();
 
   shared_ptr<QTobiiResult> call(tobii_error_t error);
+  shared_ptr<QTobiiResult> reconnect();
+  bool isPaused();
 
   tobii_device_t* getDevice() { return m_device; }
   QTobiiResult* getLastResult() { return m_results.last(); }
@@ -43,7 +45,11 @@ public:
   QString getUrl() { return m_url; }
   QString getVersion();
 
+
 private:
+  static constexpr int RECONNECTION_TIMEOUT = 200;
+  static constexpr int RECONNECTION_TRIES   = 10;
+
   tobii_api_t* m_api;
   tobii_device_t* m_device;
   tobii_version_t* m_version;
